@@ -6,6 +6,11 @@
 Quests can have a list of tasks which are required to be completed before the quest can be finished (e.g. User needs to login 5x).
 A quest can have multiple tasks. The boolean operators ``AND`` and ``OR`` can be used to combine tasks. These operators can also be nested (e.g. User needs to login 5x OR The Sun is shining).
 
+### Log
+The quest log allows logging of every state change. It can serve two purposes:
+* it makes the debug process easier because we know exactly when things happened
+* it can be shown to the user as quest activity log
+
 ## Quest States
 
 #### Available

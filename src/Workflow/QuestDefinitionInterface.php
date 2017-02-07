@@ -6,6 +6,8 @@ use Symfony\Component\Workflow\Definition;
 
 interface QuestDefinitionInterface
 {
+    public const WORKFLOW_NAME = 'quests';
+
     public const STATE_AVAILABLE = 'available';
     public const STATE_IN_PROGRESS = 'in_progress';
     public const STATE_COMPLETED = 'completed';
