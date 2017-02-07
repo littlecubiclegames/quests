@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 7
+  - 7.1
+
+install: composer install
+
+cache:
+  directories:
+  - $HOME/.composer/cache/repo/
+  - $TRAVIS_BUILD_DIR/vendor/
+
+script: make ci
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: never
