@@ -6,4 +6,11 @@ interface QuestInterface
 {
     public function setState(string $state);
     public function getState() : string;
+
+    public function getQuestId();
+
+    /**
+     * Method must return a map of taskId to progress
+     */
+    public function getProgressMap() : array;
 }
