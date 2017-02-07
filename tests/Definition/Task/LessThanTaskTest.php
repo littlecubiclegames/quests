@@ -13,7 +13,7 @@ class LessThanTaskTest extends TestCase
     public function testIsFinished(int $value, int $taskId, array $progressMap, bool $expected)
     {
         $task = new LessThanTask($taskId, $value);
-        $this->assertEquals($expected, $task->isFinished($progressMap));
+        $this->assertSame($expected, $task->isFinished($progressMap));
     }
 
     public function isFinishedProvider() : array

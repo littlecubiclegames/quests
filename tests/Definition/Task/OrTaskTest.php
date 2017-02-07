@@ -19,7 +19,7 @@ class OrTaskTest extends TestCase
             ->willReturn($value);
 
         $task = new OrTask([$taskMock]);
-        $this->assertEquals($expected, $task->isFinished([]));
+        $this->assertSame($expected, $task->isFinished([]));
     }
 
     public function isFinishedProvider() : array

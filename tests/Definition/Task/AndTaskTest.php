@@ -19,7 +19,7 @@ class AndTaskTest extends TestCase
             ->willReturn($value);
 
         $task = new AndTask([$taskMock]);
-        $this->assertEquals($expected, $task->isFinished([]));
+        $this->assertSame($expected, $task->isFinished([]));
     }
 
     public function isFinishedProvider() : array
