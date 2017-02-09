@@ -4,6 +4,8 @@ namespace LittleCubicleGames\Quests\Definition\Task;
 
 class OrTask implements TaskInterface
 {
+    const TASK_NAME = 'or';
+
     /** @var TaskInterface[] */
     private $tasks;
 

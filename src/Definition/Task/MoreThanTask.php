@@ -4,6 +4,8 @@ namespace LittleCubicleGames\Quests\Definition\Task;
 
 class MoreThanTask implements TaskInterface
 {
+    const TASK_NAME = 'more-than';
+
     /** @var mixed */
     private $id;
 

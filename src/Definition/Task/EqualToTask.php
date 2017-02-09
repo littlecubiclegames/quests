@@ -4,6 +4,8 @@ namespace LittleCubicleGames\Quests\Definition\Task;
 
 class EqualToTask implements TaskInterface
 {
+    const TASK_NAME = 'equal-to';
+
     /** @var mixed */
     private $id;
 

@@ -4,6 +4,8 @@ namespace LittleCubicleGames\Quests\Definition\Task;
 
 class AndTask implements TaskInterface
 {
+    const TASK_NAME = 'and';
+
     /** @var TaskInterface[] */
     private $tasks;
 

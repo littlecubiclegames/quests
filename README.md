@@ -32,3 +32,36 @@ The user is done with the quest and it should not be displayed anymore.
 #### Rejected
 The user or the system decided to abort or reject the quest.
 The user is done with the quest and it should not be displayed anymore.
+
+## Quest definition data
+
+```json
+{
+	"id": "some-id",
+	"task": {
+		"type": "and",
+		"children" : [
+			{
+				"id": "task-id-1",
+				"type": "less-than",
+				"value": 10
+			},
+			{
+				"type": "or",
+				"children": [
+					{
+						"id": "task-id-2",
+						"type": "less-than",
+						"value": 5
+					},
+					{
+						"id": "task-id-3",
+						"type": "equal-to",
+						"value": 2
+					},
+				]
+			}
+		]
+	}
+}
+```
