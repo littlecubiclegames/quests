@@ -1,0 +1,58 @@
+<?php
+
+namespace LittleCubicleGames\Tests\Progress;
+
+use LittleCubicleGames\Quests\Entity\QuestInterface;
+use LittleCubicleGames\Quests\Entity\TaskInterface;
+use LittleCubicleGames\Quests\Progress\ProgressHandler;
+use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
+use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\Workflow\Workflow;
+
+class ProgressHandlerTest extends TestCase
+{
+    public function testHandle()
+    {
+        $progress = 10;
+        $task = $this->getMockBuilder(TaskInterface::class)->getMock();
+        $task
+            ->expects($this->once())
+            ->method('updateProgress')
+            ->with($this->equalTo($progress));
+
+        $taskId = 1;
+        $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
+        $quest
+            ->expects($this->once())
+            ->method('getTask')
+            ->with($this->equalTo($taskId))
+            ->willReturn($task);
+
+        $workflow = $this->getMockBuilder(Workflow::class)->disableOriginalConstructor()->getMock();
+        $workflow
+            ->expects($this->once())
+            ->method('can')
+            ->with($this->equalTo($quest), $this->equalTo(QuestDefinitionInterface::TRANSITION_COMPLETE))
+            ->willReturn(false);
+
+        $storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
+        $storage
+            ->expects($this->once())
+            ->method('save')
+            ->with($this->equalTo($quest))
+            ->willReturn($quest);
+
+        $event = new Event();
+        $handlerFunction = function (TaskInterface $calledTask, Event $calledEvent) use ($task, $event, $progress) {
+            $this->assertSame($event, $calledEvent);
+            $this->assertSame($task, $calledTask);
+
+            return $progress;
+        };
+
+        $handler = new ProgressHandler($workflow, $storage);
+        $handler->handle($quest, $taskId, $handlerFunction, $event);
+    }
+}

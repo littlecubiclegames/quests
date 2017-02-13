@@ -22,4 +22,9 @@ class Quest
     {
         return $this->task;
     }
+
+    public function getTaskEventMap() : array
+    {
+        return [];
+    }
 }
