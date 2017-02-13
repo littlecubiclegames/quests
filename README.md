@@ -9,6 +9,7 @@ A quest can have multiple tasks. The boolean operators ``AND`` and ``OR`` can be
 #### Progress Listener
 Every quest that gets started automatically registers for all events necessary to track the progress. This happens whenever a quest gets started or during a request you can register individual quests that you load from you database storage via ``ProgressListener::registerQuest(QuestInterface $quest)``.
 Quests which upon progress change get completed, automatically change state into the ``completed`` state.
+You can use the ``QuestInitializer`` to manually register all quests.
 
 #### Task Completion Guard
 The ``IsCompletedListener`` is a guard to make sure the quest can only change state to the ``completed`` state if the task are all finished.
