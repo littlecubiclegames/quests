@@ -6,7 +6,7 @@ use LittleCubicleGames\Quests\Definition\Quest;
 use LittleCubicleGames\Quests\Definition\Registry;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
-use LittleCubicleGames\Quests\Progress\ProgressHandlerBuilderInterface;
+use LittleCubicleGames\Quests\Progress\ProgressFunctionBuilderInterface;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
@@ -22,16 +22,16 @@ class ProgressListenerTest extends TestCase
     private $dispatcher;
     private $questRegistry;
     private $progressHandler;
-    private $progressHandlerBuilder;
+    private $progressFunctionBuilder;
 
     protected function setUp()
     {
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         $this->questRegistry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
         $this->progressHandler = $this->getMockBuilder(ProgressHandler::class)->disableOriginalConstructor()->getMock();
-        $this->progressHandlerBuilder = $this->getMockBuilder(ProgressHandlerBuilderInterface::class)->getMock();
+        $this->progressFunctionBuilder = $this->getMockBuilder(ProgressFunctionBuilderInterface::class)->getMock();
 
-        $this->listener = new ProgressListener($this->questRegistry, $this->dispatcher, $this->progressHandler, $this->progressHandlerBuilder);
+        $this->listener = new ProgressListener($this->questRegistry, $this->dispatcher, $this->progressHandler, $this->progressFunctionBuilder);
     }
 
     public function testSubscribe()
@@ -127,7 +127,7 @@ class ProgressListenerTest extends TestCase
 
         $progressHandlerFunction = function () {
         };
-        $this->progressHandlerBuilder
+        $this->progressFunctionBuilder
             ->expects($this->once())
             ->method('build')
             ->with($this->equalTo('taskName'))

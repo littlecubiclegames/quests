@@ -20,18 +20,18 @@ class ProgressListener implements EventSubscriberInterface
     /** @var ProgressHandler */
     private $questProgressHandler;
 
-    /** @var ProgressHandlerBuilderInterface */
-    private $progressHandlerBuilder;
+    /** @var ProgressFunctionBuilderInterface */
+    private $progressFunctionBuilder;
 
     /** @var array[] */
     private $questListenerMap = [];
 
-    public function __construct(Registry $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressHandlerBuilderInterface $progressHandlerBuilder)
+    public function __construct(Registry $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
     {
         $this->questRegistry = $questRegistry;
         $this->dispatcher = $dispatcher;
         $this->questProgressHandler = $questProgressHandler;
-        $this->progressHandlerBuilder = $progressHandlerBuilder;
+        $this->progressFunctionBuilder = $progressFunctionBuilder;
     }
 
     public function subscribeQuest(Event $event)
@@ -63,7 +63,7 @@ class ProgressListener implements EventSubscriberInterface
         foreach ($taskMap as $taskId => $tasks) {
             foreach ($tasks as $eventName => $taskName) {
                 $listener = function (\Symfony\Component\EventDispatcher\Event $event) use ($quest, $taskId, $taskName) {
-                    $handlerFunction = $this->progressHandlerBuilder->build($taskName);
+                    $handlerFunction = $this->progressFunctionBuilder->build($taskName);
                     $this->questProgressHandler->handle($quest, $taskId, $handlerFunction, $event);
                 };
                 $this->questListenerMap[$quest->getQuestId()][$eventName] = $listener;

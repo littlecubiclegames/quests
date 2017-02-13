@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Progress;
 
-interface ProgressHandlerBuilderInterface
+interface ProgressFunctionBuilderInterface
 {
     public function build($taskName) : callable;
 }
