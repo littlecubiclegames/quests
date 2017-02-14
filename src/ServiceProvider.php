@@ -2,6 +2,7 @@
 
 namespace LittleCubicleGames\Quests;
 
+use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Registry;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
@@ -14,6 +15,7 @@ use LittleCubicleGames\Quests\Progress\StateChangeListener;
 use LittleCubicleGames\Quests\Progress\StateFunctionBuilder;
 use LittleCubicleGames\Quests\Storage\ArrayStorage;
 use LittleCubicleGames\Quests\Workflow\QuestDefinition;
+use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\EventListenerProviderInterface;
@@ -45,6 +47,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new TaskBuilder();
         };
 
+        $pimple['cubicle.quests.definition.questbuilder'] = function (Container $pimple) {
+            return new QuestBuilder($pimple['cubicle.quests.definition.taskbuilder']);
+        };
+
         $pimple['cubicle.quests.marking_store'] = function () {
             return new SingleStateMarkingStore('state');
         };
@@ -53,7 +59,8 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new Workflow(
                 $pimple['cubicle.quests.definition']->build(),
                 $pimple['cubicle.quests.marking_store'],
-                $pimple['dispatcher']
+                $pimple['dispatcher'],
+                QuestDefinitionInterface::WORKFLOW_NAME
             );
         };
 

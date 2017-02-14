@@ -2,21 +2,8 @@
 
 namespace LittleCubicleGames\Tests\Quests\Integration;
 
-use LittleCubicleGames\Quests\ServiceProvider;
-use PHPUnit\Framework\TestCase;
-use Silex\Application;
-
-class ServiceProviderTest extends TestCase
+class ServiceProviderTest extends AbstractIntegrationTest
 {
-    /** @var Application */
-    private $app;
-
-    protected function setUp()
-    {
-        $this->app = new Application();
-        $this->app->register(new ServiceProvider());
-    }
-
     public function testGetAllServices()
     {
         $keys = $this->app->keys();

@@ -5,7 +5,6 @@ namespace LittleCubicleGames\Quests\Guard;
 use LittleCubicleGames\Quests\Definition\Registry;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
-use LittleCubicleGames\Quests\Entity\Quest;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\GuardEvent;
 
