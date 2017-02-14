@@ -1,6 +1,6 @@
 <?php
 
-namespace LittleCubicleGames\Tests\Progress;
+namespace LittleCubicleGames\Tests\Quests\Progress;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Progress\StateChangeListener;

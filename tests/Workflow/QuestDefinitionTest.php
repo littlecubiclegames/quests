@@ -1,6 +1,6 @@
 <?php
 
-namespace LittleCubicleGames\Tests\Workflow;
+namespace LittleCubicleGames\Tests\Quests\Workflow;
 
 use LittleCubicleGames\Quests\Workflow\QuestDefinition;
 use PHPUnit\Framework\TestCase;

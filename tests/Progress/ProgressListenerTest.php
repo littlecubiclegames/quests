@@ -1,13 +1,15 @@
 <?php
 
-namespace LittleCubicleGames\Tests\Progress;
+namespace LittleCubicleGames\Tests\Quests\Progress;
 
-use LittleCubicleGames\Quests\Definition\Quest;
+use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressFunctionBuilderInterface;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
+use LittleCubicleGames\Tests\Quests\Mock\Progress\MockHandlerFunction;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -74,11 +76,12 @@ class ProgressListenerTest extends TestCase
         $questId = 1;
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
+        $task = $this->getMockBuilder(TaskInterface::class)->getMock();
 
         $questData
             ->expects($this->once())
-            ->method('getTaskEventMap')
-            ->willReturn([]);
+            ->method('getTask')
+            ->willReturn($task);
 
         $quest
             ->expects($this->once())
@@ -103,16 +106,16 @@ class ProgressListenerTest extends TestCase
         $questId = 1;
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
 
-        $taskMap = [
-            $taskId = 11 => [
-                'eventName' => 'taskName',
-            ]
-        ];
+        $task = $this->getMockBuilder(TaskInterface::class)->getMock();
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdTypes')
+            ->willReturn([$taskId = 11 => 'taskType']);
 
         $questData
             ->expects($this->once())
-            ->method('getTaskEventMap')
-            ->willReturn($taskMap);
+            ->method('getTask')
+            ->willReturn($task);
 
         $quest
             ->expects($this->any())
@@ -125,20 +128,19 @@ class ProgressListenerTest extends TestCase
             ->with($this->equalTo($questId))
             ->willReturn($questData);
 
-        $progressHandlerFunction = function () {
-        };
+        $mockHandlerFunction = new MockHandlerFunction(function () {
+        }, ['eventName' => 'handle']);
         $this->progressFunctionBuilder
             ->expects($this->once())
             ->method('build')
-            ->with($this->equalTo('taskName'))
-            ->willReturn($progressHandlerFunction);
+            ->with($this->equalTo('taskType'))
+            ->willReturn($mockHandlerFunction);
 
         $event = new Event();
         $this->progressHandler
             ->expects($this->once())
             ->method('handle')
-            ->with($this->equalTo($quest), $this->equalTo($taskId), $this->equalTo($progressHandlerFunction), $this->equalTo($event))
-            ->willReturn($progressHandlerFunction);
+            ->with($this->equalTo($quest), $this->equalTo($taskId), $this->equalTo([$mockHandlerFunction, 'handle']), $this->equalTo($event));
 
         $this->dispatcher
             ->expects($this->once())

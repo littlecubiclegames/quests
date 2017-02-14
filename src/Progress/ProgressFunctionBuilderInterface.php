@@ -4,5 +4,5 @@ namespace LittleCubicleGames\Quests\Progress;
 
 interface ProgressFunctionBuilderInterface
 {
-    public function build($taskName) : callable;
+    public function build($taskName) : HandlerFunctionInterface;
 }

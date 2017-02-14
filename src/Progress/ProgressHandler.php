@@ -25,7 +25,7 @@ class ProgressHandler
     public function handle(QuestInterface $quest, $taskId, callable $handler, Event $event)
     {
         $task = $quest->getTask($taskId);
-        $progress = $handler($task, $event);
+        $progress = call_user_func($handler, $task, $event);
         $task->updateProgress($progress);
 
         if ($this->worfkflow->can($quest, QuestDefinitionInterface::TRANSITION_COMPLETE)) {

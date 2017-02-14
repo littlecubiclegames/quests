@@ -1,12 +1,13 @@
 <?php
 
-namespace LittleCubicleGames\Tests\Progress;
+namespace LittleCubicleGames\Tests\Quests\Progress;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Entity\TaskInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
+use LittleCubicleGames\Tests\Quests\Mock\Progress\MockHandlerFunction;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Workflow\Workflow;
@@ -51,8 +52,9 @@ class ProgressHandlerTest extends TestCase
 
             return $progress;
         };
+        $mockHandler = new MockHandlerFunction($handlerFunction);
 
         $handler = new ProgressHandler($workflow, $storage);
-        $handler->handle($quest, $taskId, $handlerFunction, $event);
+        $handler->handle($quest, $taskId, [$mockHandler, 'handle'], $event);
     }
 }

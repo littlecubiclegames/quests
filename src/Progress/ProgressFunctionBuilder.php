@@ -12,7 +12,7 @@ class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
         $this->builders = $builders;
     }
 
-    public function build($taskName): callable
+    public function build($taskName): HandlerFunctionInterface
     {
         foreach ($this->builders as $builder) {
             $progressFunction = $builder->build($taskName);

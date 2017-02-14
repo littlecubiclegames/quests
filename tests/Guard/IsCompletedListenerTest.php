@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Tests\Quests\Guard;
 
-use LittleCubicleGames\Quests\Definition\Quest;
+use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Registry;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
