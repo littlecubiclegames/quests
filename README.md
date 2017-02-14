@@ -48,7 +48,7 @@ The user is done with the quest and it should not be displayed anymore.
 		"children" : [
 			{
 				"id": "task-id-1",
-				"type": "quest-finished",
+				"type": "finish-quests",
 				"operator": "less-than",
 				"value": 10
 			},
@@ -57,13 +57,13 @@ The user is done with the quest and it should not be displayed anymore.
 				"children": [
 					{
 						"id": "task-id-2",
-						"type": "quest-finished",
+						"type": "finish-quests",
 						"operator": "less-than",
 						"value": 5
 					},
 					{
 						"id": "task-id-3",
-						"type": "quest-finished",
+						"type": "finish-quests",
 						"operator": "equal-to",
 						"value": 2
 					}

@@ -1,6 +1,6 @@
 <?php
 
-namespace LittleCubicleGames\Quests\Progress;
+namespace LittleCubicleGames\Quests\Progress\Functions;
 
 interface HandlerFunctionInterface
 {

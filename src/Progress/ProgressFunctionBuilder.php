@@ -2,6 +2,8 @@
 
 namespace LittleCubicleGames\Quests\Progress;
 
+use LittleCubicleGames\Quests\Progress\Functions\HandlerFunctionInterface;
+
 class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
 {
     /** @var ProgressFunctionBuilderInterface[] */
