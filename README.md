@@ -44,26 +44,29 @@ The user is done with the quest and it should not be displayed anymore.
 {
 	"id": "some-id",
 	"task": {
-		"type": "and",
+		"operator": "and",
 		"children" : [
 			{
 				"id": "task-id-1",
-				"type": "less-than",
+				"type": "quest-finished",
+				"operator": "less-than",
 				"value": 10
 			},
 			{
-				"type": "or",
+				"operator": "or",
 				"children": [
 					{
 						"id": "task-id-2",
-						"type": "less-than",
+						"type": "quest-finished",
+						"operator": "less-than",
 						"value": 5
 					},
 					{
 						"id": "task-id-3",
-						"type": "equal-to",
+						"type": "quest-finished",
+						"operator": "equal-to",
 						"value": 2
-					},
+					}
 				]
 			}
 		]
