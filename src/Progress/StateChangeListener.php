@@ -3,7 +3,7 @@
 namespace LittleCubicleGames\Quests\Progress;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
-use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
+use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;

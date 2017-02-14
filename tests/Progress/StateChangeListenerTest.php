@@ -4,7 +4,7 @@ namespace LittleCubicleGames\Tests\Quests\Progress;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Progress\StateChangeListener;
-use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
+use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Marking;

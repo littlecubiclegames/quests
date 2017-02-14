@@ -1,6 +1,6 @@
 <?php
 
-namespace LittleCubicleGames\Quests\Repository;
+namespace LittleCubicleGames\Quests\Storage;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 

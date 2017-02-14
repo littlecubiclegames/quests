@@ -3,7 +3,7 @@
 namespace LittleCubicleGames\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Progress\ProgressListener;
-use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
+use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 
 class QuestInitializer

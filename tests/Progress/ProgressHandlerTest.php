@@ -5,7 +5,7 @@ namespace LittleCubicleGames\Tests\Quests\Progress;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Entity\TaskInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
-use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
+use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use LittleCubicleGames\Tests\Quests\Mock\Progress\MockHandlerFunction;
 use PHPUnit\Framework\TestCase;

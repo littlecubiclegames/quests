@@ -5,7 +5,7 @@ namespace LittleCubicleGames\Tests\Quests\Initialization;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
-use LittleCubicleGames\Quests\Repository\QuestStorageInterface;
+use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use PHPUnit\Framework\TestCase;
 
