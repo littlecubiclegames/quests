@@ -24,4 +24,11 @@ class OrTask implements TaskInterface
 
         return false;
     }
+
+    public function getTaskIdTypes(): array
+    {
+        return array_reduce($this->tasks, function ($map, TaskInterface $task) {
+            return $map + $task->getTaskIdTypes();
+        }, []);
+    }
 }

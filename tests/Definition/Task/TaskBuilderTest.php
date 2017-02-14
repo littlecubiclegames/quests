@@ -33,11 +33,21 @@ class TaskBuilderTest extends TestCase
     public function buildProvider()
     {
         return [
-            [['id' => 1, 'value' => 1, 'type' => EqualToTask::TASK_NAME], EqualToTask::class],
-            [['id' => 1, 'value' => 1, 'type' => LessThanTask::TASK_NAME], LessThanTask::class],
-            [['id' => 1, 'value' => 1, 'type' => MoreThanTask::TASK_NAME], MoreThanTask::class],
-            [['type' => OrTask::TASK_NAME, 'children' => [['id' => 1, 'value' => 1, 'type' => EqualToTask::TASK_NAME],['id' => 1, 'value' => 1, 'type' => EqualToTask::TASK_NAME]]], OrTask::class],
-            [['type' => AndTask::TASK_NAME, 'children' => [['id' => 1, 'value' => 1, 'type' => EqualToTask::TASK_NAME],['id' => 1, 'value' => 1, 'type' => EqualToTask::TASK_NAME]]], AndTask::class],
+            [['id' => 1, 'value' => 1, 'operator' => EqualToTask::TASK_NAME, 'type' => 'type'], EqualToTask::class],
+            [['id' => 1, 'value' => 1, 'operator' => LessThanTask::TASK_NAME, 'type' => 'type'], LessThanTask::class],
+            [['id' => 1, 'value' => 1, 'operator' => MoreThanTask::TASK_NAME, 'type' => 'type'], MoreThanTask::class],
+            [
+                ['operator' => OrTask::TASK_NAME, 'children' => [
+                    ['id' => 1, 'value' => 1, 'operator' => EqualToTask::TASK_NAME, 'type' => 'type'],
+                    ['id' => 1, 'value' => 1, 'operator' => EqualToTask::TASK_NAME, 'type' => 'type'],
+                ]], OrTask::class,
+            ],
+            [
+                ['operator' => AndTask::TASK_NAME, 'children' => [
+                    ['id' => 1, 'value' => 1, 'operator' => EqualToTask::TASK_NAME, 'type' => 'type'],
+                    ['id' => 1, 'value' => 1, 'operator' => EqualToTask::TASK_NAME, 'type' => 'type'],
+                ]], AndTask::class,
+            ],
         ];
     }
 }

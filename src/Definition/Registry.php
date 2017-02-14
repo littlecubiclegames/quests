@@ -2,6 +2,8 @@
 
 namespace LittleCubicleGames\Quests\Definition;
 
+use LittleCubicleGames\Quests\Definition\Quest\Quest;
+
 class Registry
 {
     /** @var Quest[] */

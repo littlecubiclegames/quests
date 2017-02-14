@@ -51,4 +51,29 @@ class OrTaskTest extends TestCase
         $task = new OrTask([$successTaskMock, $successTaskMock]);
         $this->assertTrue($task->isFinished([]));
     }
+
+    public function testGetTaskIdTypesEmpty()
+    {
+        $task = new OrTask([]);
+        $this->assertSame([], $task->getTaskIdTypes());
+    }
+
+    public function testGetTaskIdTypes()
+    {
+        $task1Mock = $this->getMockBuilder(TaskInterface::class)->getMock();
+        $task1Mock
+            ->method('getTaskIdTypes')
+            ->willReturn([1 => 'type1']);
+
+        $task2Mock = $this->getMockBuilder(TaskInterface::class)->getMock();
+        $task2Mock
+            ->method('getTaskIdTypes')
+            ->willReturn([2 => 'type2']);
+
+        $task = new OrTask([$task1Mock, $task2Mock]);
+        $this->assertEquals([1 => 'type1', 2 => 'type2'], $task->getTaskIdTypes());
+
+        $task = new OrTask([$task2Mock, $task1Mock]);
+        $this->assertEquals([2 => 'type2', 1 => 'type1'], $task->getTaskIdTypes());
+    }
 }

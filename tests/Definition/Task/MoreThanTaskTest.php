@@ -12,7 +12,7 @@ class MoreThanTaskTest extends TestCase
      */
     public function testIsFinished(int $value, int $taskId, array $progressMap, bool $expected)
     {
-        $task = new MoreThanTask($taskId, $value);
+        $task = new MoreThanTask($taskId, 'type', $value);
         $this->assertSame($expected, $task->isFinished($progressMap));
     }
 
@@ -24,5 +24,11 @@ class MoreThanTaskTest extends TestCase
             [0, 0, [0 => -1], false],
             [0, 1, [0 => 99, 1 => 0], false],
         ];
+    }
+
+    public function testGetTaskIdTypes()
+    {
+        $task = new MoreThanTask(1, 'type', 10);
+        $this->assertEquals([1 => 'type'], $task->getTaskIdTypes());
     }
 }

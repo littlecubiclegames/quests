@@ -2,21 +2,9 @@
 
 namespace LittleCubicleGames\Quests\Definition\Task;
 
-class LessThanTask implements TaskInterface
+class LessThanTask extends AbstractTask
 {
     const TASK_NAME = 'less-than';
-
-    /** @var mixed */
-    private $id;
-
-    /** @var int */
-    private $value;
-
-    public function __construct($id, int $value)
-    {
-        $this->id = $id;
-        $this->value = $value;
-    }
 
     public function isFinished(array $progressMap): bool
     {

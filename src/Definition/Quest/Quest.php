@@ -1,6 +1,6 @@
 <?php
 
-namespace LittleCubicleGames\Quests\Definition;
+namespace LittleCubicleGames\Quests\Definition\Quest;
 
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 
@@ -18,9 +18,19 @@ class Quest
         $this->task = $task;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getTask() : TaskInterface
     {
         return $this->task;
+    }
+
+    public function getTaskIds() : array
+    {
+        return array_keys($this->task->getTaskIdTypes());
     }
 
     public function getTaskEventMap() : array

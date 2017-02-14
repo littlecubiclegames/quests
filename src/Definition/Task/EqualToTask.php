@@ -2,21 +2,9 @@
 
 namespace LittleCubicleGames\Quests\Definition\Task;
 
-class EqualToTask implements TaskInterface
+class EqualToTask extends AbstractTask
 {
     const TASK_NAME = 'equal-to';
-
-    /** @var mixed */
-    private $id;
-
-    /** @var int */
-    private $value;
-
-    public function __construct($id, int $value)
-    {
-        $this->id = $id;
-        $this->value = $value;
-    }
 
     public function isFinished(array $progressMap): bool
     {
