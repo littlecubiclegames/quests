@@ -14,7 +14,7 @@ class QuestBuilder
         $this->taskBuilder = $taskBuilder;
     }
 
-    public function build(array $data) : Quest
+    public function build(array $data): Quest
     {
         $task = $this->taskBuilder->build($data['task']);
 

@@ -27,7 +27,7 @@ class MockQuestTask implements TaskInterface
         return $this->taskId;
     }
 
-    public function getProgress() : int
+    public function getProgress(): int
     {
         return $this->progress;
     }

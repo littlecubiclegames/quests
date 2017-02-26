@@ -2,7 +2,6 @@
 
 namespace LittleCubicleGames\Tests\Quests\Log;
 
-use LittleCubicleGames\Quests\Entity\Quest;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Log\QuestLoggerInterface;
 use LittleCubicleGames\Quests\Log\QuestLogListener;

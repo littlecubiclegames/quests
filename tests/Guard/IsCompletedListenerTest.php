@@ -53,7 +53,7 @@ class IsCompletedListenerTest extends TestCase
     {
         return [
             [true, false],
-            [false, true]
+            [false, true],
         ];
     }
 }

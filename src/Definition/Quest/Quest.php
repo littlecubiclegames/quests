@@ -27,27 +27,27 @@ class Quest
         return $this->id;
     }
 
-    public function hasReward() : bool
+    public function hasReward(): bool
     {
         return $this->reward !== null;
     }
 
-    public function getReward() : ?RewardInterface
+    public function getReward(): ?RewardInterface
     {
         return $this->reward;
     }
 
-    public function getTask() : TaskInterface
+    public function getTask(): TaskInterface
     {
         return $this->task;
     }
 
-    public function getTaskIds() : array
+    public function getTaskIds(): array
     {
         return array_keys($this->task->getTaskIdTypes());
     }
 
-    public function getTaskEventMap() : array
+    public function getTaskEventMap(): array
     {
         return [];
     }

@@ -38,7 +38,7 @@ class MockQuest implements QuestInterface
         return $this->questId;
     }
 
-    public function getProgressMap() : array
+    public function getProgressMap(): array
     {
         $progressMap = [];
         foreach ($this->tasks as $task) {
@@ -48,7 +48,7 @@ class MockQuest implements QuestInterface
         return $progressMap;
     }
 
-    public function getState() : string
+    public function getState(): string
     {
         return $this->state;
     }

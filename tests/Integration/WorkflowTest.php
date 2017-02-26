@@ -18,19 +18,19 @@ class WorkflowTest extends AbstractIntegrationTest
         $quest = $this->app['cubicle.quests.definition.questbuilder']->build([
             'id' => 0,
             'task' => [
-                "id" => 1,
-                "type" => "reject-quests",
-                "operator" => "less-than",
-                "value" => 10,
+                'id' => 1,
+                'type' => 'reject-quests',
+                'operator' => 'less-than',
+                'value' => 10,
             ],
         ]);
         $quest2 = $this->app['cubicle.quests.definition.questbuilder']->build([
             'id' => 1,
             'task' => [
-                "id" => 1,
-                "type" => "reject-quests",
-                "operator" => "more-than",
-                "value" => 10,
+                'id' => 1,
+                'type' => 'reject-quests',
+                'operator' => 'more-than',
+                'value' => 10,
             ],
         ]);
         $this->app['cubicle.quests.quests'] = [$quest, $quest2];

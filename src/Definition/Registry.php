@@ -14,7 +14,7 @@ class Registry
         $this->quests = $quests;
     }
 
-    public function getQuest($id) : Quest
+    public function getQuest($id): Quest
     {
         if (!isset($this->quests[$id])) {
             throw new \Exception(sprintf('Invalid Quest Id: %s', $id));

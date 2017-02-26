@@ -23,6 +23,7 @@ class MockHandlerFunction implements HandlerFunctionInterface
     public function handle(TaskInterface $calledTask, Event $calledEvent)
     {
         $handle = $this->handlerFunction;
+
         return $handle($calledTask, $calledEvent);
     }
 

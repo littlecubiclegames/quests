@@ -22,7 +22,7 @@ class OrTaskTest extends TestCase
         $this->assertSame($expected, $task->isFinished([]));
     }
 
-    public function isFinishedProvider() : array
+    public function isFinishedProvider(): array
     {
         return [
             [false, false],
