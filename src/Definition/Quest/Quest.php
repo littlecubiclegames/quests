@@ -2,6 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Definition\Quest;
 
+use Definition\Reward\RewardInterface;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 
 class Quest
@@ -12,6 +13,9 @@ class Quest
     /** @var TaskInterface */
     private $task;
 
+    /** @var RewardInterface */
+    private $reward;
+
     public function __construct($id, TaskInterface $task)
     {
         $this->id = $id;
@@ -21,6 +25,16 @@ class Quest
     public function getId()
     {
         return $this->id;
+    }
+
+    public function hasReward() : bool
+    {
+        return $this->reward !== null;
+    }
+
+    public function getReward() : ?RewardInterface
+    {
+        return $this->reward;
     }
 
     public function getTask() : TaskInterface

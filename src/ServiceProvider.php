@@ -13,6 +13,7 @@ use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Quests\Progress\StateChangeListener;
 use LittleCubicleGames\Quests\Progress\StateFunctionBuilder;
+use LittleCubicleGames\Quests\Reward\NoRewardListener;
 use LittleCubicleGames\Quests\Storage\ArrayStorage;
 use LittleCubicleGames\Quests\Workflow\QuestDefinition;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
@@ -106,6 +107,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         $pimple['cubicle.quests.listener.state.change'] = function (Container $pimple) {
             return new StateChangeListener($pimple['cubicle.quests.storage']);
         };
+
+        $pimple['cubicle.quests.listener.noreward'] = function (Container $pimple) {
+            return new NoRewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.workflow']);
+        };
     }
 
     public function subscribe(Container $app, EventDispatcherInterface $dispatcher)
@@ -114,5 +119,6 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         $dispatcher->addSubscriber($app['cubicle.quests.listener.progress']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.state.change']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.log']);
+        $dispatcher->addSubscriber($app['cubicle.quests.listener.noreward']);
     }
 }
