@@ -6,6 +6,9 @@
 Quests can have a list of tasks which are required to be completed before the quest can be finished (e.g. User needs to login 5x).
 A quest can have multiple tasks. The boolean operators ``AND`` and ``OR`` can be used to combine tasks. These operators can also be nested (e.g. User needs to login 5x OR The Sun is shining).
 
+#### Slot
+With slots it is possible to limit the amount of quests open at the time. Each slot allows one open quest. The availability of quests can be limited with a start and end date which can be useful for limited events. Slots are tied to a registry. 
+
 #### Progress Listener
 Every quest that gets started automatically registers for all events necessary to track the progress. This happens whenever a quest gets started or during a request you can register individual quests that you load from you database storage via ``ProgressListener::registerQuest(QuestInterface $quest)``.
 Quests which upon progress change get completed, automatically change state into the ``completed`` state.
@@ -40,6 +43,19 @@ The user is done with the quest and it should not be displayed anymore.
 #### Rejected
 The user or the system decided to abort or reject the quest.
 The user is done with the quest and it should not be displayed anymore.
+
+## Slot definition data (using the static slot loader)
+```json
+[
+	{
+		"id": "some-id",
+		"registry": "reference to the registry id",
+		"start": "2017-01-01",
+		"end": "2018-01-01"
+	}
+]
+```
+Note: start and end are optional.
 
 ## Quest definition data
 

@@ -15,8 +15,10 @@ class MockQuest implements QuestInterface
 
     /** @var MockQuestTask[] */
     private $tasks;
+    /** @var string */
+    private $slotId;
 
-    public function __construct(Quest $quest, $user, string $state = QuestDefinitionInterface::STATE_AVAILABLE)
+    public function __construct(Quest $quest, $user, string $state = QuestDefinitionInterface::STATE_AVAILABLE, $slotId)
     {
         $this->questId = $quest->getId();
         $this->user = $user;
@@ -26,6 +28,7 @@ class MockQuest implements QuestInterface
         foreach ($quest->getTaskIds() as $taskId) {
             $this->tasks[] = new MockQuestTask($this, $taskId);
         }
+        $this->slotId = $slotId;
     }
 
     public function setState(string $state)
@@ -36,6 +39,11 @@ class MockQuest implements QuestInterface
     public function getQuestId()
     {
         return $this->questId;
+    }
+
+    public function getSlotId(): string
+    {
+        return $this->slotId;
     }
 
     public function getProgressMap(): array

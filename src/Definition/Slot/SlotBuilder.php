@@ -15,6 +15,6 @@ class SlotBuilder
             $endDate = new \DateTime($data['end']);
         }
 
-        return new Slot($data['id'], $startDate, $endDate);
+        return new Slot($data['id'], $data['registry'], $startDate, $endDate);
     }
 }

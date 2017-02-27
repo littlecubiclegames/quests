@@ -54,7 +54,7 @@ class WorkflowTest extends AbstractIntegrationTest
     {
         $this->app->boot();
 
-        $quest = new MockQuest($this->app['cubicle.quests.quests'][0], 1, $initialState);
+        $quest = new MockQuest($this->app['cubicle.quests.quests'][0], 1, $initialState, 'slot1');
 
         /** @var Workflow $workflow */
         $workflow = $this->app['cubicle.quests.workflow'];
@@ -77,8 +77,8 @@ class WorkflowTest extends AbstractIntegrationTest
 
     public function testProgress()
     {
-        $quest = new MockQuest($this->app['cubicle.quests.quests'][1], 1, QuestDefinitionInterface::STATE_IN_PROGRESS);
-        $eventQuest = new MockQuest($this->app['cubicle.quests.quests'][0], 1, QuestDefinitionInterface::STATE_AVAILABLE);
+        $quest = new MockQuest($this->app['cubicle.quests.quests'][1], 1, QuestDefinitionInterface::STATE_IN_PROGRESS, 'slot1');
+        $eventQuest = new MockQuest($this->app['cubicle.quests.quests'][0], 1, QuestDefinitionInterface::STATE_AVAILABLE, 'slot2');
 
         $this->app->boot();
         $this->app['cubicle.quests.listener.progress']->registerQuest($quest);

@@ -6,6 +6,10 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 interface QuestStorageInterface
 {
+    /**
+     * @param mixed $userId
+     * @return QuestInterface[]
+     */
     public function getActiveQuests($userId): array;
     public function save(QuestInterface $quest): QuestInterface;
 }

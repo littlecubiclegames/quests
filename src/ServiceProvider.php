@@ -4,6 +4,7 @@ namespace LittleCubicleGames\Quests;
 
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
@@ -14,6 +15,7 @@ use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Quests\Progress\StateChangeListener;
 use LittleCubicleGames\Quests\Progress\StateFunctionBuilder;
 use LittleCubicleGames\Quests\Reward\NoRewardListener;
+use LittleCubicleGames\Quests\Slot\StaticSlotLoader;
 use LittleCubicleGames\Quests\Storage\ArrayStorage;
 use LittleCubicleGames\Quests\Workflow\QuestDefinition;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
@@ -40,12 +42,20 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             $pimple['cubicle.quests.active.quests'] = [];
         }
 
+        if (!isset($pimple['cubicle.quests.slots'])) {
+            $pimple['cubicle.quests.slots'] = [];
+        }
+
         $pimple['cubicle.quests.definition'] = function () {
             return new QuestDefinition();
         };
 
         $pimple['cubicle.quests.definition.taskbuilder'] = function () {
             return new TaskBuilder();
+        };
+
+        $pimple['cubicle.quests.definition.slotbuilder'] = function () {
+            return new SlotBuilder();
         };
 
         $pimple['cubicle.quests.definition.questbuilder'] = function (Container $pimple) {
@@ -96,12 +106,16 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             ]);
         };
 
+        $pimple['cubicle.quests.slot.loader'] = function (Container $pimple) {
+            return new StaticSlotLoader($pimple['cubicle.quests.slots'], $pimple['cubicle.quests.definition.slotbuilder']);
+        };
+
         $pimple['cubicle.quests.storage'] = function (Container $pimple) {
             return new ArrayStorage($pimple['cubicle.quests.active.quests']);
         };
 
         $pimple['cubicle.quests.initializer'] = function (Container $pimple) {
-            return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress']);
+            return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader']);
         };
 
         $pimple['cubicle.quests.listener.state.change'] = function (Container $pimple) {

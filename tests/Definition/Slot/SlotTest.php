@@ -12,7 +12,7 @@ class SlotTest extends TestCase
      */
     public function testIsActive(?\DateTime $start, ?\DateTime $end, bool $expected)
     {
-        $slot = new Slot('1', $start, $end);
+        $slot = new Slot('1', 'registry', $start, $end);
         $this->assertSame($expected, $slot->isActive());
     }
 

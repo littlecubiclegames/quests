@@ -9,6 +9,8 @@ interface QuestInterface
 
     public function getQuestId();
 
+    public function getSlotId();
+
     /**
      * Method must return a map of taskId to progress
      */

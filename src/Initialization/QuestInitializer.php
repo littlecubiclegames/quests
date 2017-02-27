@@ -3,6 +3,7 @@
 namespace LittleCubicleGames\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Progress\ProgressListener;
+use LittleCubicleGames\Quests\Slot\SlotLoaderInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 
@@ -14,16 +15,30 @@ class QuestInitializer
     /** @var ProgressListener */
     private $questProgressListener;
 
-    public function __construct(QuestStorageInterface $questStorage, ProgressListener $questProgressListener)
+    /** @var SlotLoaderInterface */
+    private $slotLoader;
+
+    public function __construct(QuestStorageInterface $questStorage, ProgressListener $questProgressListener, SlotLoaderInterface $slotLoader)
     {
         $this->questStorage = $questStorage;
         $this->questProgressListener = $questProgressListener;
+        $this->slotLoader = $slotLoader;
     }
 
     public function initialize($userId)
     {
+        $slots = $this->slotLoader->getSlotsForUser($userId);
+
         $quests = $this->questStorage->getActiveQuests($userId);
         foreach ($quests as $quest) {
+            if (isset($slots[$quest->getSlotId()])) {
+                $slot = $slots[$quest->getSlotId()];
+                unset($slots[$quest->getSlotId()]);
+                if (!$slot->isActive()) {
+                    continue;
+                }
+            }
+
             if ($quest->getState() === QuestDefinitionInterface::STATE_IN_PROGRESS) {
                 $this->questProgressListener->registerQuest($quest);
             }

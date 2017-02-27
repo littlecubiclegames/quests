@@ -2,34 +2,58 @@
 
 namespace LittleCubicleGames\Tests\Quests\Initialization;
 
+use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
+use LittleCubicleGames\Quests\Slot\SlotLoaderInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use PHPUnit\Framework\TestCase;
 
 class QuestInitializerTest extends TestCase
 {
+    /** @var QuestInitializer */
+    private $initializer;
+    private $storage;
+    private $progressListener;
+    private $slotLoader;
+
+    protected function setUp()
+    {
+        $this->storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
+        $this->progressListener = $this->getMockBuilder(ProgressListener::class)->disableOriginalConstructor()->getMock();
+        $this->slotLoader = $this->getMockBuilder(SlotLoaderInterface::class)->getMock();
+
+        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader);
+    }
+
     public function testInitialize()
     {
         $userId = 1;
-
-        $storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
-        $progressListener = $this->getMockBuilder(ProgressListener::class)->disableOriginalConstructor()->getMock();
+        $slot1 = 'slot1';
+        $slot2 = 'slot2';
 
         $quest1 = $this->getMockBuilder(QuestInterface::class)->getMock();
         $quest1
             ->expects($this->once())
             ->method('getState')
             ->willReturn(QuestDefinitionInterface::STATE_AVAILABLE);
+        $quest1
+            ->expects($this->any())
+            ->method('getSlotId')
+            ->willReturn($slot1);
         $quest2 = $this->getMockBuilder(QuestInterface::class)->getMock();
         $quest2
             ->expects($this->once())
             ->method('getState')
             ->willReturn(QuestDefinitionInterface::STATE_IN_PROGRESS);
+        $quest2
+            ->expects($this->any())
+            ->method('getSlotId')
+            ->willReturn($slot2);
 
-        $storage
+        $this->storage
             ->expects($this->once())
             ->method('getActiveQuests')
             ->with($this->equalTo($userId))
@@ -38,12 +62,48 @@ class QuestInitializerTest extends TestCase
                 $quest2,
             ]);
 
-        $progressListener
+        $this->slotLoader
+            ->expects($this->once())
+            ->method('getSlotsForUser')
+            ->with($this->equalTo($userId))
+            ->willReturn([
+                $slot1 => new Slot($slot1, 'registry'),
+                $slot2 => new Slot($slot2, 'registry'),
+            ]);
+
+        $this->progressListener
             ->expects($this->once())
             ->method('registerQuest')
             ->with($this->equalTo($quest2));
 
-        $initializer = new QuestInitializer($storage, $progressListener);
-        $initializer->initialize($userId);
+        $this->initializer->initialize($userId);
+    }
+
+    public function testInitializeUnavailableSlot()
+    {
+        $userId = 1;
+        $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
+        $quest
+            ->expects($this->never())
+            ->method('getState')
+            ->willReturn(QuestDefinitionInterface::STATE_AVAILABLE);
+        $quest
+            ->expects($this->any())
+            ->method('getSlotId')
+            ->willReturn('slot');
+
+        $this->slotLoader
+            ->expects($this->once())
+            ->method('getSlotsForUser')
+            ->with($this->equalTo($userId))
+            ->willReturn([
+                'otherslot' => new Slot('otherslot', 'registry'),
+            ]);
+
+        $this->progressListener
+            ->expects($this->never())
+            ->method('registerQuest');
+
+        $this->initializer->initialize($userId);
     }
 }
