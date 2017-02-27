@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Definition\Reward;
+namespace LittleCubicleGames\Quests\Definition\Reward;
 
 class RewardInterface
 {

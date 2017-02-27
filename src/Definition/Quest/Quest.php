@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Definition\Quest;
 
-use Definition\Reward\RewardInterface;
+use LittleCubicleGames\Quests\Definition\Reward\RewardInterface;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 
 class Quest
