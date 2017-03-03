@@ -16,10 +16,11 @@ class Quest
     /** @var RewardInterface */
     private $reward;
 
-    public function __construct($id, TaskInterface $task)
+    public function __construct($id, TaskInterface $task, ?RewardInterface $reward = null)
     {
         $this->id = $id;
         $this->task = $task;
+        $this->reward = $reward;
     }
 
     public function getId()

@@ -20,6 +20,9 @@ The ``IsCompletedListener`` is a guard to make sure the quest can only change st
 #### No Reward Listener
 Some quests might not have any reward for completion. Such quests will automatically be advanced from the ``completed`` to the ``closed`` state.
 
+### Rewards
+Quests can have multiple rewards. Every reward type needs to have a Collector which implements the ``CollectorInterface``. Multiple rewards for one quest can be combined with the ``MultipleRewards`` class.
+
 #### Log
 The quest log allows logging of every state change. It can serve two purposes:
 * it makes the debug process easier because we know exactly when things happened

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Definition\Slot;
+namespace LittleCubicleGames\Tests\Quests\Definition\Slot;
 
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
