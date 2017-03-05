@@ -4,6 +4,7 @@ namespace LittleCubicleGames\Quests;
 
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
@@ -54,12 +55,16 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new TaskBuilder();
         };
 
+        $pimple['cubicle.quests.definition.rewardbuilder'] = function () {
+            return new RewardBuilder();
+        };
+
         $pimple['cubicle.quests.definition.slotbuilder'] = function () {
             return new SlotBuilder();
         };
 
         $pimple['cubicle.quests.definition.questbuilder'] = function (Container $pimple) {
-            return new QuestBuilder($pimple['cubicle.quests.definition.taskbuilder']);
+            return new QuestBuilder($pimple['cubicle.quests.definition.taskbuilder'], $pimple['cubicle.quests.definition.rewardbuilder']);
         };
 
         $pimple['cubicle.quests.marking_store'] = function () {

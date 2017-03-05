@@ -22,6 +22,7 @@ Some quests might not have any reward for completion. Such quests will automatic
 
 ### Rewards
 Quests can have multiple rewards. Every reward type needs to have a Collector which implements the ``CollectorInterface``. Multiple rewards for one quest can be combined with the ``MultipleRewards`` class.
+Rewards itself must only contain a type. Everything else should be customized to the needs of the collector.
 
 #### Log
 The quest log allows logging of every state change. It can serve two purposes:
@@ -92,6 +93,11 @@ Note: start and end are optional.
 				]
 			}
 		]
-	}
+	},
+	"rewards": [
+		{
+			"type": "reward-type"
+		}	
+	]
 }
 ```
