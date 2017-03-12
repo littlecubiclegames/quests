@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Integration;
 
 use LittleCubicleGames\Quests\ServiceProvider;
@@ -10,7 +13,6 @@ abstract class AbstractIntegrationTest extends TestCase
 {
     /** @var Application */
     protected $app;
-
     protected function setUp()
     {
         $this->app = new Application();

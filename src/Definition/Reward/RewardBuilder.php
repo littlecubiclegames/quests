@@ -1,17 +1,19 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Reward;
 
 class RewardBuilder
 {
-    public function build(array $data): ?RewardInterface
+    public function build(array $data)
     {
         if (isset($data['rewards']) && is_array($data['rewards'])) {
             $rewards = [];
             foreach ($data['rewards'] as $rewardData) {
                 $rewards[] = new Reward($rewardData);
             }
-
             if (count($rewards) > 1) {
                 $reward = new MultipleRewards($rewards);
             } else {

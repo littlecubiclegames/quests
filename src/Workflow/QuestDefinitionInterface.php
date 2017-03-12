@@ -1,24 +1,22 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Workflow;
-
-use Symfony\Component\Workflow\Definition;
 
 interface QuestDefinitionInterface
 {
-    public const WORKFLOW_NAME = 'quests';
-
-    public const STATE_AVAILABLE = 'available';
-    public const STATE_IN_PROGRESS = 'in_progress';
-    public const STATE_COMPLETED = 'completed';
-    public const STATE_FINISHED = 'finished';
-    public const STATE_REJECTED = 'rejected';
-
-    public const TRANSITION_START = 'start';
-    public const TRANSITION_COMPLETE = 'complete';
-    public const TRANSITION_COLLECT_REWARD = 'collect_reward';
-    public const TRANSITION_REJECT = 'reject';
-    public const TRANSITION_ABORT = 'abort';
-
-    public function build(): Definition;
+    const WORKFLOW_NAME = 'quests';
+    const STATE_AVAILABLE = 'available';
+    const STATE_IN_PROGRESS = 'in_progress';
+    const STATE_COMPLETED = 'completed';
+    const STATE_FINISHED = 'finished';
+    const STATE_REJECTED = 'rejected';
+    const TRANSITION_START = 'start';
+    const TRANSITION_COMPLETE = 'complete';
+    const TRANSITION_COLLECT_REWARD = 'collect_reward';
+    const TRANSITION_REJECT = 'reject';
+    const TRANSITION_ABORT = 'abort';
+    public function build();
 }

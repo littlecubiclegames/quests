@@ -1,20 +1,19 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Entity;
 
 interface QuestInterface
 {
-    public function setState(string $state);
-    public function getState(): string;
-
+    public function setState($state);
+    public function getState();
     public function getQuestId();
-
     public function getSlotId();
-
     /**
      * Method must return a map of taskId to progress
      */
-    public function getProgressMap(): array;
-
-    public function getTask($taskId): TaskInterface;
+    public function getProgressMap();
+    public function getTask($taskId);
 }

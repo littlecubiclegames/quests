@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Workflow;
 
 use LittleCubicleGames\Quests\Workflow\QuestDefinition;
@@ -11,7 +14,6 @@ class QuestDefinitionTest extends TestCase
     public function testBuild()
     {
         $definition = new QuestDefinition();
-
         $this->assertInstanceOf(Definition::class, $definition->build());
     }
 }

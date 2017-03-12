@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Guard;
 
 use LittleCubicleGames\Quests\Definition\Registry;
@@ -12,28 +15,20 @@ class IsCompletedListener implements EventSubscriberInterface
 {
     /** @var Registry */
     private $questRegistry;
-
     public function __construct(Registry $questRegistry)
     {
         $this->questRegistry = $questRegistry;
     }
-
     public function validate(GuardEvent $event)
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
-
         $questDefinition = $this->questRegistry->getQuest($quest->getQuestId());
-
         $isBlocked = !$questDefinition->getTask()->isFinished($quest->getProgressMap());
-
         $event->setBlocked($isBlocked);
     }
-
-    public static function getSubscribedEvents(): array
+    public static function getSubscribedEvents()
     {
-        return [
-            sprintf('workflow.%s.guard.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'validate',
-        ];
+        return [sprintf('workflow.%s.guard.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'validate'];
     }
 }

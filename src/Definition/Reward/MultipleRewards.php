@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Reward;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
@@ -9,20 +12,17 @@ class MultipleRewards implements RewardInterface
 {
     /** @var RewardInterface[] */
     private $rewards;
-
     public function __construct(array $rewards)
     {
         $this->rewards = $rewards;
     }
-
-    public function collect(Provider $rewardCollectorProvider, QuestInterface $quest): void
+    public function collect(Provider $rewardCollectorProvider, QuestInterface $quest)
     {
         foreach ($this->rewards as $reward) {
             $reward->collect($rewardCollectorProvider, $quest);
         }
     }
-
-    public function getType(): string
+    public function getType()
     {
         return self::class;
     }

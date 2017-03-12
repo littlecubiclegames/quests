@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Progress;
-
-use LittleCubicleGames\Quests\Progress\Functions\HandlerFunctionInterface;
 
 interface ProgressFunctionBuilderInterface
 {
-    public function build($taskName): ?HandlerFunctionInterface;
+    public function build($taskName);
 }

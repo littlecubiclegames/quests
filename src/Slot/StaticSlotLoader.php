@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Slot;
 
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
@@ -8,17 +11,14 @@ class StaticSlotLoader implements SlotLoaderInterface
 {
     /** @var array */
     private $slots;
-
     /** @var SlotBuilder */
     private $slotBuilder;
-
     public function __construct(array $slots, SlotBuilder $slotBuilder)
     {
         $this->slots = $slots;
         $this->slotBuilder = $slotBuilder;
     }
-
-    public function getSlotsForUser($userId): array
+    public function getSlotsForUser($userId)
     {
         $slots = [];
         foreach ($this->slots as $slotData) {

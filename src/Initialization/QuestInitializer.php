@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Progress\ProgressListener;
@@ -11,24 +14,19 @@ class QuestInitializer
 {
     /** @var QuestStorageInterface */
     private $questStorage;
-
     /** @var ProgressListener */
     private $questProgressListener;
-
     /** @var SlotLoaderInterface */
     private $slotLoader;
-
     public function __construct(QuestStorageInterface $questStorage, ProgressListener $questProgressListener, SlotLoaderInterface $slotLoader)
     {
         $this->questStorage = $questStorage;
         $this->questProgressListener = $questProgressListener;
         $this->slotLoader = $slotLoader;
     }
-
     public function initialize($userId)
     {
         $slots = $this->slotLoader->getSlotsForUser($userId);
-
         $quests = $this->questStorage->getActiveQuests($userId);
         foreach ($quests as $quest) {
             if (isset($slots[$quest->getSlotId()])) {
@@ -38,7 +36,6 @@ class QuestInitializer
                     continue;
                 }
             }
-
             if ($quest->getState() === QuestDefinitionInterface::STATE_IN_PROGRESS) {
                 $this->questProgressListener->registerQuest($quest);
             }

@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Reward;
 
 use LittleCubicleGames\Quests\Definition\Registry;
@@ -13,34 +16,26 @@ class RewardListener implements EventSubscriberInterface
 {
     /** @var Registry */
     private $questRegistry;
-
     /** @var Provider */
     private $rewardCollectorProvider;
-
     public function __construct(Registry $questRegistry, Provider $rewardCollectorProvider)
     {
         $this->questRegistry = $questRegistry;
         $this->rewardCollectorProvider = $rewardCollectorProvider;
     }
-
     public function collect(Event $event)
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
-
         $questDefinition = $this->questRegistry->getQuest($quest->getQuestId());
         if (!$questDefinition->hasReward()) {
             return;
         }
-
         $reward = $questDefinition->getReward();
         $reward->collect($this->rewardCollectorProvider, $quest);
     }
-
     public static function getSubscribedEvents()
     {
-        return [
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'collect',
-        ];
+        return [sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'collect'];
     }
 }

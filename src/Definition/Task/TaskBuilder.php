@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Task;
 
 class TaskBuilder
@@ -12,7 +15,6 @@ class TaskBuilder
                 return $this->build($taskData);
             }, $taskData['children']);
         }
-
         switch ($taskData['operator']) {
             case AndTask::TASK_NAME:
                 return new AndTask($children);
@@ -25,7 +27,6 @@ class TaskBuilder
             case MoreThanTask::TASK_NAME:
                 return new MoreThanTask($taskData['id'], $taskData['type'], $taskData['value']);
         }
-
         throw new \InvalidArgumentException(sprintf('Cannot build task with type: %s', $taskData['operator']));
     }
 }

@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Integration;
 
 class ServiceProviderTest extends AbstractIntegrationTest
@@ -10,12 +13,10 @@ class ServiceProviderTest extends AbstractIntegrationTest
         foreach ($keys as $key) {
             if (strpos($key, 'cubicle') === 0) {
                 $service = $this->app[$key];
-
                 $this->assertNotNull($service);
             }
         }
     }
-
     public function testBoot()
     {
         $this->app->boot();

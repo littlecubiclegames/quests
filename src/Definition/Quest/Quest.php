@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Quest;
 
 use LittleCubicleGames\Quests\Definition\Reward\RewardInterface;
@@ -9,46 +12,37 @@ class Quest
 {
     /** @var mixed */
     private $id;
-
     /** @var TaskInterface */
     private $task;
-
     /** @var RewardInterface */
     private $reward;
-
-    public function __construct($id, TaskInterface $task, ?RewardInterface $reward = null)
+    public function __construct($id, TaskInterface $task, RewardInterface $reward = null)
     {
         $this->id = $id;
         $this->task = $task;
         $this->reward = $reward;
     }
-
     public function getId()
     {
         return $this->id;
     }
-
-    public function hasReward(): bool
+    public function hasReward()
     {
         return $this->reward !== null;
     }
-
-    public function getReward(): ?RewardInterface
+    public function getReward()
     {
         return $this->reward;
     }
-
-    public function getTask(): TaskInterface
+    public function getTask()
     {
         return $this->task;
     }
-
-    public function getTaskIds(): array
+    public function getTaskIds()
     {
         return array_keys($this->task->getTaskIdTypes());
     }
-
-    public function getTaskEventMap(): array
+    public function getTaskEventMap()
     {
         return [];
     }

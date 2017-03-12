@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Definition\Reward;
 
 use LittleCubicleGames\Quests\Definition\Reward\MultipleRewards;
@@ -14,17 +17,12 @@ class MultipleRewardsTest extends TestCase
     {
         $provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-
         $rewards = [];
         for ($i = 0; $i < 2; $i++) {
             $rewardMock = $this->getMockBuilder(RewardInterface::class)->getMock();
-            $rewardMock
-                ->expects($this->once())
-                ->method('collect')
-                ->with($this->equalTo($provider), $this->equalTo($quest));
+            $rewardMock->expects($this->once())->method('collect')->with($this->equalTo($provider), $this->equalTo($quest));
             $rewards[] = $rewardMock;
         }
-
         $reward = new MultipleRewards($rewards);
         $reward->collect($provider, $quest);
     }

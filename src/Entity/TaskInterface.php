@@ -1,9 +1,12 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Entity;
 
 interface TaskInterface
 {
-    public function updateProgress(int $progress);
-    public function getProgress(): int;
+    public function updateProgress($progress);
+    public function getProgress();
 }

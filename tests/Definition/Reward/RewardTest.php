@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Definition\Reward;
 
 use LittleCubicleGames\Quests\Definition\Reward\Reward;
@@ -13,41 +16,24 @@ class RewardTest extends TestCase
     public function testGetters()
     {
         $type = 'type';
-        $data = [
-            'type' => $type,
-            'value' => 1,
-        ];
-
+        $data = ['type' => $type, 'value' => 1];
         $reward = new Reward($data);
         $this->assertSame($type, $reward->getType());
         $this->assertSame($data, $reward->getData());
     }
-
     public function testCollect()
     {
         $collector = $this->getMockBuilder(CollectorInterface::class)->getMock();
         $provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-
         $reward = new Reward(['type' => 'type']);
-        $provider
-            ->expects($this->once())
-            ->method('getCollector')
-            ->with($this->equalTo($reward))
-            ->willReturn($collector);
-
-        $collector
-            ->expects($this->once())
-            ->method('collect')
-            ->with($this->equalTo($reward));
-
+        $provider->expects($this->once())->method('getCollector')->with($this->equalTo($reward))->willReturn($collector);
+        $collector->expects($this->once())->method('collect')->with($this->equalTo($reward));
         $reward->collect($provider, $quest);
     }
-
     public function testMissingType()
     {
         $this->expectException(\InvalidArgumentException::class);
-
         new Reward([]);
     }
 }

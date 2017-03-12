@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Quest;
 
 use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
@@ -11,14 +14,12 @@ class QuestBuilder
     private $taskBuilder;
     /** @var RewardBuilder */
     private $rewardBuilder;
-
     public function __construct(TaskBuilder $taskBuilder, RewardBuilder $rewardBuilder)
     {
         $this->taskBuilder = $taskBuilder;
         $this->rewardBuilder = $rewardBuilder;
     }
-
-    public function build(array $data): Quest
+    public function build(array $data)
     {
         $task = $this->taskBuilder->build($data['task']);
         $reward = $this->rewardBuilder->build($data);

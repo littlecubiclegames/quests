@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Reward;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
@@ -11,28 +14,23 @@ class Reward implements RewardInterface
     private $type;
     /** @var mixed[] */
     private $data;
-
     public function __construct(array $data)
     {
         if (!isset($data['type'])) {
             throw new \InvalidArgumentException('reward definition does not contain type');
         }
-
         $this->type = $data['type'];
         $this->data = $data;
     }
-
-    public function collect(Provider $rewardCollectorProvider, QuestInterface $quest): void
+    public function collect(Provider $rewardCollectorProvider, QuestInterface $quest)
     {
         $rewardCollectorProvider->getCollector($this)->collect($this);
     }
-
-    public function getData(): array
+    public function getData()
     {
         return $this->data;
     }
-
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }

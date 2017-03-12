@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Log;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
@@ -16,19 +19,10 @@ class QuestLogListenerTest extends TestCase
     {
         $previousState = 'previous';
         $newState = 'new';
-
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $quest
-            ->expects($this->once())
-            ->method('getState')
-            ->willReturn($previousState);
-
+        $quest->expects($this->once())->method('getState')->willReturn($previousState);
         $logger = $this->getMockBuilder(QuestLoggerInterface::class)->getMock();
-        $logger
-            ->expects($this->once())
-            ->method('log')
-            ->with($this->equalTo($quest), $this->equalTo($previousState), $this->equalTo($newState));
-
+        $logger->expects($this->once())->method('log')->with($this->equalTo($quest), $this->equalTo($previousState), $this->equalTo($newState));
         $listener = new QuestLogListener([$logger]);
         $listener->logChange(new Event($quest, new Marking(), new Transition($newState, $previousState, '')));
     }

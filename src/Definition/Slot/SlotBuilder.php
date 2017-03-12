@@ -1,10 +1,13 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Definition\Slot;
 
 class SlotBuilder
 {
-    public function build(array $data): Slot
+    public function build(array $data)
     {
         $startDate = null;
         $endDate = null;

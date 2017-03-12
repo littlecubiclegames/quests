@@ -1,5 +1,8 @@
-<?php declare(strict_types = 1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Definition\Slot;
 
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
@@ -11,26 +14,16 @@ class SlotBuilderTest extends TestCase
     /**
      * @dataProvider buildProvider
      */
-    public function testBuild(?string $start, ?string $end)
+    public function testBuild($start, $end)
     {
         $builder = new SlotBuilder();
-        $slot = $builder->build([
-            'id' => 'id',
-            'registry' => 'registry',
-            'start' => $start,
-            'end' => $end,
-        ]);
-
+        $slot = $builder->build(['id' => 'id', 'registry' => 'registry', 'start' => $start, 'end' => $end]);
         $this->assertInstanceOf(Slot::class, $slot);
         $this->assertSame('id', $slot->getId());
         $this->assertSame('registry', $slot->getRegistryId());
     }
-
     public function buildProvider()
     {
-        return [
-            [null, null],
-            ['now', 'now'],
-        ];
+        return [[null, null], ['now', 'now']];
     }
 }

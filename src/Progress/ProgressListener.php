@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Progress;
 
 use LittleCubicleGames\Quests\Definition\Registry;
@@ -13,19 +16,14 @@ class ProgressListener implements EventSubscriberInterface
 {
     /** @var Registry */
     private $questRegistry;
-
     /** @var EventDispatcherInterface */
     private $dispatcher;
-
     /** @var ProgressHandler */
     private $questProgressHandler;
-
     /** @var ProgressFunctionBuilderInterface */
     private $progressFunctionBuilder;
-
     /** @var array[] */
     private $questListenerMap = [];
-
     public function __construct(Registry $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
     {
         $this->questRegistry = $questRegistry;
@@ -33,32 +31,27 @@ class ProgressListener implements EventSubscriberInterface
         $this->questProgressHandler = $questProgressHandler;
         $this->progressFunctionBuilder = $progressFunctionBuilder;
     }
-
     public function subscribeQuest(Event $event)
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
-
         $this->registerQuest($quest);
     }
-
     public function unsubscribeQuest(Event $event)
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
-
-        $listeners = $this->questListenerMap[$quest->getQuestId()] ?? [];
+        $listeners = call_user_func(function ($v1, $v2) {
+            return isset($v1) ? $v1 : $v2;
+        }, @$this->questListenerMap[$quest->getQuestId()], @[]);
         foreach ($listeners as $eventName => $listener) {
             $this->dispatcher->removeListener($eventName, $listener);
         }
-
         unset($this->questListenerMap[$quest->getQuestId()]);
     }
-
     public function registerQuest(QuestInterface $quest)
     {
         $questData = $this->questRegistry->getQuest($quest->getQuestId());
-
         $taskMap = $questData->getTask()->getTaskIdTypes();
         foreach ($taskMap as $taskId => $type) {
             $handlerFunction = $this->progressFunctionBuilder->build($type);
@@ -72,14 +65,8 @@ class ProgressListener implements EventSubscriberInterface
             }
         }
     }
-
     public static function getSubscribedEvents()
     {
-        return [
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest',
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest',
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest',
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest',
-        ];
+        return [sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest'];
     }
 }

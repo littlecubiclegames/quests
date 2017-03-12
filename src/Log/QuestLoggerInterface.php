@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Log;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 interface QuestLoggerInterface
 {
-    public function log(QuestInterface $quest, string $previousState, string $newState);
+    public function log(QuestInterface $quest, $previousState, $newState);
 }

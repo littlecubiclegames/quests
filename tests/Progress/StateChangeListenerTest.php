@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Progress;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
@@ -16,13 +19,8 @@ class StateChangeListenerTest extends TestCase
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
-
         $storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
-        $storage
-            ->expects($this->once())
-            ->method('save')
-            ->with($this->equalTo($quest));
-
+        $storage->expects($this->once())->method('save')->with($this->equalTo($quest));
         $listener = new StateChangeListener($storage);
         $listener->handle($event);
     }

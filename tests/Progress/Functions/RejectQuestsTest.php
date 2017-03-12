@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Tests\Quests\Progress\Functions;
 
 use LittleCubicleGames\Quests\Entity\TaskInterface;
@@ -14,15 +17,10 @@ class RejectQuestsTest extends AbstractFunctionTest
     {
         $this->function = new RejectQuests();
     }
-
     public function testHandle()
     {
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
-        $task
-            ->expects($this->once())
-            ->method('getProgress')
-            ->willReturn(1);
-
+        $task->expects($this->once())->method('getProgress')->willReturn(1);
         $progress = $this->function->handle($task, new Event(null, new Marking(), new Transition('transition', '', '')));
         $this->assertSame(2, $progress);
     }

@@ -1,5 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
+/*
+ * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
+ */
 namespace LittleCubicleGames\Quests\Progress\Functions;
 
 use LittleCubicleGames\Quests\Entity\TaskInterface;
@@ -9,16 +12,12 @@ use Symfony\Component\Workflow\Event\Event;
 class FinishQuests implements HandlerFunctionInterface
 {
     const NAME = 'finish-quests';
-
     public function handle(TaskInterface $task, Event $event)
     {
         return $task->getProgress() + 1;
     }
-
-    public function getEventMap(): array
+    public function getEventMap()
     {
-        return [
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'handle',
-        ];
+        return [sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'handle'];
     }
 }
