@@ -2,6 +2,7 @@
 
 namespace LittleCubicleGames\Quests;
 
+use Doctrine\Common\Cache\ArrayCache;
 use LittleCubicleGames\Quests\Command\ValidationCommand;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Registry;
@@ -64,6 +65,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new SlotBuilder();
         };
 
+        $pimple['cubicle.quests.definition.cache'] = function () {
+            return new ArrayCache();
+        };
+
         $pimple['cubicle.quests.definition.questbuilder'] = function (Container $pimple) {
             return new QuestBuilder($pimple['cubicle.quests.definition.taskbuilder'], $pimple['cubicle.quests.definition.rewardbuilder']);
         };
@@ -82,7 +87,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
 
         $pimple['cubicle.quests.registry'] = function (Container $pimple) {
-            return new Registry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder']);
+            return new Registry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.definition.cache']);
         };
 
         $pimple['cubicle.quests.listener.log'] = function (Container $pimple) {
