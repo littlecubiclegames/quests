@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/littlecubiclegames/quests.svg?branch=master)](https://travis-ci.org/littlecubiclegames/quests)
 # Quest System
 
 ## Quest Components
