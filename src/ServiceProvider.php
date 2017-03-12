@@ -2,6 +2,7 @@
 
 namespace LittleCubicleGames\Quests;
 
+use LittleCubicleGames\Quests\Command\ValidationCommand;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Registry;
 use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
@@ -81,7 +82,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
 
         $pimple['cubicle.quests.registry'] = function (Container $pimple) {
-            return new Registry($pimple['cubicle.quests.quests']);
+            return new Registry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder']);
         };
 
         $pimple['cubicle.quests.listener.log'] = function (Container $pimple) {
@@ -129,6 +130,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
 
         $pimple['cubicle.quests.listener.noreward'] = function (Container $pimple) {
             return new NoRewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.workflow']);
+        };
+
+        $pimple['cubicle.quests.command.validation'] = function (Container $pimple) {
+            return new ValidationCommand($pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.progress.function.builder'], $pimple['cubicle.quests.quests']);
         };
     }
 

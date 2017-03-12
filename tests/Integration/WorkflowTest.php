@@ -15,7 +15,7 @@ class WorkflowTest extends AbstractIntegrationTest
     {
         parent::setUp();
 
-        $quest = $this->app['cubicle.quests.definition.questbuilder']->build([
+        $this->app['cubicle.quests.quests'] = [[
             'id' => 0,
             'task' => [
                 'id' => 1,
@@ -23,8 +23,7 @@ class WorkflowTest extends AbstractIntegrationTest
                 'operator' => 'less-than',
                 'value' => 10,
             ],
-        ]);
-        $quest2 = $this->app['cubicle.quests.definition.questbuilder']->build([
+        ], [
             'id' => 1,
             'task' => [
                 'id' => 1,
@@ -32,8 +31,7 @@ class WorkflowTest extends AbstractIntegrationTest
                 'operator' => 'more-than',
                 'value' => 10,
             ],
-        ]);
-        $this->app['cubicle.quests.quests'] = [$quest, $quest2];
+        ]];
         $this->app['cubicle.quests.active.quests'] = [];
     }
 
@@ -54,7 +52,8 @@ class WorkflowTest extends AbstractIntegrationTest
     {
         $this->app->boot();
 
-        $quest = new MockQuest($this->app['cubicle.quests.quests'][0], 1, $initialState, 'slot1');
+        $questData = $this->app['cubicle.quests.registry']->getQuest(0);
+        $quest = new MockQuest($questData, 1, $initialState, 'slot1');
 
         /** @var Workflow $workflow */
         $workflow = $this->app['cubicle.quests.workflow'];
@@ -77,8 +76,8 @@ class WorkflowTest extends AbstractIntegrationTest
 
     public function testProgress()
     {
-        $quest = new MockQuest($this->app['cubicle.quests.quests'][1], 1, QuestDefinitionInterface::STATE_IN_PROGRESS, 'slot1');
-        $eventQuest = new MockQuest($this->app['cubicle.quests.quests'][0], 1, QuestDefinitionInterface::STATE_AVAILABLE, 'slot2');
+        $quest = new MockQuest($this->app['cubicle.quests.registry']->getQuest(1), 1, QuestDefinitionInterface::STATE_IN_PROGRESS, 'slot1');
+        $eventQuest = new MockQuest($this->app['cubicle.quests.registry']->getQuest(0), 1, QuestDefinitionInterface::STATE_AVAILABLE, 'slot2');
 
         $this->app->boot();
         $this->app['cubicle.quests.listener.progress']->registerQuest($quest);

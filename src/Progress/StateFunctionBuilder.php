@@ -8,13 +8,15 @@ use LittleCubicleGames\Quests\Progress\Functions\RejectQuests;
 
 class StateFunctionBuilder implements ProgressFunctionBuilderInterface
 {
-    public function build($taskName): HandlerFunctionInterface
+    public function build($taskName): ?HandlerFunctionInterface
     {
         switch ($taskName) {
             case FinishQuests::NAME:
                 return new FinishQuests();
             case RejectQuests::NAME:
                 return new RejectQuests();
+            default:
+                return null;
         }
     }
 }

@@ -42,7 +42,12 @@ class IsCompletedListenerTest extends TestCase
 
         $event = new GuardEvent($quest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_COMPLETE, '', ''));
 
-        $registry = new Registry([$questId => new Quest($questId, $task)]);
+        $registry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
+        $registry
+            ->expects($this->once())
+            ->method('getQuest')
+            ->with($this->equalTo($questId))
+            ->willReturn(new Quest($questId, $task));
         $listener = new IsCompletedListener($registry);
         $listener->validate($event);
 

@@ -6,5 +6,5 @@ use LittleCubicleGames\Quests\Progress\Functions\HandlerFunctionInterface;
 
 interface ProgressFunctionBuilderInterface
 {
-    public function build($taskName): HandlerFunctionInterface;
+    public function build($taskName): ?HandlerFunctionInterface;
 }

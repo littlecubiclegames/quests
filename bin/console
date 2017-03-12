@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$app = new \Silex\Application();
+$app->register(new \LittleCubicleGames\Quests\ServiceProvider());
+$app->boot();
+
+$console = new Symfony\Component\Console\Application();
+$console->add($app['cubicle.quests.command.validation']);
+
+$console->run();
