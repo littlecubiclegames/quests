@@ -24,7 +24,7 @@ class Reward implements RewardInterface
 
     public function collect(Provider $rewardCollectorProvider, QuestInterface $quest): void
     {
-        $rewardCollectorProvider->getCollector($this)->collect($this);
+        $rewardCollectorProvider->getCollector($this)->collect($this, $quest);
     }
 
     public function getData(): array

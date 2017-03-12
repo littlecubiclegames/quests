@@ -17,7 +17,9 @@ use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Quests\Progress\StateChangeListener;
 use LittleCubicleGames\Quests\Progress\StateFunctionBuilder;
+use LittleCubicleGames\Quests\Reward\Collect\Provider;
 use LittleCubicleGames\Quests\Reward\NoRewardListener;
+use LittleCubicleGames\Quests\Reward\RewardListener;
 use LittleCubicleGames\Quests\Slot\StaticSlotLoader;
 use LittleCubicleGames\Quests\Storage\ArrayStorage;
 use LittleCubicleGames\Quests\Workflow\QuestDefinition;
@@ -47,6 +49,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
 
         if (!isset($pimple['cubicle.quests.slots'])) {
             $pimple['cubicle.quests.slots'] = [];
+        }
+
+        if (!isset($pimple['cubicle.quests.rewards.collectors'])) {
+            $pimple['cubicle.quests.rewards.collectors'] = [];
         }
 
         $pimple['cubicle.quests.definition'] = function () {
@@ -88,6 +94,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
 
         $pimple['cubicle.quests.registry'] = function (Container $pimple) {
             return new Registry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.definition.cache']);
+        };
+
+        $pimple['cubicle.quests.rewards.provider'] = function (Container $pimple) {
+            return new Provider($pimple['cubicle.quests.rewards.collectors']);
         };
 
         $pimple['cubicle.quests.listener.log'] = function (Container $pimple) {
@@ -137,6 +147,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new NoRewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.workflow']);
         };
 
+        $pimple['cubicle.quests.listener.reward'] = function (Container $pimple) {
+            return new RewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.rewards.provider']);
+        };
+
         $pimple['cubicle.quests.command.validation'] = function (Container $pimple) {
             return new ValidationCommand($pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.progress.function.builder'], $pimple['cubicle.quests.quests']);
         };
@@ -149,5 +163,6 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         $dispatcher->addSubscriber($app['cubicle.quests.listener.state.change']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.log']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.noreward']);
+        $dispatcher->addSubscriber($app['cubicle.quests.listener.reward']);
     }
 }
