@@ -9,6 +9,8 @@ interface QuestInterface
 
     public function getQuestId();
 
+    public function getUser();
+
     public function getSlotId();
 
     /**

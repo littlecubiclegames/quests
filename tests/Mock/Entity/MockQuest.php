@@ -41,6 +41,11 @@ class MockQuest implements QuestInterface
         return $this->questId;
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     public function getSlotId(): string
     {
         return $this->slotId;
