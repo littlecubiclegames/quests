@@ -6,9 +6,11 @@
 namespace LittleCubicleGames\Quests\Reward\Collect;
 
 use LittleCubicleGames\Quests\Definition\Reward\RewardInterface;
+use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 interface CollectorInterface
 {
-    public function collect(RewardInterface $reward);
+    public function collect(RewardInterface $reward, QuestInterface $quest);
+
     public function getType();
 }
