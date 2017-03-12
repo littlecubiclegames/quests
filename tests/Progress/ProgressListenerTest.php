@@ -78,6 +78,11 @@ class ProgressListenerTest extends TestCase
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
 
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdTypes')
+            ->willReturn([]);
+
         $questData
             ->expects($this->once())
             ->method('getTask')

@@ -100,6 +100,12 @@ class QuestInitializerTest extends TestCase
                 'otherslot' => new Slot('otherslot', 'registry'),
             ]);
 
+        $this->storage
+            ->expects($this->once())
+            ->method('getActiveQuests')
+            ->with($this->equalTo($userId))
+            ->willReturn([]);
+
         $this->progressListener
             ->expects($this->never())
             ->method('registerQuest');
