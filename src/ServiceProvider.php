@@ -136,7 +136,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
 
         $pimple['cubicle.quests.initializer'] = function (Container $pimple) {
-            return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader']);
+            return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader'], $pimple['dispatcher']);
         };
 
         $pimple['cubicle.quests.listener.state.change'] = function (Container $pimple) {

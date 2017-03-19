@@ -20,6 +20,15 @@ class SlotCollection
         return isset($this->slots[$slotId]) && $this->slots[$slotId]->isActive() && !isset($this->usedSlots[$slotId]);
     }
 
+    public function getSlot($slotId): ?Slot
+    {
+        if ($this->isSlotAvailable($slotId)) {
+            return $this->slots[$slotId];
+        }
+
+        return null;
+    }
+
     public function markSlotAsUsed($slotId): void
     {
         $this->usedSlots[$slotId] = true;

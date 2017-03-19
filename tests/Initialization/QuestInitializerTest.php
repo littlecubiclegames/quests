@@ -11,6 +11,7 @@ use LittleCubicleGames\Quests\Slot\SlotLoaderInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class QuestInitializerTest extends TestCase
 {
@@ -25,8 +26,9 @@ class QuestInitializerTest extends TestCase
         $this->storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
         $this->progressListener = $this->getMockBuilder(ProgressListener::class)->disableOriginalConstructor()->getMock();
         $this->slotLoader = $this->getMockBuilder(SlotLoaderInterface::class)->getMock();
+        $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
 
-        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader);
+        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader, $dispatcher);
     }
 
     public function testInitialize()
