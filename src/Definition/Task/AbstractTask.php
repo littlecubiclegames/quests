@@ -21,6 +21,6 @@ abstract class AbstractTask implements TaskInterface
     }
     public function getTaskIdTypes()
     {
-        return [$this->id => $this->type];
+        return array($this->id => $this->type);
     }
 }

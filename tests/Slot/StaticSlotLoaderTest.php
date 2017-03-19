@@ -17,31 +17,34 @@ class StaticSlotLoaderTest extends TestCase
         $userId = 1;
         $builder = $this->getMockBuilder(SlotBuilder::class)->getMock();
         $builder->expects($this->never())->method('build');
-        $loader = new StaticSlotLoader([], $builder);
-        $this->assertSame([], $loader->getSlotsForUser($userId));
+        $loader = new StaticSlotLoader(array(), $builder);
+        $slotCollection = $loader->getSlotsForUser($userId);
+        $this->assertSame(array(), $slotCollection->getUnusedSlots());
     }
     public function testGetSlotsForUser()
     {
         $userId = 1;
         $slotId = 'slotId';
-        $slotData = ['slot'];
+        $slotData = array('slot');
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
-        $slot->expects($this->once())->method('isActive')->willReturn(true);
+        $slot->expects($this->any())->method('isActive')->willReturn(true);
         $slot->expects($this->once())->method('getId')->willReturn($slotId);
         $builder = $this->getMockBuilder(SlotBuilder::class)->getMock();
         $builder->expects($this->once())->method('build')->with($this->equalTo($slotData))->willReturn($slot);
-        $loader = new StaticSlotLoader([$slotData], $builder);
-        $this->assertSame([$slotId => $slot], $loader->getSlotsForUser($userId));
+        $loader = new StaticSlotLoader(array($slotData), $builder);
+        $slotCollection = $loader->getSlotsForUser($userId);
+        $this->assertSame(array($slotId => $slot), $slotCollection->getUnusedSlots());
     }
     public function testGetSlotsForUserInactive()
     {
         $userId = 1;
-        $slotData = ['slot'];
+        $slotData = array('slot');
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $slot->expects($this->once())->method('isActive')->willReturn(false);
         $builder = $this->getMockBuilder(SlotBuilder::class)->getMock();
         $builder->expects($this->once())->method('build')->with($this->equalTo($slotData))->willReturn($slot);
-        $loader = new StaticSlotLoader([$slotData], $builder);
-        $this->assertSame([], $loader->getSlotsForUser($userId));
+        $loader = new StaticSlotLoader(array($slotData), $builder);
+        $slotCollection = $loader->getSlotsForUser($userId);
+        $this->assertSame(array(), $slotCollection->getUnusedSlots());
     }
 }

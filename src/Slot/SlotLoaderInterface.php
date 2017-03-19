@@ -5,13 +5,13 @@
  */
 namespace LittleCubicleGames\Quests\Slot;
 
-use Definition\Slot\Slot;
+use LittleCubicleGames\Quests\Definition\Slot\SlotCollection;
 
 interface SlotLoaderInterface
 {
     /**
      * @param mixed $userId
-     * @return Slot[]
+     * @return SlotCollection
      */
     public function getSlotsForUser($userId);
 }

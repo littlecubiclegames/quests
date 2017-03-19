@@ -10,7 +10,7 @@ class RewardBuilder
     public function build(array $data)
     {
         if (isset($data['rewards']) && is_array($data['rewards'])) {
-            $rewards = [];
+            $rewards = array();
             foreach ($data['rewards'] as $rewardData) {
                 $rewards[] = new Reward($rewardData);
             }

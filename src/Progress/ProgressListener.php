@@ -23,7 +23,7 @@ class ProgressListener implements EventSubscriberInterface
     /** @var ProgressFunctionBuilderInterface */
     private $progressFunctionBuilder;
     /** @var array[] */
-    private $questListenerMap = [];
+    private $questListenerMap = array();
     public function __construct(Registry $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
     {
         $this->questRegistry = $questRegistry;
@@ -43,7 +43,7 @@ class ProgressListener implements EventSubscriberInterface
         $quest = $event->getSubject();
         $listeners = call_user_func(function ($v1, $v2) {
             return isset($v1) ? $v1 : $v2;
-        }, @$this->questListenerMap[$quest->getQuestId()], @[]);
+        }, @$this->questListenerMap[$quest->getQuestId()], @array());
         foreach ($listeners as $eventName => $listener) {
             $this->dispatcher->removeListener($eventName, $listener);
         }
@@ -56,7 +56,7 @@ class ProgressListener implements EventSubscriberInterface
         foreach ($taskMap as $taskId => $type) {
             $handlerFunction = $this->progressFunctionBuilder->build($type);
             foreach ($handlerFunction->getEventMap() as $eventName => $method) {
-                $callback = [$handlerFunction, $method];
+                $callback = array($handlerFunction, $method);
                 $listener = function (\Symfony\Component\EventDispatcher\Event $event) use ($quest, $taskId, $callback) {
                     $this->questProgressHandler->handle($quest, $taskId, $callback, $event);
                 };
@@ -67,6 +67,6 @@ class ProgressListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return [sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest'];
+        return array(sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest');
     }
 }

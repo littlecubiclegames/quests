@@ -39,19 +39,19 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
     public function register(Container $pimple)
     {
         if (!isset($pimple['cubicle.quests.logger'])) {
-            $pimple['cubicle.quests.logger'] = [];
+            $pimple['cubicle.quests.logger'] = array();
         }
         if (!isset($pimple['cubicle.quests.quests'])) {
-            $pimple['cubicle.quests.quests'] = [];
+            $pimple['cubicle.quests.quests'] = array();
         }
         if (!isset($pimple['cubicle.quests.active.quests'])) {
-            $pimple['cubicle.quests.active.quests'] = [];
+            $pimple['cubicle.quests.active.quests'] = array();
         }
         if (!isset($pimple['cubicle.quests.slots'])) {
-            $pimple['cubicle.quests.slots'] = [];
+            $pimple['cubicle.quests.slots'] = array();
         }
         if (!isset($pimple['cubicle.quests.rewards.collectors'])) {
-            $pimple['cubicle.quests.rewards.collectors'] = [];
+            $pimple['cubicle.quests.rewards.collectors'] = array();
         }
         $pimple['cubicle.quests.definition'] = function () {
             return new QuestDefinition();
@@ -96,7 +96,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new ProgressHandler($pimple['cubicle.quests.workflow'], $pimple['cubicle.quests.storage']);
         };
         $pimple['cubicle.quests.progress.function.builder'] = function () {
-            return new ProgressFunctionBuilder([new StateFunctionBuilder()]);
+            return new ProgressFunctionBuilder(array(new StateFunctionBuilder()));
         };
         $pimple['cubicle.quests.slot.loader'] = function (Container $pimple) {
             return new StaticSlotLoader($pimple['cubicle.quests.slots'], $pimple['cubicle.quests.definition.slotbuilder']);
@@ -105,7 +105,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new ArrayStorage($pimple['cubicle.quests.active.quests']);
         };
         $pimple['cubicle.quests.initializer'] = function (Container $pimple) {
-            return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader']);
+            return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader'], $pimple['dispatcher'], $pimple['cubicle.quests.registry'], $pimple['cubicle.quests.initializer.questbuilder']);
+        };
+        $pimple['cubicle.quests.initializer.questbuilder'] = function () {
+            throw new \Exception('Need to implement service');
         };
         $pimple['cubicle.quests.listener.state.change'] = function (Container $pimple) {
             return new StateChangeListener($pimple['cubicle.quests.storage']);

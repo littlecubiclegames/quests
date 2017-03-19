@@ -29,6 +29,6 @@ class IsCompletedListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return [sprintf('workflow.%s.guard.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'validate'];
+        return array(sprintf('workflow.%s.guard.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'validate');
     }
 }

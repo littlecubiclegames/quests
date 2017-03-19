@@ -15,7 +15,7 @@ class MockHandlerFunction implements HandlerFunctionInterface
     private $handlerFunction;
     /** @var array */
     private $events;
-    public function __construct(callable $handlerFunction, $events = [])
+    public function __construct(callable $handlerFunction, $events = array())
     {
         $this->handlerFunction = $handlerFunction;
         $this->events = $events;

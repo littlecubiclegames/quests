@@ -20,11 +20,11 @@ class LessThanTaskTest extends TestCase
     }
     public function isFinishedProvider()
     {
-        return [[0, 0, [0 => -1], true], [0, 0, [0 => 0], false], [0, 0, [0 => 1], false], [0, 1, [0 => -99, 1 => 0], false]];
+        return array(array(0, 0, array(0 => -1), true), array(0, 0, array(0 => 0), false), array(0, 0, array(0 => 1), false), array(0, 1, array(0 => -99, 1 => 0), false));
     }
     public function testGetTaskIdTypes()
     {
         $task = new LessThanTask(1, 'type', 10);
-        $this->assertEquals([1 => 'type'], $task->getTaskIdTypes());
+        $this->assertEquals(array(1 => 'type'), $task->getTaskIdTypes());
     }
 }

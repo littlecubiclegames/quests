@@ -23,7 +23,7 @@ class MockQuest implements QuestInterface
         $this->questId = $quest->getId();
         $this->user = $user;
         $this->state = $state;
-        $this->tasks = [];
+        $this->tasks = array();
         foreach ($quest->getTaskIds() as $taskId) {
             $this->tasks[] = new MockQuestTask($this, $taskId);
         }
@@ -47,7 +47,7 @@ class MockQuest implements QuestInterface
     }
     public function getProgressMap()
     {
-        $progressMap = [];
+        $progressMap = array();
         foreach ($this->tasks as $task) {
             $progressMap[$task->getTaskId()] = $task->getProgress();
         }

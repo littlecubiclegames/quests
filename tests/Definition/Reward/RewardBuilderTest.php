@@ -20,17 +20,17 @@ class RewardBuilderTest extends TestCase
     }
     public function testBuildNull()
     {
-        $this->assertNull($this->rewardBuilder->build([]));
+        $this->assertNull($this->rewardBuilder->build(array()));
     }
     public function testBuildSingle()
     {
-        $reward = $this->rewardBuilder->build(['rewards' => [['type' => 'type']]]);
+        $reward = $this->rewardBuilder->build(array('rewards' => array(array('type' => 'type'))));
         $this->assertInstanceOf(Reward::class, $reward);
         $this->assertSame('type', $reward->getType());
     }
     public function testBuildMultiple()
     {
-        $reward = $this->rewardBuilder->build(['rewards' => [['type' => 'type'], ['type' => 'type2']]]);
+        $reward = $this->rewardBuilder->build(array('rewards' => array(array('type' => 'type'), array('type' => 'type2'))));
         $this->assertInstanceOf(MultipleRewards::class, $reward);
     }
 }

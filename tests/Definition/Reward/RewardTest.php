@@ -16,7 +16,7 @@ class RewardTest extends TestCase
     public function testGetters()
     {
         $type = 'type';
-        $data = ['type' => $type, 'value' => 1];
+        $data = array('type' => $type, 'value' => 1);
         $reward = new Reward($data);
         $this->assertSame($type, $reward->getType());
         $this->assertSame($data, $reward->getData());
@@ -26,7 +26,7 @@ class RewardTest extends TestCase
         $collector = $this->getMockBuilder(CollectorInterface::class)->getMock();
         $provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $reward = new Reward(['type' => 'type']);
+        $reward = new Reward(array('type' => 'type'));
         $provider->expects($this->once())->method('getCollector')->with($this->equalTo($reward))->willReturn($collector);
         $collector->expects($this->once())->method('collect')->with($this->equalTo($reward));
         $reward->collect($provider, $quest);
@@ -34,6 +34,6 @@ class RewardTest extends TestCase
     public function testMissingType()
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Reward([]);
+        new Reward(array());
     }
 }

@@ -48,7 +48,7 @@ class ProgressListenerTest extends TestCase
         $this->mockRegisterQuest($quest);
         $this->listener->registerQuest($quest);
 
-        return [$this->listener, $quest, $this->dispatcher];
+        return array($this->listener, $quest, $this->dispatcher);
     }
     /**
      * @depends testRegisterQuest
@@ -65,7 +65,7 @@ class ProgressListenerTest extends TestCase
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
-        $task->expects($this->once())->method('getTaskIdTypes')->willReturn([]);
+        $task->expects($this->once())->method('getTaskIdTypes')->willReturn(array());
         $questData->expects($this->once())->method('getTask')->willReturn($task);
         $quest->expects($this->once())->method('getQuestId')->willReturn($questId);
         $this->questRegistry->expects($this->once())->method('getQuest')->with($this->equalTo($questId))->willReturn($questData);
@@ -77,15 +77,15 @@ class ProgressListenerTest extends TestCase
         $questId = 1;
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
-        $task->expects($this->once())->method('getTaskIdTypes')->willReturn([$taskId = 11 => 'taskType']);
+        $task->expects($this->once())->method('getTaskIdTypes')->willReturn(array($taskId = 11 => 'taskType'));
         $questData->expects($this->once())->method('getTask')->willReturn($task);
         $quest->expects($this->any())->method('getQuestId')->willReturn($questId);
         $this->questRegistry->expects($this->once())->method('getQuest')->with($this->equalTo($questId))->willReturn($questData);
         $mockHandlerFunction = new MockHandlerFunction(function () {
-        }, ['eventName' => 'handle']);
+        }, array('eventName' => 'handle'));
         $this->progressFunctionBuilder->expects($this->once())->method('build')->with($this->equalTo('taskType'))->willReturn($mockHandlerFunction);
         $event = new Event();
-        $this->progressHandler->expects($this->once())->method('handle')->with($this->equalTo($quest), $this->equalTo($taskId), $this->equalTo([$mockHandlerFunction, 'handle']), $this->equalTo($event));
+        $this->progressHandler->expects($this->once())->method('handle')->with($this->equalTo($quest), $this->equalTo($taskId), $this->equalTo(array($mockHandlerFunction, 'handle')), $this->equalTo($event));
         $this->dispatcher->expects($this->once())->method('addListener')->with($this->equalTo('eventName'))->willReturnCallback(function ($eventName, $listener) use ($event) {
             $listener($event);
         });

@@ -17,7 +17,7 @@ class MultipleRewardsTest extends TestCase
     {
         $provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $rewards = [];
+        $rewards = array();
         for ($i = 0; $i < 2; $i++) {
             $rewardMock = $this->getMockBuilder(RewardInterface::class)->getMock();
             $rewardMock->expects($this->once())->method('collect')->with($this->equalTo($provider), $this->equalTo($quest));

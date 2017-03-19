@@ -10,8 +10,8 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 class ArrayStorage implements QuestStorageInterface
 {
     /** @var QuestInterface[] */
-    private $quests = [];
-    public function __construct(array $quests = [])
+    private $quests = array();
+    public function __construct(array $quests = array())
     {
         foreach ($quests as $quest) {
             $this->quests[$quest->getQuestId()] = $quest;

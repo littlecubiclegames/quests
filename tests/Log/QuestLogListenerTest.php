@@ -23,7 +23,7 @@ class QuestLogListenerTest extends TestCase
         $quest->expects($this->once())->method('getState')->willReturn($previousState);
         $logger = $this->getMockBuilder(QuestLoggerInterface::class)->getMock();
         $logger->expects($this->once())->method('log')->with($this->equalTo($quest), $this->equalTo($previousState), $this->equalTo($newState));
-        $listener = new QuestLogListener([$logger]);
+        $listener = new QuestLogListener(array($logger));
         $listener->logChange(new Event($quest, new Marking(), new Transition($newState, $previousState, '')));
     }
 }

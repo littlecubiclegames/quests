@@ -18,6 +18,6 @@ class FinishQuests implements HandlerFunctionInterface
     }
     public function getEventMap()
     {
-        return [sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'handle'];
+        return array(sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'handle');
     }
 }

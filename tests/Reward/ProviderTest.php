@@ -20,7 +20,7 @@ class ProviderTest extends TestCase
         $reward->expects($this->once())->method('getType')->willReturn($rewardType);
         $collector = $this->getMockBuilder(CollectorInterface::class)->getMock();
         $collector->expects($this->once())->method('getType')->willReturn($rewardType);
-        $provider = new Provider([$collector]);
+        $provider = new Provider(array($collector));
         $actual = $provider->getCollector($reward);
         $this->assertSame($collector, $actual);
     }
@@ -32,7 +32,7 @@ class ProviderTest extends TestCase
         $collector = $this->getMockBuilder(CollectorInterface::class)->getMock();
         $collector->expects($this->any())->method('getType')->willReturn('other');
         $this->expectException(InvalidQuestRewardCollectorException::class);
-        $provider = new Provider([$collector]);
+        $provider = new Provider(array($collector));
         $provider->getCollector($reward);
     }
 }

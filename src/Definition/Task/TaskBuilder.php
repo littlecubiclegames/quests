@@ -9,7 +9,7 @@ class TaskBuilder
 {
     public function build(array $taskData)
     {
-        $children = [];
+        $children = array();
         if (isset($taskData['children'])) {
             $children = array_map(function (array $taskData) {
                 return $this->build($taskData);

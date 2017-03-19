@@ -28,7 +28,7 @@ class QuestBuilderTest extends TestCase
     }
     public function testBuild()
     {
-        $data = ['id' => 1, 'task' => $task = []];
+        $data = array('id' => 1, 'task' => $task = array());
         $this->taskBuilder->expects($this->once())->method('build')->with($this->equalTo($task))->willReturn($this->task);
         $quest = $this->builder->build($data);
         $this->assertInstanceOf(Quest::class, $quest);

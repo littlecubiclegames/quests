@@ -20,6 +20,6 @@ class SlotTest extends TestCase
     }
     public function isActiveProvider()
     {
-        return [[null, null, true], [(new \DateTime())->add(new \DateInterval('P1D')), null, false], [null, (new \DateTime())->sub(new \DateInterval('P1D')), false], [(new \DateTime())->sub(new \DateInterval('P1D')), null, true], [null, (new \DateTime())->add(new \DateInterval('P1D')), true], [(new \DateTime())->sub(new \DateInterval('P1D')), (new \DateTime())->add(new \DateInterval('P1D')), true]];
+        return array(array(null, null, true), array((new \DateTime())->add(new \DateInterval('P1D')), null, false), array(null, (new \DateTime())->sub(new \DateInterval('P1D')), false), array((new \DateTime())->sub(new \DateInterval('P1D')), null, true), array(null, (new \DateTime())->add(new \DateInterval('P1D')), true), array((new \DateTime())->sub(new \DateInterval('P1D')), (new \DateTime())->add(new \DateInterval('P1D')), true));
     }
 }

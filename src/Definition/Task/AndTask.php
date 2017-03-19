@@ -28,6 +28,6 @@ class AndTask implements TaskInterface
     {
         return array_reduce($this->tasks, function ($map, TaskInterface $task) {
             return $map + $task->getTaskIdTypes();
-        }, []);
+        }, array());
     }
 }

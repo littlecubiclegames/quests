@@ -11,6 +11,5 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 interface CollectorInterface
 {
     public function collect(RewardInterface $reward, QuestInterface $quest);
-
     public function getType();
 }

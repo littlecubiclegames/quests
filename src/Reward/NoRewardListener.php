@@ -34,6 +34,6 @@ class NoRewardListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return [sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'validate'];
+        return array(sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'validate');
     }
 }

@@ -27,6 +27,6 @@ class StateChangeListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return [sprintf('workflow.%s.announce', QuestDefinitionInterface::WORKFLOW_NAME) => 'handle'];
+        return array(sprintf('workflow.%s.announce', QuestDefinitionInterface::WORKFLOW_NAME) => 'handle');
     }
 }

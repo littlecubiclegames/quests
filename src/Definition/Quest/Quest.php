@@ -44,6 +44,6 @@ class Quest
     }
     public function getTaskEventMap()
     {
-        return [];
+        return array();
     }
 }

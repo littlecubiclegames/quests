@@ -38,6 +38,6 @@ class ProgressHandlerTest extends TestCase
         };
         $mockHandler = new MockHandlerFunction($handlerFunction);
         $handler = new ProgressHandler($workflow, $storage);
-        $handler->handle($quest, $taskId, [$mockHandler, 'handle'], $event);
+        $handler->handle($quest, $taskId, array($mockHandler, 'handle'), $event);
     }
 }

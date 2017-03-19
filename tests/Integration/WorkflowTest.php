@@ -7,6 +7,7 @@ namespace LittleCubicleGames\Tests\Quests\Integration;
 
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use LittleCubicleGames\Tests\Quests\Mock\Entity\MockQuest;
+use LittleCubicleGames\Tests\Quests\Mock\Initialization\MockQuestBuilder;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Marking;
 use Symfony\Component\Workflow\Transition;
@@ -17,12 +18,13 @@ class WorkflowTest extends AbstractIntegrationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->app['cubicle.quests.quests'] = [['id' => 0, 'task' => ['id' => 1, 'type' => 'reject-quests', 'operator' => 'less-than', 'value' => 10]], ['id' => 1, 'task' => ['id' => 1, 'type' => 'reject-quests', 'operator' => 'more-than', 'value' => 10]]];
-        $this->app['cubicle.quests.active.quests'] = [];
+        $this->app['cubicle.quests.quests'] = array(array('id' => 0, 'task' => array('id' => 1, 'type' => 'reject-quests', 'operator' => 'less-than', 'value' => 10)), array('id' => 1, 'task' => array('id' => 1, 'type' => 'reject-quests', 'operator' => 'more-than', 'value' => 10)));
+        $this->app['cubicle.quests.active.quests'] = array();
     }
     public function testInitialize()
     {
         $this->app->boot();
+        $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $listeners = $this->app['dispatcher']->getListeners();
         $this->app['cubicle.quests.initializer']->initialize(1);
         $this->assertSame($listeners, $this->app['dispatcher']->getListeners());
@@ -43,7 +45,7 @@ class WorkflowTest extends AbstractIntegrationTest
     }
     public function transitionProvider()
     {
-        return [[QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_START, QuestDefinitionInterface::STATE_IN_PROGRESS], [QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_COMPLETE, QuestDefinitionInterface::STATE_COMPLETED], [QuestDefinitionInterface::STATE_COMPLETED, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD, QuestDefinitionInterface::STATE_FINISHED], [QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_REJECT, QuestDefinitionInterface::STATE_REJECTED], [QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_ABORT, QuestDefinitionInterface::STATE_REJECTED]];
+        return array(array(QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_START, QuestDefinitionInterface::STATE_IN_PROGRESS), array(QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_COMPLETE, QuestDefinitionInterface::STATE_COMPLETED), array(QuestDefinitionInterface::STATE_COMPLETED, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD, QuestDefinitionInterface::STATE_FINISHED), array(QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_REJECT, QuestDefinitionInterface::STATE_REJECTED), array(QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_ABORT, QuestDefinitionInterface::STATE_REJECTED));
     }
     public function testProgress()
     {

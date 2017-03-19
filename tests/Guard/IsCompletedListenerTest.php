@@ -24,7 +24,7 @@ class IsCompletedListenerTest extends TestCase
     public function testValidate($expected, $isFinished)
     {
         $questId = 1;
-        $progressMap = [0 => 0];
+        $progressMap = array(0 => 0);
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
         $task->expects($this->once())->method('isFinished')->with($this->equalTo($progressMap))->willReturn($isFinished);
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
@@ -39,6 +39,6 @@ class IsCompletedListenerTest extends TestCase
     }
     public function validateProvider()
     {
-        return [[true, false], [false, true]];
+        return array(array(true, false), array(false, true));
     }
 }

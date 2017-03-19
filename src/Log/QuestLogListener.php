@@ -28,6 +28,6 @@ class QuestLogListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return [sprintf('workflow.%s.enter', QuestDefinitionInterface::WORKFLOW_NAME) => 'logChange'];
+        return array(sprintf('workflow.%s.enter', QuestDefinitionInterface::WORKFLOW_NAME) => 'logChange');
     }
 }

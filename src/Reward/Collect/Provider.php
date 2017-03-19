@@ -26,6 +26,6 @@ class Provider
         $availableCollectors = array_map(function (CollectorInterface $collector) {
             return $collector->getType();
         }, $this->collectors);
-        throw new InvalidQuestRewardCollectorException(sprintf("Requested collector: '%s', available collectors: [%s]", $type, implode(',', $availableCollectors)));
+        throw new InvalidQuestRewardCollectorException(sprintf('Requested collector: \'%s\', available collectors: [%s]', $type, implode(',', $availableCollectors)));
     }
 }
