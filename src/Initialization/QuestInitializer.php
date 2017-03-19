@@ -2,6 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Initialization;
 
+use LittleCubicleGames\Quests\Definition\Registry;
 use LittleCubicleGames\Quests\Initialization\Event\Event;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Quests\Slot\SlotLoaderInterface;
@@ -19,13 +20,19 @@ class QuestInitializer
     private $slotLoader;
     /** @var EventDispatcherInterface */
     private $dispatcher;
+    /** @var Registry */
+    private $registry;
+    /** @var QuestBuilderInterface */
+    private $questBuilder;
 
-    public function __construct(QuestStorageInterface $questStorage, ProgressListener $questProgressListener, SlotLoaderInterface $slotLoader, EventDispatcherInterface $dispatcher)
+    public function __construct(QuestStorageInterface $questStorage, ProgressListener $questProgressListener, SlotLoaderInterface $slotLoader, EventDispatcherInterface $dispatcher, Registry $registry, QuestBuilderInterface $questBuilder)
     {
         $this->questStorage = $questStorage;
         $this->questProgressListener = $questProgressListener;
         $this->slotLoader = $slotLoader;
         $this->dispatcher = $dispatcher;
+        $this->registry = $registry;
+        $this->questBuilder = $questBuilder;
     }
 
     public function initialize($userId)
@@ -42,6 +49,15 @@ class QuestInitializer
                     $this->questProgressListener->registerQuest($quest);
                 }
 
+                $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
+            }
+        }
+
+        foreach ($slots->getUnusedSlots() as $slot) {
+            $nextQuest = $this->registry->getNextQuest();
+            if ($nextQuest) {
+                $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $userId);
+                $this->questStorage->save($quest);
                 $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
             }
         }

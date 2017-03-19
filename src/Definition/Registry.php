@@ -34,4 +34,9 @@ class Registry
 
         return $this->cache->fetch($id);
     }
+
+    public function getNextQuest(): ?Quest
+    {
+        return array_rand($this->quests);
+    }
 }

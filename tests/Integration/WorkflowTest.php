@@ -4,6 +4,7 @@ namespace LittleCubicleGames\Tests\Quests\Integration;
 
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use LittleCubicleGames\Tests\Quests\Mock\Entity\MockQuest;
+use LittleCubicleGames\Tests\Quests\Mock\Initialization\MockQuestBuilder;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Marking;
 use Symfony\Component\Workflow\Transition;
@@ -39,6 +40,7 @@ class WorkflowTest extends AbstractIntegrationTest
     {
         $this->app->boot();
 
+        $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $listeners = $this->app['dispatcher']->getListeners();
         $this->app['cubicle.quests.initializer']->initialize(1);
 
