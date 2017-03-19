@@ -3,6 +3,7 @@
 namespace LittleCubicleGames\Quests\Slot;
 
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
+use LittleCubicleGames\Quests\Definition\Slot\SlotCollection;
 
 class StaticSlotLoader implements SlotLoaderInterface
 {
@@ -18,7 +19,7 @@ class StaticSlotLoader implements SlotLoaderInterface
         $this->slotBuilder = $slotBuilder;
     }
 
-    public function getSlotsForUser($userId): array
+    public function getSlotsForUser($userId): SlotCollection
     {
         $slots = [];
         foreach ($this->slots as $slotData) {
@@ -28,6 +29,6 @@ class StaticSlotLoader implements SlotLoaderInterface
             }
         }
 
-        return $slots;
+        return new SlotCollection($slots);
     }
 }

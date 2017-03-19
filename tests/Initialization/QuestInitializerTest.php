@@ -3,6 +3,7 @@
 namespace LittleCubicleGames\Tests\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
+use LittleCubicleGames\Quests\Definition\Slot\SlotCollection;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
@@ -62,14 +63,15 @@ class QuestInitializerTest extends TestCase
                 $quest2,
             ]);
 
+        $slotCollection = new SlotCollection([
+            $slot1 => new Slot($slot1, 'registry'),
+            $slot2 => new Slot($slot2, 'registry'),
+        ]);
         $this->slotLoader
             ->expects($this->once())
             ->method('getSlotsForUser')
             ->with($this->equalTo($userId))
-            ->willReturn([
-                $slot1 => new Slot($slot1, 'registry'),
-                $slot2 => new Slot($slot2, 'registry'),
-            ]);
+            ->willReturn($slotCollection);
 
         $this->progressListener
             ->expects($this->once())
@@ -96,9 +98,9 @@ class QuestInitializerTest extends TestCase
             ->expects($this->once())
             ->method('getSlotsForUser')
             ->with($this->equalTo($userId))
-            ->willReturn([
+            ->willReturn(new SlotCollection([
                 'otherslot' => new Slot('otherslot', 'registry'),
-            ]);
+            ]));
 
         $this->storage
             ->expects($this->once())

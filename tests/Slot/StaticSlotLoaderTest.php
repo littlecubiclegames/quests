@@ -18,7 +18,8 @@ class StaticSlotLoaderTest extends TestCase
             ->method('build');
         $loader = new StaticSlotLoader([], $builder);
 
-        $this->assertSame([], $loader->getSlotsForUser($userId));
+        $slotCollection = $loader->getSlotsForUser($userId);
+        $this->assertSame([], $slotCollection->getUnusedSlots());
     }
 
     public function testGetSlotsForUser()
@@ -30,7 +31,7 @@ class StaticSlotLoaderTest extends TestCase
 
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $slot
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('isActive')
             ->willReturn(true);
 
@@ -48,7 +49,8 @@ class StaticSlotLoaderTest extends TestCase
 
         $loader = new StaticSlotLoader([$slotData], $builder);
 
-        $this->assertSame([$slotId => $slot], $loader->getSlotsForUser($userId));
+        $slotCollection = $loader->getSlotsForUser($userId);
+        $this->assertSame([$slotId => $slot], $slotCollection->getUnusedSlots());
     }
 
     public function testGetSlotsForUserInactive()
@@ -71,7 +73,8 @@ class StaticSlotLoaderTest extends TestCase
             ->willReturn($slot);
 
         $loader = new StaticSlotLoader([$slotData], $builder);
+        $slotCollection = $loader->getSlotsForUser($userId);
 
-        $this->assertSame([], $loader->getSlotsForUser($userId));
+        $this->assertSame([], $slotCollection->getUnusedSlots());
     }
 }

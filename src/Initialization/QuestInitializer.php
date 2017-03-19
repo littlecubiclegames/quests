@@ -31,16 +31,12 @@ class QuestInitializer
 
         $quests = $this->questStorage->getActiveQuests($userId);
         foreach ($quests as $quest) {
-            if (isset($slots[$quest->getSlotId()])) {
-                $slot = $slots[$quest->getSlotId()];
-                unset($slots[$quest->getSlotId()]);
-                if (!$slot->isActive()) {
-                    continue;
-                }
-            }
+            if ($slots->isSlotAvailable($quest->getSlotId())) {
+                $slots->markSlotAsUsed($quest->getSlotId());
 
-            if ($quest->getState() === QuestDefinitionInterface::STATE_IN_PROGRESS) {
-                $this->questProgressListener->registerQuest($quest);
+                if ($quest->getState() === QuestDefinitionInterface::STATE_IN_PROGRESS) {
+                    $this->questProgressListener->registerQuest($quest);
+                }
             }
         }
     }
