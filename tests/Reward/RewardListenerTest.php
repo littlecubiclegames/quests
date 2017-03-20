@@ -3,7 +3,7 @@
 namespace LittleCubicleGames\Tests\Quests\Reward;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Reward\RewardInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Reward\Collect\Provider;
@@ -23,7 +23,7 @@ class RewardListenerTest extends TestCase
     protected function setUp()
     {
         $this->provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
-        $this->registry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
+        $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->listener = new RewardListener($this->registry, $this->provider);
     }
 

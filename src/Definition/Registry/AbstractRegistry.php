@@ -1,25 +1,28 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
-namespace LittleCubicleGames\Quests\Definition;
+namespace LittleCubicleGames\Quests\Definition\Registry;
 
 use Doctrine\Common\Cache\Cache;
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
+use LittleCubicleGames\Quests\Definition\Slot\Slot;
 
-class Registry
+abstract class AbstractRegistry implements CollectibleRegistryInterface
 {
     /** @var array[] */
-    private $quests;
+    protected $quests;
     /** @var QuestBuilder */
     private $questBuilder;
     /** @var Cache */
     private $cache;
+    private $id;
 
-    public function __construct(array $quests, QuestBuilder $questBuilder, Cache $cache)
+    public function __construct(array $quests, QuestBuilder $questBuilder, Cache $cache, $id)
     {
         $this->quests = $quests;
         $this->questBuilder = $questBuilder;
         $this->cache = $cache;
+        $this->id = $id;
     }
 
     public function getQuest($id): Quest
@@ -35,8 +38,14 @@ class Registry
         return $this->cache->fetch($id);
     }
 
-    public function getNextQuest(): ?Quest
+    public function supports($id): bool
     {
-        return array_rand($this->quests);
+        return isset($this->quests[$id]);
     }
+
+    public function supportsSlot(Slot $slot): bool
+    {
+        return null === $this->id || $this->id === $slot->getRegistryId();
+    }
+
 }

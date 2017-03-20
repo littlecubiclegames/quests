@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Reward;
 
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,13 +11,13 @@ use Symfony\Component\Workflow\Workflow;
 
 class NoRewardListener implements EventSubscriberInterface
 {
-    /** @var Registry */
+    /** @var RegistryInterface */
     private $questRegistry;
 
     /** @var Workflow */
     private $worfkflow;
 
-    public function __construct(Registry $questRegistry, Workflow $worfkflow)
+    public function __construct(RegistryInterface $questRegistry, Workflow $worfkflow)
     {
         $this->questRegistry = $questRegistry;
         $this->worfkflow = $worfkflow;

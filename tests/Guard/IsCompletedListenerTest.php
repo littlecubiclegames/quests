@@ -3,7 +3,7 @@
 namespace LittleCubicleGames\Tests\Quests\Guard;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
@@ -42,7 +42,7 @@ class IsCompletedListenerTest extends TestCase
 
         $event = new GuardEvent($quest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_COMPLETE, '', ''));
 
-        $registry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
+        $registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $registry
             ->expects($this->once())
             ->method('getQuest')

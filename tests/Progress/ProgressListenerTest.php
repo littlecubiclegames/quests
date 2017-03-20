@@ -3,7 +3,7 @@
 namespace LittleCubicleGames\Tests\Quests\Progress;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
@@ -29,7 +29,7 @@ class ProgressListenerTest extends TestCase
     protected function setUp()
     {
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
-        $this->questRegistry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
+        $this->questRegistry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->progressHandler = $this->getMockBuilder(ProgressHandler::class)->disableOriginalConstructor()->getMock();
         $this->progressFunctionBuilder = $this->getMockBuilder(ProgressFunctionBuilderInterface::class)->getMock();
 

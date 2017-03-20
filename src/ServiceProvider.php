@@ -5,7 +5,7 @@ namespace LittleCubicleGames\Quests;
 use Doctrine\Common\Cache\ArrayCache;
 use LittleCubicleGames\Quests\Command\ValidationCommand;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RandomRegistry;
 use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
@@ -93,7 +93,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
 
         $pimple['cubicle.quests.registry'] = function (Container $pimple) {
-            return new Registry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.definition.cache']);
+            return new RandomRegistry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.definition.cache'], null);
         };
 
         $pimple['cubicle.quests.rewards.provider'] = function (Container $pimple) {

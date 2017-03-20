@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Progress;
 
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\Workflow\Event\Event;
 
 class ProgressListener implements EventSubscriberInterface
 {
-    /** @var Registry */
+    /** @var RegistryInterface */
     private $questRegistry;
 
     /** @var EventDispatcherInterface */
@@ -26,7 +26,7 @@ class ProgressListener implements EventSubscriberInterface
     /** @var array[] */
     private $questListenerMap = [];
 
-    public function __construct(Registry $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
+    public function __construct(RegistryInterface $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
     {
         $this->questRegistry = $questRegistry;
         $this->dispatcher = $dispatcher;

@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Quests\Guard;
 
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -10,10 +10,10 @@ use Symfony\Component\Workflow\Event\GuardEvent;
 
 class IsCompletedListener implements EventSubscriberInterface
 {
-    /** @var Registry */
+    /** @var RegistryInterface */
     private $questRegistry;
 
-    public function __construct(Registry $questRegistry)
+    public function __construct(RegistryInterface $questRegistry)
     {
         $this->questRegistry = $questRegistry;
     }

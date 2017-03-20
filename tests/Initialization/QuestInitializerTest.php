@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Tests\Quests\Initialization;
 
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Definition\Slot\SlotCollection;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
@@ -31,7 +31,7 @@ class QuestInitializerTest extends TestCase
         $this->progressListener = $this->getMockBuilder(ProgressListener::class)->disableOriginalConstructor()->getMock();
         $this->slotLoader = $this->getMockBuilder(SlotLoaderInterface::class)->getMock();
         $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
-        $this->registry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
+        $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->questBuilder = $this->getMockBuilder(QuestBuilderInterface::class)->getMock();
 
         $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader, $dispatcher, $this->registry, $this->questBuilder);
