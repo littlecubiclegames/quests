@@ -47,5 +47,4 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
     {
         return null === $this->id || $this->id === $slot->getRegistryId();
     }
-
 }

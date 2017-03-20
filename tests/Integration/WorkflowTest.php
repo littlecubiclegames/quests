@@ -34,13 +34,13 @@ class WorkflowTest extends AbstractIntegrationTest
             ],
         ]];
         $this->app['cubicle.quests.active.quests'] = [];
+        $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
     }
 
     public function testInitialize()
     {
         $this->app->boot();
 
-        $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $listeners = $this->app['dispatcher']->getListeners();
         $this->app['cubicle.quests.initializer']->initialize(1);
 

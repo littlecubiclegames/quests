@@ -2,12 +2,11 @@
 
 namespace LittleCubicleGames\Tests\Quests\Initialization;
 
-use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Definition\Slot\SlotCollection;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
-use LittleCubicleGames\Quests\Initialization\QuestBuilderInterface;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
+use LittleCubicleGames\Quests\Initialization\QuestStarter;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Quests\Slot\SlotLoaderInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
@@ -22,19 +21,17 @@ class QuestInitializerTest extends TestCase
     private $storage;
     private $progressListener;
     private $slotLoader;
-    private $registry;
-    private $questBuilder;
+    private $questStarter;
 
     protected function setUp()
     {
         $this->storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
         $this->progressListener = $this->getMockBuilder(ProgressListener::class)->disableOriginalConstructor()->getMock();
         $this->slotLoader = $this->getMockBuilder(SlotLoaderInterface::class)->getMock();
+        $this->questStarter = $this->getMockBuilder(QuestStarter::class)->disableOriginalConstructor()->getMock();
         $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
-        $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
-        $this->questBuilder = $this->getMockBuilder(QuestBuilderInterface::class)->getMock();
 
-        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader, $dispatcher, $this->registry, $this->questBuilder);
+        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader, $this->questStarter, $dispatcher);
     }
 
     public function testInitialize()
