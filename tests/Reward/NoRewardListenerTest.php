@@ -6,7 +6,7 @@
 namespace LittleCubicleGames\Tests\Quests\Reward;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Reward\NoRewardListener;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
@@ -24,7 +24,7 @@ class NoRewardListenerTest extends TestCase
     private $worfklow;
     protected function setUp()
     {
-        $this->registry = $this->getMockBuilder(Registry::class)->disableOriginalConstructor()->getMock();
+        $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->worfklow = $this->getMockBuilder(Workflow::class)->disableOriginalConstructor()->getMock();
         $this->listener = new NoRewardListener($this->registry, $this->worfklow);
     }

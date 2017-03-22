@@ -5,7 +5,7 @@
  */
 namespace LittleCubicleGames\Quests\Reward;
 
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Reward\Collect\Provider;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
@@ -14,11 +14,11 @@ use Symfony\Component\Workflow\Event\Event;
 
 class RewardListener implements EventSubscriberInterface
 {
-    /** @var Registry */
+    /** @var RegistryInterface */
     private $questRegistry;
     /** @var Provider */
     private $rewardCollectorProvider;
-    public function __construct(Registry $questRegistry, Provider $rewardCollectorProvider)
+    public function __construct(RegistryInterface $questRegistry, Provider $rewardCollectorProvider)
     {
         $this->questRegistry = $questRegistry;
         $this->rewardCollectorProvider = $rewardCollectorProvider;
@@ -36,6 +36,6 @@ class RewardListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return array(sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'collect');
+        return array(sprintf('workflow.%s.transition.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'collect');
     }
 }

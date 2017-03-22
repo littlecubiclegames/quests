@@ -20,6 +20,7 @@ class WorkflowTest extends AbstractIntegrationTest
         parent::setUp();
         $this->app['cubicle.quests.quests'] = array(array('id' => 0, 'task' => array('id' => 1, 'type' => 'reject-quests', 'operator' => 'less-than', 'value' => 10)), array('id' => 1, 'task' => array('id' => 1, 'type' => 'reject-quests', 'operator' => 'more-than', 'value' => 10)));
         $this->app['cubicle.quests.active.quests'] = array();
+        $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
     }
     public function testInitialize()
     {

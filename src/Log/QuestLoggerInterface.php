@@ -9,5 +9,5 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 interface QuestLoggerInterface
 {
-    public function log(QuestInterface $quest, $previousState, $newState);
+    public function log(QuestInterface $quest, $previousState, $transitionName);
 }

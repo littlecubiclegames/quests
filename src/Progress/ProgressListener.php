@@ -5,7 +5,7 @@
  */
 namespace LittleCubicleGames\Quests\Progress;
 
-use LittleCubicleGames\Quests\Definition\Registry;
+use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Workflow\Event\Event;
 
 class ProgressListener implements EventSubscriberInterface
 {
-    /** @var Registry */
+    /** @var RegistryInterface */
     private $questRegistry;
     /** @var EventDispatcherInterface */
     private $dispatcher;
@@ -24,7 +24,7 @@ class ProgressListener implements EventSubscriberInterface
     private $progressFunctionBuilder;
     /** @var array[] */
     private $questListenerMap = array();
-    public function __construct(Registry $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
+    public function __construct(RegistryInterface $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)
     {
         $this->questRegistry = $questRegistry;
         $this->dispatcher = $dispatcher;
@@ -67,6 +67,6 @@ class ProgressListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        return array(sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest', sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest');
+        return array(sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest', sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest', sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest', sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest');
     }
 }
