@@ -36,7 +36,7 @@ class NextQuestListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'triggerNextQuest',
+            sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'triggerNextQuest',
         ];
     }
 }
