@@ -1,6 +1,30 @@
 [![Build Status](https://travis-ci.org/littlecubiclegames/quests.svg?branch=master)](https://travis-ci.org/littlecubiclegames/quests)
 # Quest System
 
+## Installation
+`composer require littlecubiclegames/quests`
+
+## Usage
+If you are not using Silex have a look at the `ServiceProvider` to see how to initialize all the services and to see which event listeners need to be registered.
+You will have to implement `LittleCubicleGames\Quests\Initialization\QuestBuilderInterface` which will create a Entity class out of the quest definition data. You might also want to overwrite the currently used `ArrayStorage` with you own persistent storage.
+
+Inside your Silex application you can:
+```php
+$app = new \Silex\Application();
+$app->register(new \LittleCubicleGames\Quests\ServiceProvider(), [
+    'cubicle.quests.quests' => [], // load your quests (see quest definition below)
+    'cubicle.quests.slots' => [], // if you use the `StaticSlotLoader` define your quest slots here (see slot definition below)
+    'cubicle.quests.initializer.questbuilder' => null, // define your QuestBuilder
+]);
+
+// In your app during boot, fetch current user id and initialize the quests
+$userId = null;
+$app['cubicle.quests.initializer']->initialize($userId);
+
+// In your controller advance quests as desired
+$app[''cubicle.quests.advancer']->startQuest($questId, $userId);
+```
+
 ## Quest Components
 
 #### Task
