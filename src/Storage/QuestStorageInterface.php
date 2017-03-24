@@ -12,4 +12,5 @@ interface QuestStorageInterface
      */
     public function getActiveQuests($userId): array;
     public function save(QuestInterface $quest): QuestInterface;
+    public function getUserQuest($userId, $questId): QuestInterface;
 }
