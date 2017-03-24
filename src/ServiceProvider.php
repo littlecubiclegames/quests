@@ -20,7 +20,6 @@ use LittleCubicleGames\Quests\Log\QuestLogListener;
 use LittleCubicleGames\Quests\Progress\ProgressFunctionBuilder;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
-use LittleCubicleGames\Quests\Progress\StateChangeListener;
 use LittleCubicleGames\Quests\Progress\StateFunctionBuilder;
 use LittleCubicleGames\Quests\Reward\Collect\Provider;
 use LittleCubicleGames\Quests\Reward\NoRewardListener;
@@ -106,6 +105,9 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         $pimple['cubicle.quests.storage'] = function (Container $pimple) {
             return new ArrayStorage($pimple['cubicle.quests.active.quests']);
         };
+        $pimple['cubicle.quests.advancer'] = function (Container $pimple) {
+            return new QuestAdvancer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.workflow']);
+        };
         $pimple['cubicle.quests.initializer'] = function (Container $pimple) {
             return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader'], $pimple['cubicle.quests.initializer.queststarter'], $pimple['dispatcher']);
         };
@@ -114,9 +116,6 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
         $pimple['cubicle.quests.initializer.questbuilder'] = function () {
             throw new \Exception('Need to implement service');
-        };
-        $pimple['cubicle.quests.listener.state.change'] = function (Container $pimple) {
-            return new StateChangeListener($pimple['cubicle.quests.storage']);
         };
         $pimple['cubicle.quests.listener.noreward'] = function (Container $pimple) {
             return new NoRewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.workflow']);
@@ -135,7 +134,6 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
     {
         $dispatcher->addSubscriber($app['cubicle.quests.listener.iscompleted.guard']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.progress']);
-        $dispatcher->addSubscriber($app['cubicle.quests.listener.state.change']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.log']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.noreward']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.reward']);
