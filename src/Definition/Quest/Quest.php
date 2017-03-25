@@ -14,12 +14,15 @@ class Quest
     private $id;
     /** @var TaskInterface */
     private $task;
+    /** @var array */
+    private $data;
     /** @var RewardInterface */
     private $reward;
-    public function __construct($id, TaskInterface $task, RewardInterface $reward = null)
+    public function __construct($id, TaskInterface $task, array $data, RewardInterface $reward = null)
     {
         $this->id = $id;
         $this->task = $task;
+        $this->data = $data;
         $this->reward = $reward;
     }
     public function getId()
@@ -42,8 +45,8 @@ class Quest
     {
         return array_keys($this->task->getTaskIdTypes());
     }
-    public function getTaskEventMap()
+    public function getData()
     {
-        return array();
+        return $this->data;
     }
 }
