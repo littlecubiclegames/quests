@@ -40,7 +40,7 @@ class RewardListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COMPLETE) => 'collect',
+            sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_COMPLETED) => 'collect',
         ];
     }
 }
