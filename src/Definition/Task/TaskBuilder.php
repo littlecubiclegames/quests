@@ -26,6 +26,8 @@ class TaskBuilder
                 return new LessThanTask($taskData['id'], $taskData['type'], $taskData['value']);
             case MoreThanTask::TASK_NAME:
                 return new MoreThanTask($taskData['id'], $taskData['type'], $taskData['value']);
+            case EqualToOrMoreTask::TASK_NAME:
+                return new EqualToOrMoreTask($taskData['id'], $taskData['type'], $taskData['value']);
         }
         throw new \InvalidArgumentException(sprintf('Cannot build task with type: %s', $taskData['operator']));
     }

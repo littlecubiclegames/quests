@@ -8,6 +8,7 @@ namespace LittleCubicleGames\Tests\Quests\Integration;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use LittleCubicleGames\Tests\Quests\Mock\Entity\MockQuest;
 use LittleCubicleGames\Tests\Quests\Mock\Initialization\MockQuestBuilder;
+use LittleCubicleGames\Tests\Quests\Mock\Reward\MockCollector;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Marking;
 use Symfony\Component\Workflow\Transition;
@@ -18,9 +19,42 @@ class WorkflowTest extends AbstractIntegrationTest
     protected function setUp()
     {
         parent::setUp();
-        $this->app['cubicle.quests.quests'] = array(array('id' => 0, 'task' => array('id' => 1, 'type' => 'reject-quests', 'operator' => 'less-than', 'value' => 10)), array('id' => 1, 'task' => array('id' => 1, 'type' => 'reject-quests', 'operator' => 'more-than', 'value' => 10)));
-        $this->app['cubicle.quests.active.quests'] = array();
+
+        $this->app['cubicle.quests.quests'] = [[
+            'id' => 0,
+            'task' => [
+                'id' => 1,
+                'type' => 'reject-quests',
+                'operator' => 'less-than',
+                'value' => 10,
+            ],
+        ], [
+            'id' => 1,
+            'task' => [
+                'id' => 1,
+                'type' => 'reject-quests',
+                'operator' => 'more-than',
+                'value' => 10,
+            ],
+        ], [
+            'id' => 2,
+            'task' => [
+                'id' => 1,
+                'type' => 'reject-quests',
+                'operator' => 'less-than',
+                'value' => 10,
+            ],
+            'rewards' => [
+                [
+                    'type' => 'mock',
+                ],
+            ],
+        ]];
+        $this->app['cubicle.quests.active.quests'] = [];
         $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
+        $this->app['cubicle.quests.rewards.collectors'] = [
+            new MockCollector(),
+        ];
     }
     public function testInitialize()
     {
@@ -33,10 +67,10 @@ class WorkflowTest extends AbstractIntegrationTest
     /**
      * @dataProvider transitionProvider
      */
-    public function testTransitionQuest($initialState, $transition, $expectedState)
+    public function testTransitionQuest($initialState, $transition, $expectedState, $questId)
     {
         $this->app->boot();
-        $questData = $this->app['cubicle.quests.registry']->getQuest(0);
+        $questData = $this->app['cubicle.quests.registry']->getQuest($questId);
         $quest = new MockQuest($questData, 1, $initialState, 'slot1');
         /** @var Workflow $workflow */
         $workflow = $this->app['cubicle.quests.workflow'];
@@ -46,7 +80,13 @@ class WorkflowTest extends AbstractIntegrationTest
     }
     public function transitionProvider()
     {
-        return array(array(QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_START, QuestDefinitionInterface::STATE_IN_PROGRESS), array(QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_COMPLETE, QuestDefinitionInterface::STATE_COMPLETED), array(QuestDefinitionInterface::STATE_COMPLETED, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD, QuestDefinitionInterface::STATE_FINISHED), array(QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_REJECT, QuestDefinitionInterface::STATE_REJECTED), array(QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_ABORT, QuestDefinitionInterface::STATE_REJECTED));
+        return [
+            [QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_START, QuestDefinitionInterface::STATE_IN_PROGRESS, 1],
+            [QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_COMPLETE, QuestDefinitionInterface::STATE_COMPLETED, 2],
+            [QuestDefinitionInterface::STATE_COMPLETED, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD, QuestDefinitionInterface::STATE_FINISHED, 2],
+            [QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_REJECT, QuestDefinitionInterface::STATE_REJECTED, 2],
+            [QuestDefinitionInterface::STATE_IN_PROGRESS, QuestDefinitionInterface::TRANSITION_ABORT, QuestDefinitionInterface::STATE_REJECTED, 2],
+        ];
     }
     public function testProgress()
     {
@@ -63,6 +103,6 @@ class WorkflowTest extends AbstractIntegrationTest
             $this->assertSame(QuestDefinitionInterface::STATE_IN_PROGRESS, $quest->getState());
             $this->app['dispatcher']->dispatch($eventName, $event);
         }
-        $this->assertSame(QuestDefinitionInterface::STATE_COMPLETED, $quest->getState());
+        $this->assertSame(QuestDefinitionInterface::STATE_FINISHED, $quest->getState());
     }
 }

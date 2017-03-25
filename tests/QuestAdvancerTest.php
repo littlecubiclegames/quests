@@ -97,7 +97,7 @@ class QuestAdvancerTest extends TestCase
         $this->storage
             ->expects($this->once())
             ->method('getUserQuest')
-            ->with($this->equalTo($questId), $this->equalTo($userId))
+            ->with($this->equalTo($userId), $this->equalTo($questId))
             ->willReturn($quest);
 
         $this->workflow
