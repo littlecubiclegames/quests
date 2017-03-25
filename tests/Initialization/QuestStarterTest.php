@@ -37,11 +37,6 @@ class QuestStarterTest extends TestCase
         $nextQuestData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
         $nextQuest = $this->getMockBuilder(QuestInterface::class)->getMock();
 
-        $quest
-            ->expects($this->once())
-            ->method('getUser')
-            ->willReturn($userId);
-
         $this->registry
             ->expects($this->once())
             ->method('getNextQuest')
@@ -59,11 +54,39 @@ class QuestStarterTest extends TestCase
             ->method('save')
             ->with($this->equalTo($nextQuest));
 
-        $this->questStarter->triggerNext($slot, $quest);
+        $this->questStarter->triggerNext($slot, $userId, $quest);
+    }
+
+    public function testTriggerNextNoPrevious()
+    {
+        $userId = 1;
+        $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
+        $nextQuestData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
+        $nextQuest = $this->getMockBuilder(QuestInterface::class)->getMock();
+
+        $this->registry
+            ->expects($this->once())
+            ->method('getNextQuest')
+            ->with($this->equalTo($slot), $this->equalTo(null))
+            ->willReturn($nextQuestData);
+
+        $this->questBuilder
+            ->expects($this->once())
+            ->method('buildQuest')
+            ->with($this->equalTo($nextQuestData), $this->equalTo($slot), $this->equalTo($userId))
+            ->willReturn($nextQuest);
+
+        $this->questStorage
+            ->expects($this->once())
+            ->method('save')
+            ->with($this->equalTo($nextQuest));
+
+        $this->questStarter->triggerNext($slot, $userId, null);
     }
 
     public function testTriggerNextNoNext()
     {
+        $userId = 1;
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
 
@@ -85,6 +108,6 @@ class QuestStarterTest extends TestCase
             ->expects($this->never())
             ->method('save');
 
-        $this->questStarter->triggerNext($slot, $quest);
+        $this->questStarter->triggerNext($slot, $userId, $quest);
     }
 }

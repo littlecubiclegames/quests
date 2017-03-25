@@ -33,7 +33,7 @@ class NextQuestListenerTest extends TestCase
         $slotId = 'slotId';
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $quest
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getUser')
             ->willReturn($userId);
 
@@ -59,7 +59,7 @@ class NextQuestListenerTest extends TestCase
         $this->questStarter
             ->expects($this->once())
             ->method('triggerNext')
-            ->with($this->equalTo($slot), $this->equalTo($quest));
+            ->with($this->equalTo($slot), $this->equalTo($userId), $this->equalTo($quest));
 
         $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
 

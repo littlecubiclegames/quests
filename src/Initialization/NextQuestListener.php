@@ -29,7 +29,7 @@ class NextQuestListener implements EventSubscriberInterface
         $slot = $slots->getSlot($quest->getSlotId());
 
         if ($slot) {
-            $this->questStarter->triggerNext($slot, $quest);
+            $this->questStarter->triggerNext($slot, $quest->getUser(), $quest);
         }
     }
 

@@ -50,7 +50,7 @@ class QuestInitializer
         }
 
         foreach ($slots->getUnusedSlots() as $slot) {
-            $this->questStarter->triggerNext($slot, null);
+            $this->questStarter->triggerNext($slot, $userId, null);
         }
     }
 }
