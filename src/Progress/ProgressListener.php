@@ -76,10 +76,9 @@ class ProgressListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_START) => 'subscribeQuest',
-            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'unsubscribeQuest',
-            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_ABORT) => 'unsubscribeQuest',
-            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT) => 'unsubscribeQuest',
+            sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_IN_PROGRESS) => 'subscribeQuest',
+            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_COMPLETED) => 'unsubscribeQuest',
+            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_REJECTED) => 'unsubscribeQuest',
         ];
     }
 }
