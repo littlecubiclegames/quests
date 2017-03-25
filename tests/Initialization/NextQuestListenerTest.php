@@ -33,13 +33,13 @@ class NextQuestListenerTest extends TestCase
         $userId = 1;
         $slotId = 'slotId';
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $quest->expects($this->once())->method('getUser')->willReturn($userId);
+        $quest->expects($this->exactly(2))->method('getUser')->willReturn($userId);
         $quest->expects($this->once())->method('getSlotId')->willReturn($slotId);
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $slots = $this->getMockBuilder(SlotCollection::class)->disableOriginalConstructor()->getMock();
         $slots->expects($this->once())->method('getSlot')->with($this->equalTo($slotId))->willReturn($slot);
         $this->slotLoader->expects($this->once())->method('getSlotsForUser')->with($this->equalTo($userId))->willReturn($slots);
-        $this->questStarter->expects($this->once())->method('triggerNext')->with($this->equalTo($slot), $this->equalTo($quest));
+        $this->questStarter->expects($this->once())->method('triggerNext')->with($this->equalTo($slot), $this->equalTo($userId), $this->equalTo($quest));
         $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
         $this->listener->triggerNextQuest($event);
     }
