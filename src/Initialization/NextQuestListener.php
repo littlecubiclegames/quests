@@ -34,7 +34,8 @@ class NextQuestListener implements EventSubscriberInterface
     }
     public static function getSubscribedEvents()
     {
-        $ret158d24655b472d = array(sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'triggerNextQuest');
+        $ret158d24655b472d = array(sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_FINISHED) => 'triggerNextQuest',
+            sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_REJECTED) => 'triggerNextQuest');
         if (!is_array($ret158d24655b472d)) {
             throw new \InvalidArgumentException('Argument returned must be of the type array, ' . gettype($ret158d24655b472d) . ' given');
         }
