@@ -31,7 +31,7 @@ class ArrayStorage implements QuestStorageInterface
     public function getUserQuest($userId, $questId)
     {
         if (!isset($this->quests[$questId])) {
-            throw new \Exception;
+            throw new QuestNotFoundException();
         }
 
         return $this->quests[$questId];

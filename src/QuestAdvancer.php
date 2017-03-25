@@ -41,7 +41,7 @@ class QuestAdvancer
 
     public function advanceQuest($questId, $userId, $transitionName)
     {
-        $quest = $this->questStorage->getUserQuest($questId, $userId);
+        $quest = $this->questStorage->getUserQuest($userId, $questId);
         $this->questWorkflow->apply($quest, $transitionName);
         $this->questStorage->save($quest);
 
