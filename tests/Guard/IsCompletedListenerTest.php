@@ -47,7 +47,7 @@ class IsCompletedListenerTest extends TestCase
             ->expects($this->once())
             ->method('getQuest')
             ->with($this->equalTo($questId))
-            ->willReturn(new Quest($questId, $task));
+            ->willReturn(new Quest($questId, $task, []));
         $listener = new IsCompletedListener($registry);
         $listener->validate($event);
 

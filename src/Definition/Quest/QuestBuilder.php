@@ -23,6 +23,6 @@ class QuestBuilder
         $task = $this->taskBuilder->build($data['task']);
         $reward = $this->rewardBuilder->build($data);
 
-        return new Quest($data['id'], $task, $reward);
+        return new Quest($data['id'], $task, $data, $reward);
     }
 }
