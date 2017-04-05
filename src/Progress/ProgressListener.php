@@ -62,8 +62,9 @@ class ProgressListener implements EventSubscriberInterface
         $questData = $this->questRegistry->getQuest($quest->getQuestId());
 
         $taskMap = $questData->getTask()->getTaskIdTypes();
+        $attributesMap = $questData->getTask()->getTaskIdAttributes();
         foreach ($taskMap as $taskId => $type) {
-            $handlerFunction = $this->progressFunctionBuilder->build($type);
+            $handlerFunction = $this->progressFunctionBuilder->build($type, $attributesMap[$taskId]);
             if ($handlerFunction instanceof InitProgressHandlerFunctionInterface) {
                 $this->questProgressHandler->initProgress($quest, $taskId, $handlerFunction);
             }

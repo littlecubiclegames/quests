@@ -31,4 +31,10 @@ class MoreThanTaskTest extends TestCase
         $task = new MoreThanTask(1, 'type', 10);
         $this->assertEquals([1 => 'type'], $task->getTaskIdTypes());
     }
+
+    public function testGetTaskIdAttributes()
+    {
+        $task = new MoreThanTask(1, 'type', 10, ['subype' => 'subtype']);
+        $this->assertEquals([1 => ['subype' => 'subtype']], $task->getTaskIdAttributes());
+    }
 }

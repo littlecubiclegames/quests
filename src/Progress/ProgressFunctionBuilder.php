@@ -14,10 +14,10 @@ class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
         $this->builders = $builders;
     }
 
-    public function build($taskName): HandlerFunctionInterface
+    public function build($taskName, array $attributes = []): HandlerFunctionInterface
     {
         foreach ($this->builders as $builder) {
-            $progressFunction = $builder->build($taskName);
+            $progressFunction = $builder->build($taskName, $attributes);
             if ($progressFunction) {
                 return $progressFunction;
             }

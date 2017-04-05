@@ -7,4 +7,6 @@ interface TaskInterface
     public function isFinished(array $progressMap): bool;
 
     public function getTaskIdTypes(): array;
+
+    public function getTaskIdAttributes(): array;
 }

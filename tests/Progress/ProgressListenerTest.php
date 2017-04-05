@@ -104,9 +104,13 @@ class ProgressListenerTest extends TestCase
             ->expects($this->once())
             ->method('getTaskIdTypes')
             ->willReturn([]);
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdAttributes')
+            ->willReturn([]);
 
         $questData
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getTask')
             ->willReturn($task);
 
@@ -138,9 +142,13 @@ class ProgressListenerTest extends TestCase
             ->expects($this->once())
             ->method('getTaskIdTypes')
             ->willReturn([$taskId = 11 => 'taskType']);
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdAttributes')
+            ->willReturn([$taskId => []]);
 
         $questData
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getTask')
             ->willReturn($task);
 
