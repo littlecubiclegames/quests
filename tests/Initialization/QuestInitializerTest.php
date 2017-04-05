@@ -42,7 +42,7 @@ class QuestInitializerTest extends TestCase
 
         $quest1 = $this->getMockBuilder(QuestInterface::class)->getMock();
         $quest1
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('getState')
             ->willReturn(QuestDefinitionInterface::STATE_AVAILABLE);
         $quest1
@@ -51,7 +51,7 @@ class QuestInitializerTest extends TestCase
             ->willReturn($slot1);
         $quest2 = $this->getMockBuilder(QuestInterface::class)->getMock();
         $quest2
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('getState')
             ->willReturn(QuestDefinitionInterface::STATE_IN_PROGRESS);
         $quest2

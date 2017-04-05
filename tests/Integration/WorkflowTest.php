@@ -44,13 +44,13 @@ class WorkflowTest extends AbstractIntegrationTest
             'rewards' => [
                 [
                     'type' => 'mock',
-                ]
-            ]
+                ],
+            ],
         ]];
         $this->app['cubicle.quests.active.quests'] = [];
         $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $this->app['cubicle.quests.rewards.collectors'] = [
-            new MockCollector()
+            new MockCollector(),
         ];
     }
 

@@ -6,7 +6,7 @@ use LittleCubicleGames\Quests\Entity\TaskInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\Workflow\Event\Event;
 
-class RejectQuests implements HandlerFunctionInterface
+class RejectQuests implements EventHandlerFunctionInterface
 {
     const NAME = 'reject-quests';
 

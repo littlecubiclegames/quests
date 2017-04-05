@@ -45,7 +45,9 @@ class QuestInitializer
                     $this->questProgressListener->registerQuest($quest);
                 }
 
-                $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
+                if (!in_array($quest->getState(), [QuestDefinitionInterface::STATE_FINISHED, QuestDefinitionInterface::STATE_REJECTED])) {
+                    $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
+                }
             }
         }
 

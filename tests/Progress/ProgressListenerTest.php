@@ -6,6 +6,7 @@ use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
+use LittleCubicleGames\Quests\Progress\Functions\InitProgressHandlerFunctionInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressFunctionBuilderInterface;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
@@ -44,6 +45,27 @@ class ProgressListenerTest extends TestCase
         $this->mockRegisterQuest($quest);
 
         $this->listener->subscribeQuest($event);
+    }
+
+    public function testRegisterQuestInitProgress()
+    {
+        $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
+
+        $this->mockRegisterQuest($quest, false);
+
+        $mockHandlerFunction = $this->getMockBuilder(InitProgressHandlerFunctionInterface::class)->getMock();
+        $this->progressFunctionBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->with($this->equalTo('taskType'))
+            ->willReturn($mockHandlerFunction);
+
+        $this->progressHandler
+            ->expects($this->once())
+            ->method('initProgress')
+            ->with($this->equalTo($quest), $this->equalTo(11), $this->equalTo($mockHandlerFunction));
+
+        $this->listener->registerQuest($quest);
     }
 
     public function testRegisterQuest()
@@ -106,7 +128,7 @@ class ProgressListenerTest extends TestCase
             ->method('addListener');
     }
 
-    private function mockRegisterQuest($quest)
+    private function mockRegisterQuest($quest, $registerHandler = true)
     {
         $questId = 1;
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
@@ -132,6 +154,10 @@ class ProgressListenerTest extends TestCase
             ->method('getQuest')
             ->with($this->equalTo($questId))
             ->willReturn($questData);
+
+        if (!$registerHandler) {
+            return;
+        }
 
         $mockHandlerFunction = new MockHandlerFunction(function () {
         }, ['eventName' => 'handle']);
