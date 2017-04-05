@@ -6,10 +6,10 @@
 namespace LittleCubicleGames\Tests\Quests\Mock\Progress;
 
 use LittleCubicleGames\Quests\Entity\TaskInterface;
-use LittleCubicleGames\Quests\Progress\Functions\HandlerFunctionInterface;
+use LittleCubicleGames\Quests\Progress\Functions\EventHandlerFunctionInterface;
 use Symfony\Component\EventDispatcher\Event;
 
-class MockHandlerFunction implements HandlerFunctionInterface
+class MockHandlerFunction implements EventHandlerFunctionInterface
 {
     /** @var callable */
     private $handlerFunction;

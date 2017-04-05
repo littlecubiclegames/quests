@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Initialization\Event\Event;
@@ -43,7 +40,10 @@ class QuestInitializer
                 if ($quest->getState() === QuestDefinitionInterface::STATE_IN_PROGRESS) {
                     $this->questProgressListener->registerQuest($quest);
                 }
-                $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
+
+                if (!in_array($quest->getState(), [QuestDefinitionInterface::STATE_FINISHED, QuestDefinitionInterface::STATE_REJECTED])) {
+                    $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
+                }
             }
         }
         foreach ($slots->getUnusedSlots() as $slot) {

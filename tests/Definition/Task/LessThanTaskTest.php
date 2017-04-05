@@ -27,4 +27,10 @@ class LessThanTaskTest extends TestCase
         $task = new LessThanTask(1, 'type', 10);
         $this->assertEquals(array(1 => 'type'), $task->getTaskIdTypes());
     }
+
+    public function testGetTaskIdAttributes()
+    {
+        $task = new LessThanTask(1, 'type', 10, ['subype' => 'subtype']);
+        $this->assertEquals([1 => ['subype' => 'subtype']], $task->getTaskIdAttributes());
+    }
 }

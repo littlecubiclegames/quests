@@ -37,8 +37,9 @@ class ValidationCommand extends Command
             try {
                 $quest = $this->questBuilder->build($questData);
                 $taskMap = $quest->getTask()->getTaskIdTypes();
-                foreach ($taskMap as $type) {
-                    $this->progressFunctionBuilder->build($type);
+                $attributesMap = $quest->getTask()->getTaskIdAttributes();
+                foreach ($taskMap as $taskId => $type) {
+                    $this->progressFunctionBuilder->build($type, $attributesMap[$taskId]);
                 }
                 if ($output->isDebug()) {
                     $output->writeln(sprintf('Quest %s is <info>ok</info>', $quest->getId()));

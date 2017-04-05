@@ -9,7 +9,7 @@ use LittleCubicleGames\Quests\Entity\TaskInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\Workflow\Event\Event;
 
-class FinishQuests implements HandlerFunctionInterface
+class FinishQuests implements EventHandlerFunctionInterface
 {
     const NAME = 'finish-quests';
     public function handle(TaskInterface $task, Event $event)

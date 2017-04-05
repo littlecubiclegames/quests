@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Progress;
 
 class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
@@ -13,10 +10,10 @@ class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
     {
         $this->builders = $builders;
     }
-    public function build($taskName)
+    public function build($taskName, array $attributes = [])
     {
         foreach ($this->builders as $builder) {
-            $progressFunction = $builder->build($taskName);
+            $progressFunction = $builder->build($taskName, $attributes);
             if ($progressFunction) {
                 return $progressFunction;
             }

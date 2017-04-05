@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Definition\Task;
 
 abstract class AbstractTask implements TaskInterface
@@ -13,14 +10,21 @@ abstract class AbstractTask implements TaskInterface
     protected $type;
     /** @var int */
     protected $value;
-    public function __construct($id, $type, $value)
+    /** @var mixed[] */
+    private $attributes;
+    public function __construct($id,  $type,  $value, array $attributes = [])
     {
         $this->id = $id;
         $this->type = $type;
         $this->value = $value;
+        $this->attributes = $attributes;
     }
     public function getTaskIdTypes()
     {
         return array($this->id => $this->type);
+    }
+    public function getTaskIdAttributes()
+    {
+        return [$this->id => $this->attributes];
     }
 }

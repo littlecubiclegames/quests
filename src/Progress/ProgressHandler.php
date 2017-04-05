@@ -6,6 +6,7 @@
 namespace LittleCubicleGames\Quests\Progress;
 
 use LittleCubicleGames\Quests\Entity\QuestInterface;
+use LittleCubicleGames\Quests\Progress\Functions\InitProgressHandlerFunctionInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\Event;
@@ -30,6 +31,19 @@ class ProgressHandler
         if ($this->worfkflow->can($quest, QuestDefinitionInterface::TRANSITION_COMPLETE)) {
             $this->worfkflow->apply($quest, QuestDefinitionInterface::TRANSITION_COMPLETE);
         }
+        $this->questStorage->save($quest);
+    }
+
+    public function initProgress(QuestInterface $quest, $taskId, InitProgressHandlerFunctionInterface $handler)
+    {
+        $task = $quest->getTask($taskId);
+        $progress = $handler->initProgress($quest, $task);
+        $task->updateProgress($progress);
+
+        if ($this->worfkflow->can($quest, QuestDefinitionInterface::TRANSITION_COMPLETE)) {
+            $this->worfkflow->apply($quest, QuestDefinitionInterface::TRANSITION_COMPLETE);
+        }
+
         $this->questStorage->save($quest);
     }
 }

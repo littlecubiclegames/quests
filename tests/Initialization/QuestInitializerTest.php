@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Tests\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
@@ -40,14 +37,48 @@ class QuestInitializerTest extends TestCase
         $slot1 = 'slot1';
         $slot2 = 'slot2';
         $quest1 = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $quest1->expects($this->once())->method('getState')->willReturn(QuestDefinitionInterface::STATE_AVAILABLE);
-        $quest1->expects($this->any())->method('getSlotId')->willReturn($slot1);
+        $quest1
+            ->expects($this->any())
+            ->method('getState')
+            ->willReturn(QuestDefinitionInterface::STATE_AVAILABLE);
+        $quest1
+            ->expects($this->any())
+            ->method('getSlotId')
+            ->willReturn($slot1);
         $quest2 = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $quest2->expects($this->once())->method('getState')->willReturn(QuestDefinitionInterface::STATE_IN_PROGRESS);
-        $quest2->expects($this->any())->method('getSlotId')->willReturn($slot2);
-        $this->storage->expects($this->once())->method('getActiveQuests')->with($this->equalTo($userId))->willReturn(array($quest1, $quest2));
-        $this->slotLoader->expects($this->once())->method('getSlotsForUser')->with($this->equalTo($userId))->willReturn(new SlotCollection(array($slot1 => new Slot($slot1, 'registry'), $slot2 => new Slot($slot2, 'registry'))));
-        $this->progressListener->expects($this->once())->method('registerQuest')->with($this->equalTo($quest2));
+        $quest2
+            ->expects($this->any())
+            ->method('getState')
+            ->willReturn(QuestDefinitionInterface::STATE_IN_PROGRESS);
+        $quest2
+            ->expects($this->any())
+            ->method('getSlotId')
+            ->willReturn($slot2);
+
+        $this->storage
+            ->expects($this->once())
+            ->method('getActiveQuests')
+            ->with($this->equalTo($userId))
+            ->willReturn([
+                $quest1,
+                $quest2,
+            ]);
+
+        $slotCollection = new SlotCollection([
+            $slot1 => new Slot($slot1, 'registry'),
+            $slot2 => new Slot($slot2, 'registry'),
+        ]);
+        $this->slotLoader
+            ->expects($this->once())
+            ->method('getSlotsForUser')
+            ->with($this->equalTo($userId))
+            ->willReturn($slotCollection);
+
+        $this->progressListener
+            ->expects($this->once())
+            ->method('registerQuest')
+            ->with($this->equalTo($quest2));
+
         $this->initializer->initialize($userId);
     }
     public function testInitializeUnavailableSlot()

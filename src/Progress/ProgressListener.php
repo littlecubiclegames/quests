@@ -1,13 +1,12 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Progress;
 
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
+use LittleCubicleGames\Quests\Progress\Functions\EventHandlerFunctionInterface;
+use LittleCubicleGames\Quests\Progress\Functions\InitProgressHandlerFunctionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
@@ -53,15 +52,22 @@ class ProgressListener implements EventSubscriberInterface
     {
         $questData = $this->questRegistry->getQuest($quest->getQuestId());
         $taskMap = $questData->getTask()->getTaskIdTypes();
+        $attributesMap = $questData->getTask()->getTaskIdAttributes();
         foreach ($taskMap as $taskId => $type) {
-            $handlerFunction = $this->progressFunctionBuilder->build($type);
-            foreach ($handlerFunction->getEventMap() as $eventName => $method) {
-                $callback = array($handlerFunction, $method);
-                $listener = function (\Symfony\Component\EventDispatcher\Event $event) use ($quest, $taskId, $callback) {
-                    $this->questProgressHandler->handle($quest, $taskId, $callback, $event);
-                };
-                $this->questListenerMap[$quest->getQuestId()][$eventName] = $listener;
-                $this->dispatcher->addListener($eventName, $listener);
+            $handlerFunction = $this->progressFunctionBuilder->build($type, $attributesMap[$taskId]);
+            if ($handlerFunction instanceof InitProgressHandlerFunctionInterface) {
+                $this->questProgressHandler->initProgress($quest, $taskId, $handlerFunction);
+            }
+
+            if ($handlerFunction instanceof EventHandlerFunctionInterface) {
+                foreach ($handlerFunction->getEventMap() as $eventName => $method) {
+                    $callback = array($handlerFunction, $method);
+                    $listener = function (\Symfony\Component\EventDispatcher\Event $event) use ($quest, $taskId, $callback) {
+                        $this->questProgressHandler->handle($quest, $taskId, $callback, $event);
+                    };
+                    $this->questListenerMap[$quest->getQuestId()][$eventName] = $listener;
+                    $this->dispatcher->addListener($eventName, $listener);
+                }
             }
         }
     }
@@ -70,6 +76,7 @@ class ProgressListener implements EventSubscriberInterface
         return array(
             sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_IN_PROGRESS) => 'subscribeQuest',
             sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_COMPLETED) => 'unsubscribeQuest',
-            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_REJECTED) => 'unsubscribeQuest', );
+            sprintf('workflow.%s.leave.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_REJECTED) => 'unsubscribeQuest',
+        );
     }
 }

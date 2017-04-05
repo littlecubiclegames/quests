@@ -32,4 +32,10 @@ class EqualToOrMoreTaskTest extends TestCase
         $task = new EqualToOrMoreTask(1, 'type', 10);
         $this->assertEquals([1 => 'type'], $task->getTaskIdTypes());
     }
+
+    public function testGetTaskIdAttributes()
+    {
+        $task = new EqualToOrMoreTask(1, 'type', 10, ['subype' => 'subtype']);
+        $this->assertEquals([1 => ['subype' => 'subtype']], $task->getTaskIdAttributes());
+    }
 }

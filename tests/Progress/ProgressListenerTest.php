@@ -1,14 +1,12 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Tests\Quests\Progress;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
+use LittleCubicleGames\Quests\Progress\Functions\InitProgressHandlerFunctionInterface;
 use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressFunctionBuilderInterface;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
@@ -42,6 +40,26 @@ class ProgressListenerTest extends TestCase
         $this->mockRegisterQuest($quest);
         $this->listener->subscribeQuest($event);
     }
+    public function testRegisterQuestInitProgress()
+    {
+        $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
+
+        $this->mockRegisterQuest($quest, false);
+
+        $mockHandlerFunction = $this->getMockBuilder(InitProgressHandlerFunctionInterface::class)->getMock();
+        $this->progressFunctionBuilder
+            ->expects($this->once())
+            ->method('build')
+            ->with($this->equalTo('taskType'))
+            ->willReturn($mockHandlerFunction);
+
+        $this->progressHandler
+            ->expects($this->once())
+            ->method('initProgress')
+            ->with($this->equalTo($quest), $this->equalTo(11), $this->equalTo($mockHandlerFunction));
+
+        $this->listener->registerQuest($quest);
+    }
     public function testRegisterQuest()
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
@@ -65,22 +83,69 @@ class ProgressListenerTest extends TestCase
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
-        $task->expects($this->once())->method('getTaskIdTypes')->willReturn(array());
-        $questData->expects($this->once())->method('getTask')->willReturn($task);
-        $quest->expects($this->once())->method('getQuestId')->willReturn($questId);
-        $this->questRegistry->expects($this->once())->method('getQuest')->with($this->equalTo($questId))->willReturn($questData);
+
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdTypes')
+            ->willReturn([]);
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdAttributes')
+            ->willReturn([]);
+
+        $questData
+            ->expects($this->exactly(2))
+            ->method('getTask')
+            ->willReturn($task);
+
+        $quest
+            ->expects($this->once())
+            ->method('getQuestId')
+            ->willReturn($questId);
+
+        $this->questRegistry
+            ->expects($this->once())
+            ->method('getQuest')
+            ->with($this->equalTo($questId))
+            ->willReturn($questData);
+
         $this->listener->registerQuest($quest);
         $this->dispatcher->expects($this->never())->method('addListener');
     }
-    private function mockRegisterQuest($quest)
+    private function mockRegisterQuest($quest, $registerHandler = true)
     {
         $questId = 1;
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
-        $task->expects($this->once())->method('getTaskIdTypes')->willReturn(array($taskId = 11 => 'taskType'));
-        $questData->expects($this->once())->method('getTask')->willReturn($task);
-        $quest->expects($this->any())->method('getQuestId')->willReturn($questId);
-        $this->questRegistry->expects($this->once())->method('getQuest')->with($this->equalTo($questId))->willReturn($questData);
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdTypes')
+            ->willReturn([$taskId = 11 => 'taskType']);
+        $task
+            ->expects($this->once())
+            ->method('getTaskIdAttributes')
+            ->willReturn([$taskId => []]);
+
+        $questData
+            ->expects($this->exactly(2))
+            ->method('getTask')
+            ->willReturn($task);
+
+        $quest
+            ->expects($this->any())
+            ->method('getQuestId')
+            ->willReturn($questId);
+
+        $this->questRegistry
+            ->expects($this->once())
+            ->method('getQuest')
+            ->with($this->equalTo($questId))
+            ->willReturn($questData);
+
+        if (!$registerHandler) {
+            return;
+        }
+
         $mockHandlerFunction = new MockHandlerFunction(function () {
         }, array('eventName' => 'handle'));
         $this->progressFunctionBuilder->expects($this->once())->method('build')->with($this->equalTo('taskType'))->willReturn($mockHandlerFunction);
