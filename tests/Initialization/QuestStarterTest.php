@@ -40,7 +40,7 @@ class QuestStarterTest extends TestCase
         $this->registry
             ->expects($this->once())
             ->method('getNextQuest')
-            ->with($this->equalTo($slot), $this->equalTo($quest))
+            ->with($this->equalTo($userId), $this->equalTo($slot), $this->equalTo($quest))
             ->willReturn($nextQuestData);
 
         $this->questBuilder
@@ -67,7 +67,7 @@ class QuestStarterTest extends TestCase
         $this->registry
             ->expects($this->once())
             ->method('getNextQuest')
-            ->with($this->equalTo($slot), $this->equalTo(null))
+            ->with($this->equalTo($userId), $this->equalTo($slot), $this->equalTo(null))
             ->willReturn($nextQuestData);
 
         $this->questBuilder
@@ -97,7 +97,7 @@ class QuestStarterTest extends TestCase
         $this->registry
             ->expects($this->once())
             ->method('getNextQuest')
-            ->with($this->equalTo($slot), $this->equalTo($quest))
+            ->with($this->equalTo($userId), $this->equalTo($slot), $this->equalTo($quest))
             ->willReturn(null);
 
         $this->questBuilder

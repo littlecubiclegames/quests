@@ -28,11 +28,11 @@ class QuestStarter
         $this->dispatcher = $dispatcher;
     }
 
-    public function triggerNext(Slot $slot, $userId, ?QuestInterface $quest)
+    public function triggerNext(Slot $slot, $user, ?QuestInterface $quest)
     {
-        $nextQuest = $this->registry->getNextQuest($slot, $quest);
+        $nextQuest = $this->registry->getNextQuest($user, $slot, $quest);
         if ($nextQuest) {
-            $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $userId);
+            $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $user);
             $this->questStorage->save($quest);
             $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
         }

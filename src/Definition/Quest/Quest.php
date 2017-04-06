@@ -15,13 +15,16 @@ class Quest
     private $data;
     /** @var RewardInterface */
     private $reward;
+    /** @var TaskInterface */
+    private $trigger;
 
-    public function __construct($id, TaskInterface $task, array $data, ?RewardInterface $reward = null)
+    public function __construct($id, TaskInterface $task, array $data, TaskInterface $trigger, ?RewardInterface $reward = null)
     {
         $this->id = $id;
         $this->task = $task;
         $this->data = $data;
         $this->reward = $reward;
+        $this->trigger = $trigger;
     }
 
     public function getId()
@@ -52,5 +55,10 @@ class Quest
     public function getData(): array
     {
         return $this->data;
+    }
+
+    public function getTrigger(): TaskInterface
+    {
+        return $this->trigger;
     }
 }

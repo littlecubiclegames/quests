@@ -9,5 +9,5 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 interface RegistryInterface
 {
     public function getQuest($id): Quest;
-    public function getNextQuest(Slot $slot, ?QuestInterface $quest = null): ?Quest;
+    public function getNextQuest($user, Slot $slot, ?QuestInterface $quest = null): ?Quest;
 }
