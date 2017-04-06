@@ -6,6 +6,7 @@ use Doctrine\Common\Cache\Cache;
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
+use LittleCubicleGames\Quests\Guard\TriggerValidator;
 
 abstract class AbstractRegistry implements CollectibleRegistryInterface
 {
@@ -13,14 +14,17 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
     protected $quests;
     /** @var QuestBuilder */
     private $questBuilder;
+    /** @var TriggerValidator */
+    protected $triggerValidator;
     /** @var Cache */
     private $cache;
     private $id;
 
-    public function __construct(array $quests, QuestBuilder $questBuilder, Cache $cache, $id)
+    public function __construct(array $quests, QuestBuilder $questBuilder, TriggerValidator $triggerValidator, Cache $cache, $id)
     {
         $this->quests = $quests;
         $this->questBuilder = $questBuilder;
+        $this->triggerValidator = $triggerValidator;
         $this->cache = $cache;
         $this->id = $id;
     }

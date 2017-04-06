@@ -27,11 +27,11 @@ class RegistryCollection implements RegistryInterface
         throw new \Exception(sprintf('Invalid Quest Id: %s', $id));
     }
 
-    public function getNextQuest(Slot $slot, ?QuestInterface $quest = null): ?Quest
+    public function getNextQuest($user, Slot $slot, ?QuestInterface $quest = null): ?Quest
     {
         foreach ($this->registries as $registry) {
             if ($registry->supports($quest->getQuestId())) {
-                return $registry->getNextQuest($slot, $quest);
+                return $registry->getNextQuest($user, $slot, $quest);
             }
         }
     }

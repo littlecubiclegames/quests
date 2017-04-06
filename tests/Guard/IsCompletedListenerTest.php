@@ -4,6 +4,7 @@ namespace LittleCubicleGames\Tests\Quests\Guard;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
+use LittleCubicleGames\Quests\Definition\Task\NullTask;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
@@ -47,7 +48,7 @@ class IsCompletedListenerTest extends TestCase
             ->expects($this->once())
             ->method('getQuest')
             ->with($this->equalTo($questId))
-            ->willReturn(new Quest($questId, $task, []));
+            ->willReturn(new Quest($questId, $task, [], new NullTask()));
         $listener = new IsCompletedListener($registry);
         $listener->validate($event);
 
