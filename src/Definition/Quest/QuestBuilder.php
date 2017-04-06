@@ -6,6 +6,7 @@
 namespace LittleCubicleGames\Quests\Definition\Quest;
 
 use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
+use LittleCubicleGames\Quests\Definition\Task\NullTask;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
 
 class QuestBuilder
@@ -23,7 +24,8 @@ class QuestBuilder
     {
         $task = $this->taskBuilder->build($data['task']);
         $reward = $this->rewardBuilder->build($data);
+        $trigger = isset($data['trigger']) ? $this->taskBuilder->build($data['trigger']) : new NullTask();
 
-        return new Quest($data['id'], $task, $data, $reward);
+        return new Quest($data['id'], $task, $data, $trigger, $reward);
     }
 }

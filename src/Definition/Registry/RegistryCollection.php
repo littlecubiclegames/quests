@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Definition\Registry;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
@@ -31,11 +28,11 @@ class RegistryCollection implements RegistryInterface
         }
         throw new \Exception(sprintf('Invalid Quest Id: %s', $id));
     }
-    public function getNextQuest(Slot $slot, QuestInterface $quest = null)
+    public function getNextQuest($user, Slot $slot, QuestInterface $quest = null)
     {
         foreach ($this->registries as $registry) {
             if ($registry->supports($quest->getQuestId())) {
-                $ret158d2465557aba = $registry->getNextQuest($slot, $quest);
+                $ret158d2465557aba = $registry->getNextQuest($user, $slot, $quest);
                 if (!$ret158d2465557aba instanceof Quest) {
                     throw new \InvalidArgumentException('Argument returned must be of the type Quest, ' . (gettype($ret158d2465557aba) == 'object' ? get_class($ret158d2465557aba) : gettype($ret158d2465557aba)) . ' given');
                 }

@@ -13,6 +13,7 @@ use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
+use LittleCubicleGames\Quests\Guard\TriggerValidator;
 use LittleCubicleGames\Quests\Initialization\NextQuestListener;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
 use LittleCubicleGames\Quests\Initialization\QuestStarter;
@@ -79,7 +80,21 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new Workflow($pimple['cubicle.quests.definition']->build(), $pimple['cubicle.quests.marking_store'], $pimple['dispatcher'], QuestDefinitionInterface::WORKFLOW_NAME);
         };
         $pimple['cubicle.quests.registry'] = function (Container $pimple) {
-            return new RandomRegistry($pimple['cubicle.quests.quests'], $pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.definition.cache'], null);
+            return new RandomRegistry(
+                $pimple['cubicle.quests.quests'],
+                $pimple['cubicle.quests.definition.questbuilder'],
+                $pimple['cubicle.quests.guard.triggervalidator'],
+                $pimple['cubicle.quests.definition.cache'],
+                null
+            );
+        };
+
+        $pimple['cubicle.quests.guard.triggervalidator'] = function (Container $pimple) {
+            return new TriggerValidator(
+                $pimple['cubicle.quests.initializer.questbuilder'],
+                $pimple['cubicle.quests.progress.function.builder'],
+                $pimple['cubicle.quests.progress.handler']
+            );
         };
         $pimple['cubicle.quests.rewards.provider'] = function (Container $pimple) {
             return new Provider($pimple['cubicle.quests.rewards.collectors']);

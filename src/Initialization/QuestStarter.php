@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
@@ -30,11 +27,11 @@ class QuestStarter
         $this->dispatcher = $dispatcher;
     }
 
-    public function triggerNext(Slot $slot, $userId, QuestInterface $quest = null)
+    public function triggerNext(Slot $slot, $user, QuestInterface $quest = null)
     {
-        $nextQuest = $this->registry->getNextQuest($slot, $quest);
+        $nextQuest = $this->registry->getNextQuest($user, $slot, $quest);
         if ($nextQuest) {
-            $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $userId);
+            $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $user);
             $this->questStorage->save($quest);
             $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
         }

@@ -1,12 +1,10 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Tests\Quests\Guard;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
+use LittleCubicleGames\Quests\Definition\Task\NullTask;
 use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
@@ -32,7 +30,7 @@ class IsCompletedListenerTest extends TestCase
         $quest->expects($this->once())->method('getProgressMap')->willReturn($progressMap);
         $event = new GuardEvent($quest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_COMPLETE, '', ''));
         $registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
-        $registry->expects($this->once())->method('getQuest')->with($this->equalTo($questId))->willReturn(new Quest($questId, $task, []));
+        $registry->expects($this->once())->method('getQuest')->with($this->equalTo($questId))->willReturn(new Quest($questId, $task, [], new NullTask()));
         $listener = new IsCompletedListener($registry);
         $listener->validate($event);
         $this->assertSame($expected, $event->isBlocked());

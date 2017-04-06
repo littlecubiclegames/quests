@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Definition\Quest;
 
 use LittleCubicleGames\Quests\Definition\Reward\RewardInterface;
@@ -18,12 +15,16 @@ class Quest
     private $data;
     /** @var RewardInterface */
     private $reward;
-    public function __construct($id, TaskInterface $task, array $data, RewardInterface $reward = null)
+    /** @var TaskInterface */
+    private $trigger;
+
+    public function __construct($id, TaskInterface $task, array $data, TaskInterface $trigger, RewardInterface $reward = null)
     {
         $this->id = $id;
         $this->task = $task;
         $this->data = $data;
         $this->reward = $reward;
+        $this->trigger = $trigger;
     }
     public function getId()
     {
@@ -48,5 +49,9 @@ class Quest
     public function getData()
     {
         return $this->data;
+    }
+    public function getTrigger()
+    {
+        return $this->trigger;
     }
 }

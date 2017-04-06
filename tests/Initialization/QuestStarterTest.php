@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Tests\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
@@ -41,7 +38,7 @@ class QuestStarterTest extends TestCase
         $this->registry
             ->expects($this->once())
             ->method('getNextQuest')
-            ->with($this->equalTo($slot), $this->equalTo($quest
+            ->with($this->equalTo($userId), $this->equalTo($slot), $this->equalTo($quest
             ))->willReturn($nextQuestData);
 
         $this->questBuilder
@@ -68,7 +65,7 @@ class QuestStarterTest extends TestCase
         $this->registry
             ->expects($this->once())
             ->method('getNextQuest')
-            ->with($this->equalTo($slot), $this->equalTo(null))
+            ->with($this->equalTo($userId), $this->equalTo($slot), $this->equalTo(null))
             ->willReturn($nextQuestData);
 
         $this->questBuilder
@@ -90,7 +87,7 @@ class QuestStarterTest extends TestCase
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $quest->expects($this->never())->method('getUser');
-        $this->registry->expects($this->once())->method('getNextQuest')->with($this->equalTo($slot), $this->equalTo($quest))->willReturn(null);
+        $this->registry->expects($this->once())->method('getNextQuest')->with($this->equalTo($userId), $this->equalTo($slot), $this->equalTo($quest))->willReturn(null);
         $this->questBuilder->expects($this->never())->method('buildQuest');
         $this->questStorage->expects($this->never())->method('save');
         $this->questStarter->triggerNext($slot, $userId, $quest);

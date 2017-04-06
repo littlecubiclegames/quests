@@ -12,7 +12,7 @@ abstract class AbstractTask implements TaskInterface
     protected $value;
     /** @var mixed[] */
     private $attributes;
-    public function __construct($id,  $type,  $value, array $attributes = [])
+    public function __construct($id, $type, $value, array $attributes = [])
     {
         $this->id = $id;
         $this->type = $type;

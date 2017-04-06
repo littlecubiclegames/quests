@@ -1,8 +1,5 @@
 <?php
 
-/*
- * This code has been transpiled via TransPHPile. For more information, visit https://github.com/jaytaph/transphpile
- */
 namespace LittleCubicleGames\Quests\Definition\Registry;
 
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
@@ -10,11 +7,26 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 class RandomRegistry extends AbstractRegistry
 {
-    public function getNextQuest(Slot $slot, QuestInterface $quest = null)
+    public function getNextQuest($user, Slot $slot, QuestInterface $quest = null)
     {
-        $key = random_int(0, count($this->quests) - 1);
-        $questId = array_keys($this->quests)[$key];
+        return $this->pickAndValidateQuest(array_keys($this->quests), $user, $slot);
+    }
 
-        return $this->getQuest($questId);
+    private function pickAndValidateQuest(array $questIds, $user, Slot $slot)
+    {
+        if (empty($questIds)) {
+            return null;
+        }
+
+        $key = random_int(0, count($questIds) - 1);
+        $questId = $questIds[$key];
+        unset($questIds[$key]);
+        $newQuest = $this->getQuest($questId);
+
+        if ($this->triggerValidator->canTrigger($newQuest, $slot, $user)) {
+            return $newQuest;
+        }
+
+        return $this->pickAndValidateQuest(array_values($questIds), $user, $slot);
     }
 }
