@@ -8,9 +8,9 @@ class Slot
     private $id;
     /** @var string */
     private $registryId;
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     private $startDate;
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     private $endDate;
 
     public function __construct(string $id, string $registryId, ?\DateTime $startDate = null, ?\DateTime $endDate = null)

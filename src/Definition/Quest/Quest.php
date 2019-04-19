@@ -13,7 +13,7 @@ class Quest
     private $task;
     /** @var array */
     private $data;
-    /** @var RewardInterface */
+    /** @var RewardInterface|null */
     private $reward;
     /** @var TaskInterface */
     private $trigger;

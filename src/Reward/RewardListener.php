@@ -28,11 +28,11 @@ class RewardListener implements EventSubscriberInterface
         $quest = $event->getSubject();
 
         $questDefinition = $this->questRegistry->getQuest($quest->getQuestId());
-        if (!$questDefinition->hasReward()) {
+        $reward = $questDefinition->getReward();
+        if (!isset($reward)) {
             return;
         }
 
-        $reward = $questDefinition->getReward();
         $reward->collect($this->rewardCollectorProvider, $quest);
     }
 

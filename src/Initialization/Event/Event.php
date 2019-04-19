@@ -11,10 +11,10 @@ class Event extends \Symfony\Component\EventDispatcher\Event
 
     /** @var QuestInterface */
     private $quest;
-    /** @var Slot */
+    /** @var Slot|null */
     private $slot;
 
-    public function __construct(QuestInterface $quest, Slot $slot)
+    public function __construct(QuestInterface $quest, ?Slot $slot)
     {
         $this->quest = $quest;
         $this->slot = $slot;
@@ -25,7 +25,7 @@ class Event extends \Symfony\Component\EventDispatcher\Event
         return $this->quest;
     }
 
-    public function getSlot(): Slot
+    public function getSlot(): ?Slot
     {
         return $this->slot;
     }

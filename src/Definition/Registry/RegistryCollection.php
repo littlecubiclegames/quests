@@ -30,7 +30,7 @@ class RegistryCollection implements RegistryInterface
     public function getNextQuest(int $user, Slot $slot, ?QuestInterface $quest = null): ?Quest
     {
         foreach ($this->registries as $registry) {
-            if ($registry->supports($quest->getQuestId())) {
+            if (isset($quest) && $registry->supports($quest->getQuestId())) {
                 return $registry->getNextQuest($user, $slot, $quest);
             }
         }

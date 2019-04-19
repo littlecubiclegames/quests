@@ -14,7 +14,7 @@ class ContinuousRegistry extends AbstractRegistry
             return null;
         }
 
-        $questId = isset($quest) ? $quest->getQuestId() : array_keys($this->quests)[0];
+        $questId = isset($quest) ? $quest->getQuestId() : (int)array_keys($this->quests)[0];
 
         return $this->pickAndValidateQuest($questId, $user, $slot);
     }
@@ -27,7 +27,7 @@ class ContinuousRegistry extends AbstractRegistry
         }
 
         $questIds = array_keys($this->quests);
-        $newKey = array_search($questId, $questIds, true) + 1;
+        $newKey = (int) array_search($questId, $questIds, true) + 1;
 
         if (isset($questIds[$newKey])) {
             return $this->pickAndValidateQuest($questIds[$newKey], $user, $slot);

@@ -14,7 +14,7 @@ class Provider
         $this->collectors = $collectors;
     }
 
-    public function getCollector(RewardInterface $reward): ?CollectorInterface
+    public function getCollector(RewardInterface $reward): CollectorInterface
     {
         $type = $reward->getType();
         foreach ($this->collectors as $collector) {

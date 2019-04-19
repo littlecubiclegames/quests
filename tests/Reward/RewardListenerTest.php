@@ -40,14 +40,11 @@ class RewardListenerTest extends TestCase
             ->willReturn($questId);
 
         $questDefinition = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
-        $questDefinition
-            ->expects($this->once())
-            ->method('hasReward')
-            ->willReturn(false);
 
         $questDefinition
-            ->expects($this->never())
-            ->method('getReward');
+            ->expects($this->once())
+            ->method('getReward')
+            ->willReturn(null);
 
         $this->registry
             ->expects($this->once())
@@ -75,10 +72,6 @@ class RewardListenerTest extends TestCase
             ->with($this->equalTo($this->provider), $this->equalTo($quest));
 
         $questDefinition = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();
-        $questDefinition
-            ->expects($this->once())
-            ->method('hasReward')
-            ->willReturn(true);
 
         $questDefinition
             ->expects($this->once())

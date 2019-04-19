@@ -7,3 +7,4 @@ parameters:
     ignoreErrors:
         - '#Dynamic call to static method PHPUnit\\Framework\\Assert#'
         - '#Dynamic call to static method PHPUnit\\Framework\\TestCase#'
+        - '#ProgressHandler\:\:handle\(\) expects callable#'
