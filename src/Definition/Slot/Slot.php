@@ -38,11 +38,11 @@ class Slot
         }
 
         $now = new \DateTime();
-        if ($this->startDate && $this->startDate > $now) {
+        if (isset($this->startDate) && $this->startDate > $now) {
             return false;
         }
 
-        if ($this->endDate && $this->endDate < $now) {
+        if (isset($this->endDate) && $this->endDate < $now) {
             return false;
         }
 

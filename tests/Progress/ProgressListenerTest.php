@@ -11,6 +11,7 @@ use LittleCubicleGames\Quests\Progress\ProgressHandler;
 use LittleCubicleGames\Quests\Progress\ProgressFunctionBuilderInterface;
 use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Tests\Quests\Mock\Progress\MockHandlerFunction;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,13 +22,13 @@ class ProgressListenerTest extends TestCase
 {
     /** @var ProgressListener */
     private $listener;
-    /** @var EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var EventDispatcherInterface&MockObject */
     private $dispatcher;
-    /** @var RegistryInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var RegistryInterface&MockObject */
     private $questRegistry;
-    /** @var ProgressHandler&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ProgressHandler&MockObject */
     private $progressHandler;
-    /** @var ProgressFunctionBuilderInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ProgressFunctionBuilderInterface&MockObject */
     private $progressFunctionBuilder;
 
     protected function setUp(): void
@@ -135,7 +136,7 @@ class ProgressListenerTest extends TestCase
             ->method('addListener');
     }
 
-    private function mockRegisterQuest(QuestInterface $quest, bool $registerHandler = true): void
+    private function mockRegisterQuest(MockObject $quest, bool $registerHandler = true): void
     {
         $questId = 1;
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();

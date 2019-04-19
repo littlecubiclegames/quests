@@ -10,7 +10,6 @@ class MockHandlerFunction implements EventHandlerFunctionInterface
 {
     /** @var callable */
     private $handlerFunction;
-
     /** @var array */
     private $events;
 
@@ -20,11 +19,11 @@ class MockHandlerFunction implements EventHandlerFunctionInterface
         $this->events = $events;
     }
 
-    public function handle(TaskInterface $calledTask, Event $calledEvent): int
+    public function handle(TaskInterface $calledTask, Event $event): int
     {
         $handle = $this->handlerFunction;
 
-        return $handle($calledTask, $calledEvent);
+        return $handle($calledTask, $event);
     }
 
     public function getEventMap(): array

@@ -31,7 +31,7 @@ class QuestStarter
     public function triggerNext(Slot $slot, int $user, ?QuestInterface $quest): void
     {
         $nextQuest = $this->registry->getNextQuest($user, $slot, $quest);
-        if ($nextQuest) {
+        if (isset($nextQuest)) {
             $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $user);
             $this->questStorage->save($quest);
             $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));

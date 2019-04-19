@@ -6,7 +6,7 @@ use LittleCubicleGames\Quests\Entity\TaskInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\Workflow\Event\Event;
 
-class FinishQuests implements EventHandlerFunctionInterface
+class FinishQuests implements QuestFunctionInterface
 {
     public const NAME = 'finish-quests';
 

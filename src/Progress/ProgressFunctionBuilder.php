@@ -18,7 +18,7 @@ class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
     {
         foreach ($this->builders as $builder) {
             $progressFunction = $builder->build($taskName, $attributes);
-            if ($progressFunction) {
+            if (isset($progressFunction)) {
                 return $progressFunction;
             }
         }

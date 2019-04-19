@@ -8,4 +8,4 @@ test:
 	./vendor/bin/phpunit tests
 
 phpstan:
-	./vendor/bin/phpstan analyse src tests --level=1
+	./vendor/bin/phpstan analyse src tests --level=2
