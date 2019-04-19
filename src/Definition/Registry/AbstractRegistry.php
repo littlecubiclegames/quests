@@ -36,11 +36,11 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
             throw new \Exception(sprintf('Invalid Quest Id: %s', $id));
         }
 
-        if (!$this->cache->contains($id)) {
-            $this->cache->save($id, $this->questBuilder->build($this->quests[$id]));
+        if (!$this->cache->contains((string)$id)) {
+            $this->cache->save((string)$id, $this->questBuilder->build($this->quests[$id]));
         }
 
-        return $this->cache->fetch($id);
+        return $this->cache->fetch((string)$id);
     }
 
     public function supports(int $id): bool

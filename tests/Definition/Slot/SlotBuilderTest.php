@@ -2,7 +2,6 @@
 
 namespace LittleCubicleGames\Tests\Quests\Definition\Slot;
 
-use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +20,6 @@ class SlotBuilderTest extends TestCase
             'end' => $end,
         ]);
 
-        $this->assertInstanceOf(Slot::class, $slot);
         $this->assertSame('id', $slot->getId());
         $this->assertSame('registry', $slot->getRegistryId());
     }

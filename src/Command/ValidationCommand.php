@@ -59,10 +59,12 @@ class ValidationCommand extends Command
 
         if (!$hasError) {
             $output->writeln(sprintf('<info>Quest validation done: %s quest(s) ok</info>', count($this->quests)));
+
             return 0;
         }
 
         $output->writeln('Quest validation done');
+
         return 1;
     }
 }

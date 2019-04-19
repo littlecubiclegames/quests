@@ -23,7 +23,7 @@ class RejectQuestsTest extends AbstractFunctionTest
             ->method('getProgress')
             ->willReturn(1);
 
-        $progress = $this->function->handle($task, new Event(null, new Marking(), new Transition('transition', '', '')));
+        $progress = $this->function->handle($task, new Event(new \stdClass(), new Marking(), new Transition('transition', '', '')));
         $this->assertSame(2, $progress);
     }
 }

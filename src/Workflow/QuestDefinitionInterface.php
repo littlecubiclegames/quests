@@ -14,6 +14,14 @@ interface QuestDefinitionInterface
     public const STATE_FINISHED = 'finished';
     public const STATE_REJECTED = 'rejected';
 
+    public const STATES = [
+        self::STATE_AVAILABLE,
+        self::STATE_IN_PROGRESS,
+        self::STATE_COMPLETED,
+        self::STATE_FINISHED,
+        self::STATE_REJECTED,
+    ];
+
     public const TRANSITION_START = 'start';
     public const TRANSITION_COMPLETE = 'complete';
     public const TRANSITION_COLLECT_REWARD = 'collect_reward';

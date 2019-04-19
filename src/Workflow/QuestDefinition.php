@@ -11,13 +11,7 @@ class QuestDefinition implements QuestDefinitionInterface
     public function build(): Definition
     {
         $builder = new DefinitionBuilder();
-        $builder->addPlaces([
-            self::STATE_AVAILABLE,
-            self::STATE_IN_PROGRESS,
-            self::STATE_COMPLETED,
-            self::STATE_FINISHED,
-            self::STATE_REJECTED,
-        ]);
+        $builder->addPlaces(self::STATES);
 
         $builder->setInitialPlace(self::STATE_AVAILABLE);
 

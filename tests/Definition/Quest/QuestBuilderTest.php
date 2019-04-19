@@ -2,7 +2,6 @@
 
 namespace LittleCubicleGames\Tests\Quests\Definition\Quest;
 
-use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Reward\RewardBuilder;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
@@ -43,7 +42,6 @@ class QuestBuilderTest extends TestCase
 
         $quest = $this->builder->build($data);
 
-        $this->assertInstanceOf(Quest::class, $quest);
         $this->assertSame(1, $quest->getId());
         $this->assertSame($this->task, $quest->getTask());
     }

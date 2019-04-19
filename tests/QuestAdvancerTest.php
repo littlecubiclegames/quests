@@ -36,9 +36,7 @@ class QuestAdvancerTest extends TestCase
 
         $this->mockSetup($questId, $userId, $transitionName);
 
-        $quest = $this->advancer->startQuest($questId, $userId);
-
-        $this->assertInstanceOf(QuestInterface::class, $quest);
+        $this->advancer->startQuest($questId, $userId);
     }
 
     public function testCollectRewardQuest(): void
@@ -49,9 +47,7 @@ class QuestAdvancerTest extends TestCase
 
         $this->mockSetup($questId, $userId, $transitionName);
 
-        $quest = $this->advancer->collectRewardQuest($questId, $userId);
-
-        $this->assertInstanceOf(QuestInterface::class, $quest);
+        $this->advancer->collectRewardQuest($questId, $userId);
     }
 
     public function testAbortQuest(): void
@@ -62,9 +58,7 @@ class QuestAdvancerTest extends TestCase
 
         $this->mockSetup($questId, $userId, $transitionName);
 
-        $quest = $this->advancer->abortQuest($questId, $userId);
-
-        $this->assertInstanceOf(QuestInterface::class, $quest);
+        $this->advancer->abortQuest($questId, $userId);
     }
 
     public function testRejectQuest(): void
@@ -75,9 +69,7 @@ class QuestAdvancerTest extends TestCase
 
         $this->mockSetup($questId, $userId, $transitionName);
 
-        $quest = $this->advancer->rejectQuest($questId, $userId);
-
-        $this->assertInstanceOf(QuestInterface::class, $quest);
+        $this->advancer->rejectQuest($questId, $userId);
     }
 
     public function testAdvanceQuest(): void
@@ -88,9 +80,7 @@ class QuestAdvancerTest extends TestCase
 
         $this->mockSetup($questId, $userId, $transitionName);
 
-        $quest = $this->advancer->advanceQuest($questId, $userId, $transitionName);
-
-        $this->assertInstanceOf(QuestInterface::class, $quest);
+        $this->advancer->advanceQuest($questId, $userId, $transitionName);
     }
 
     private function mockSetup(int $questId, int $userId, string $transitionName): void

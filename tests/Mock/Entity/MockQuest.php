@@ -5,7 +5,6 @@ namespace LittleCubicleGames\Tests\Quests\Mock\Entity;
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Entity\TaskInterface;
-use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 
 class MockQuest implements QuestInterface
 {

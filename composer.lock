@@ -1012,16 +1012,16 @@
         },
         {
             "name": "symfony/workflow",
-            "version": "v4.0.2",
+            "version": "v4.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/workflow.git",
-                "reference": "c4eb6034e6b4b37fd42e307471b4c976021ea69d"
+                "reference": "31fb4e846c17d858d0fa8377bed08cff095fe8e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/workflow/zipball/c4eb6034e6b4b37fd42e307471b4c976021ea69d",
-                "reference": "c4eb6034e6b4b37fd42e307471b4c976021ea69d",
+                "url": "https://api.github.com/repos/symfony/workflow/zipball/31fb4e846c17d858d0fa8377bed08cff095fe8e6",
+                "reference": "31fb4e846c17d858d0fa8377bed08cff095fe8e6",
                 "shasum": ""
             },
             "require": {
@@ -1039,7 +1039,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -1053,20 +1053,20 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
                 {
                     "name": "Grégoire Pineau",
                     "email": "lyrixx@lyrixx.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony Workflow Component",
-            "homepage": "http://symfony.com",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "petrinet",
                 "place",
@@ -1075,7 +1075,7 @@
                 "transition",
                 "workflow"
             ],
-            "time": "2017-12-04T12:31:58+00:00"
+            "time": "2019-04-01T07:32:59+00:00"
         }
     ],
     "packages-dev": [
