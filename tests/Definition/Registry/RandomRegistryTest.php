@@ -2,7 +2,6 @@
 
 namespace LittleCubicleGames\Tests\Quests\Definition\Registry;
 
-use Definition\Registry\AbstractRegistryTest;
 use LittleCubicleGames\Quests\Definition\Registry\RandomRegistry;
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 

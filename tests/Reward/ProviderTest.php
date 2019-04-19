@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProviderTest extends TestCase
 {
-    public function testGetCollector()
+    public function testGetCollector(): void
     {
         $rewardType = 'reward';
 
@@ -32,7 +32,7 @@ class ProviderTest extends TestCase
         $this->assertSame($collector, $actual);
     }
 
-    public function testGetCollectorNotFound()
+    public function testGetCollectorNotFound(): void
     {
         $rewardType = 'reward';
 

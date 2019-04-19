@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class StaticSlotLoaderTest extends TestCase
 {
-    public function testGetSlotsForUserEmpty()
+    public function testGetSlotsForUserEmpty(): void
     {
         $userId = 1;
         $builder = $this->getMockBuilder(SlotBuilder::class)->getMock();
@@ -22,7 +22,7 @@ class StaticSlotLoaderTest extends TestCase
         $this->assertSame([], $slotCollection->getUnusedSlots());
     }
 
-    public function testGetSlotsForUser()
+    public function testGetSlotsForUser(): void
     {
         $userId = 1;
 
@@ -53,7 +53,7 @@ class StaticSlotLoaderTest extends TestCase
         $this->assertSame([$slotId => $slot], $slotCollection->getUnusedSlots());
     }
 
-    public function testGetSlotsForUserInactive()
+    public function testGetSlotsForUserInactive(): void
     {
         $userId = 1;
 

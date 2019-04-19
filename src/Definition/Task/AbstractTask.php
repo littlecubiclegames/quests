@@ -4,7 +4,7 @@ namespace LittleCubicleGames\Quests\Definition\Task;
 
 abstract class AbstractTask implements TaskInterface
 {
-    /** @var mixed */
+    /** @var int */
     protected $id;
     /** @var string */
     protected $type;
@@ -13,7 +13,7 @@ abstract class AbstractTask implements TaskInterface
     /** @var mixed[] */
     private $attributes;
 
-    public function __construct($id, string $type, int $value, array $attributes = [])
+    public function __construct(int $id, string $type, int $value, array $attributes = [])
     {
         $this->id = $id;
         $this->type = $type;

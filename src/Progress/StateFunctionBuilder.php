@@ -8,7 +8,7 @@ use LittleCubicleGames\Quests\Progress\Functions\RejectQuests;
 
 class StateFunctionBuilder implements ProgressFunctionBuilderInterface
 {
-    public function build($taskName, array $attributes = []): ?HandlerFunctionInterface
+    public function build(string $taskName, array $attributes = []): ?HandlerFunctionInterface
     {
         switch ($taskName) {
             case FinishQuests::NAME:

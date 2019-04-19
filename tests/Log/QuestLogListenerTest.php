@@ -12,7 +12,7 @@ use Symfony\Component\Workflow\Transition;
 
 class QuestLogListenerTest extends TestCase
 {
-    public function testLogChange()
+    public function testLogChange(): void
     {
         $previousState = 'previous';
         $newState = 'new';

@@ -11,7 +11,7 @@ class SlotBuilderTest extends TestCase
     /**
      * @dataProvider buildProvider
      */
-    public function testBuild(?string $start, ?string $end)
+    public function testBuild(?string $start, ?string $end): void
     {
         $builder = new SlotBuilder();
         $slot = $builder->build([
@@ -26,7 +26,7 @@ class SlotBuilderTest extends TestCase
         $this->assertSame('registry', $slot->getRegistryId());
     }
 
-    public function buildProvider()
+    public function buildProvider(): array
     {
         return [
             [null, null],

@@ -15,12 +15,12 @@ class SlotCollection
         $this->usedSlots = [];
     }
 
-    public function isSlotAvailable($slotId): bool
+    public function isSlotAvailable(string $slotId): bool
     {
         return isset($this->slots[$slotId]) && $this->slots[$slotId]->isActive() && !isset($this->usedSlots[$slotId]);
     }
 
-    public function getSlot($slotId): ?Slot
+    public function getSlot(string $slotId): ?Slot
     {
         if ($this->isSlotAvailable($slotId)) {
             return $this->slots[$slotId];
@@ -29,7 +29,7 @@ class SlotCollection
         return null;
     }
 
-    public function markSlotAsUsed($slotId): void
+    public function markSlotAsUsed(string $slotId): void
     {
         $this->usedSlots[$slotId] = true;
     }

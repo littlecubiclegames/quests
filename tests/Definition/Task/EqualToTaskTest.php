@@ -10,7 +10,7 @@ class EqualToTaskTest extends TestCase
     /**
      * @dataProvider isFinishedProvider
      */
-    public function testIsFinished(int $value, int $taskId, array $progressMap, bool $expected)
+    public function testIsFinished(int $value, int $taskId, array $progressMap, bool $expected): void
     {
         $task = new EqualToTask($taskId, 'type', $value);
         $this->assertSame($expected, $task->isFinished($progressMap));
@@ -27,13 +27,13 @@ class EqualToTaskTest extends TestCase
         ];
     }
 
-    public function testGetTaskIdTypes()
+    public function testGetTaskIdTypes(): void
     {
         $task = new EqualToTask(1, 'type', 10);
         $this->assertEquals([1 => 'type'], $task->getTaskIdTypes());
     }
 
-    public function testGetTaskIdAttributes()
+    public function testGetTaskIdAttributes(): void
     {
         $task = new EqualToTask(1, 'type', 10, ['subype' => 'subtype']);
         $this->assertEquals([1 => ['subype' => 'subtype']], $task->getTaskIdAttributes());

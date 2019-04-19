@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Definition\Registry;
+namespace LittleCubicleGames\Tests\Quests\Definition\Registry;
 
 use LittleCubicleGames\Quests\Definition\Registry\ContinuousRegistry;
 use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;

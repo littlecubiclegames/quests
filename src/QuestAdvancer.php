@@ -20,27 +20,27 @@ class QuestAdvancer
         $this->questWorkflow = $questWorkflow;
     }
 
-    public function startQuest($questId, $userId): QuestInterface
+    public function startQuest(int $questId, int $userId): QuestInterface
     {
         return $this->advanceQuest($questId, $userId, QuestDefinitionInterface::TRANSITION_START);
     }
 
-    public function collectRewardQuest($questId, $userId): QuestInterface
+    public function collectRewardQuest(int $questId, int $userId): QuestInterface
     {
         return $this->advanceQuest($questId, $userId, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD);
     }
 
-    public function rejectQuest($questId, $userId): QuestInterface
+    public function rejectQuest(int $questId, int $userId): QuestInterface
     {
         return $this->advanceQuest($questId, $userId, QuestDefinitionInterface::TRANSITION_REJECT);
     }
 
-    public function abortQuest($questId, $userId): QuestInterface
+    public function abortQuest(int $questId, int $userId): QuestInterface
     {
         return $this->advanceQuest($questId, $userId, QuestDefinitionInterface::TRANSITION_ABORT);
     }
 
-    public function advanceQuest($questId, $userId, string $transitionName): QuestInterface
+    public function advanceQuest(int $questId, int $userId, string $transitionName): QuestInterface
     {
         $quest = $this->questStorage->getUserQuest($userId, $questId);
         $this->questWorkflow->apply($quest, $transitionName);

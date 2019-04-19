@@ -16,20 +16,25 @@ class QuestStarterTest extends TestCase
 {
     /** @var QuestStarter */
     private $questStarter;
+    /** @var RegistryInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $registry;
+    /** @var QuestBuilderInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $questBuilder;
+    /** @var QuestStorageInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $questStorage;
+    /** @var EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private $dispatcher;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->questBuilder = $this->getMockBuilder(QuestBuilderInterface::class)->getMock();
         $this->questStorage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
-        $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
-        $this->questStarter = new QuestStarter($this->registry, $this->questBuilder, $this->questStorage, $dispatcher);
+        $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+        $this->questStarter = new QuestStarter($this->registry, $this->questBuilder, $this->questStorage, $this->dispatcher);
     }
 
-    public function testTriggerNext()
+    public function testTriggerNext(): void
     {
         $userId = 1;
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
@@ -57,7 +62,7 @@ class QuestStarterTest extends TestCase
         $this->questStarter->triggerNext($slot, $userId, $quest);
     }
 
-    public function testTriggerNextNoPrevious()
+    public function testTriggerNextNoPrevious(): void
     {
         $userId = 1;
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
@@ -84,7 +89,7 @@ class QuestStarterTest extends TestCase
         $this->questStarter->triggerNext($slot, $userId, null);
     }
 
-    public function testTriggerNextNoNext()
+    public function testTriggerNextNoNext(): void
     {
         $userId = 1;
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();

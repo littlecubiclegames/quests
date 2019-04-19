@@ -15,16 +15,12 @@ class ProgressListener implements EventSubscriberInterface
 {
     /** @var RegistryInterface */
     private $questRegistry;
-
     /** @var EventDispatcherInterface */
     private $dispatcher;
-
     /** @var ProgressHandler */
     private $questProgressHandler;
-
     /** @var ProgressFunctionBuilderInterface */
     private $progressFunctionBuilder;
-
     /** @var array[] */
     private $questListenerMap = [];
 
@@ -36,7 +32,7 @@ class ProgressListener implements EventSubscriberInterface
         $this->progressFunctionBuilder = $progressFunctionBuilder;
     }
 
-    public function subscribeQuest(Event $event)
+    public function subscribeQuest(Event $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
@@ -44,7 +40,7 @@ class ProgressListener implements EventSubscriberInterface
         $this->registerQuest($quest);
     }
 
-    public function unsubscribeQuest(Event $event)
+    public function unsubscribeQuest(Event $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
@@ -57,7 +53,7 @@ class ProgressListener implements EventSubscriberInterface
         unset($this->questListenerMap[$quest->getQuestId()]);
     }
 
-    public function registerQuest(QuestInterface $quest)
+    public function registerQuest(QuestInterface $quest): void
     {
         $questData = $this->questRegistry->getQuest($quest->getQuestId());
 
@@ -82,7 +78,7 @@ class ProgressListener implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_IN_PROGRESS) => 'subscribeQuest',

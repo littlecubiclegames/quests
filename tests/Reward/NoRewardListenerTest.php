@@ -17,10 +17,12 @@ class NoRewardListenerTest extends TestCase
 {
     /** @var NoRewardListener */
     private $listener;
+    /** @var RegistryInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $registry;
+    /** @var Workflow&\PHPUnit\Framework\MockObject\MockObject */
     private $worfklow;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->worfklow = $this->getMockBuilder(Workflow::class)->disableOriginalConstructor()->getMock();
@@ -28,7 +30,7 @@ class NoRewardListenerTest extends TestCase
         $this->listener = new NoRewardListener($this->registry, $this->worfklow);
     }
 
-    public function testHasNoReward()
+    public function testHasNoReward(): void
     {
         $questId = 1;
 
@@ -65,7 +67,7 @@ class NoRewardListenerTest extends TestCase
         $this->listener->validate($event);
     }
 
-    public function testHasReward()
+    public function testHasReward(): void
     {
         $questId = 1;
 

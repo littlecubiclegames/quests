@@ -8,7 +8,7 @@ use Symfony\Component\Workflow\Definition;
 
 class QuestDefinitionTest extends TestCase
 {
-    public function testBuild()
+    public function testBuild(): void
     {
         $definition = new QuestDefinition();
 

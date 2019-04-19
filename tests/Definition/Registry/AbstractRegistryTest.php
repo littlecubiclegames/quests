@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Definition\Registry;
+namespace LittleCubicleGames\Tests\Quests\Definition\Registry;
 
 use Doctrine\Common\Cache\Cache;
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
@@ -12,18 +12,21 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AbstractRegistryTest extends TestCase
 {
+    /** @var QuestBuilder&\PHPUnit\Framework\MockObject\MockObject */
     protected $questBuilder;
+    /** @var TriggerValidator&\PHPUnit\Framework\MockObject\MockObject */
     protected $triggerValidator;
+    /** @var Cache&\PHPUnit\Framework\MockObject\MockObject */
     protected $cache;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->questBuilder = $this->getMockBuilder(QuestBuilder::class)->disableOriginalConstructor()->getMock();
         $this->triggerValidator = $this->getMockBuilder(TriggerValidator::class)->disableOriginalConstructor()->getMock();
         $this->cache = $this->getMockBuilder(Cache::class)->getMock();
     }
 
-    public function testGetNextQuest()
+    public function testGetNextQuest(): void
     {
         $userId = 1;
         $questId = 12;
@@ -43,7 +46,7 @@ abstract class AbstractRegistryTest extends TestCase
         $this->assertSame($quest, $registry->getNextQuest($userId, $slot));
     }
 
-    public function testGetNextQuestCannotTrigger()
+    public function testGetNextQuestCannotTrigger(): void
     {
         $userId = 1;
         $questId = 12;
@@ -64,7 +67,7 @@ abstract class AbstractRegistryTest extends TestCase
         $this->assertNull($registry->getNextQuest($userId, $slot));
     }
 
-    public function testGetNextQuestNoQuest()
+    public function testGetNextQuestNoQuest(): void
     {
         $userId = 1;
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
@@ -73,7 +76,7 @@ abstract class AbstractRegistryTest extends TestCase
         $this->assertNull($registry->getNextQuest($userId, $slot));
     }
 
-    protected function mockBuildAndCache($questId, Quest $quest, array $questData)
+    protected function mockBuildAndCache(int $questId, Quest $quest, array $questData): void
     {
         $this->questBuilder
             ->expects($this->once())

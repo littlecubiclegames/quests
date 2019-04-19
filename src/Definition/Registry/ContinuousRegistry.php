@@ -8,9 +8,9 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 class ContinuousRegistry extends AbstractRegistry
 {
-    public function getNextQuest($user, Slot $slot, ?QuestInterface $quest = null): ?Quest
+    public function getNextQuest(int $user, Slot $slot, ?QuestInterface $quest = null): ?Quest
     {
-        if (empty($this->quests)) {
+        if (count($this->quests) === 0) {
             return null;
         }
 
@@ -19,7 +19,7 @@ class ContinuousRegistry extends AbstractRegistry
         return $this->pickAndValidateQuest($questId, $user, $slot);
     }
 
-    private function pickAndValidateQuest($questId, $user, Slot $slot): ?Quest
+    private function pickAndValidateQuest(int $questId, int $user, Slot $slot): ?Quest
     {
         $newQuest = $this->getQuest($questId);
         if ($this->triggerValidator->canTrigger($newQuest, $slot, $user)) {

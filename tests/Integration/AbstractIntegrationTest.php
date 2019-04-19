@@ -11,7 +11,7 @@ abstract class AbstractIntegrationTest extends TestCase
     /** @var Application */
     protected $app;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->app = new Application();
         $this->app->register(new ServiceProvider());

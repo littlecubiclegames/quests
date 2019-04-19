@@ -9,7 +9,6 @@ class StaticSlotLoader implements SlotLoaderInterface
 {
     /** @var array */
     private $slots;
-
     /** @var SlotBuilder */
     private $slotBuilder;
 

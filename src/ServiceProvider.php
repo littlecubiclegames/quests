@@ -35,7 +35,7 @@ use Symfony\Component\Workflow\Workflow;
 
 class ServiceProvider implements ServiceProviderInterface, EventListenerProviderInterface
 {
-    public function register(Container $pimple)
+    public function register(Container $pimple): void
     {
         if (!isset($pimple['cubicle.quests.logger'])) {
             $pimple['cubicle.quests.logger'] = [];
@@ -100,7 +100,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
                 $pimple['cubicle.quests.definition.questbuilder'],
                 $pimple['cubicle.quests.guard.triggervalidator'],
                 $pimple['cubicle.quests.definition.cache'],
-                null
+                'random'
             );
         };
 
@@ -187,7 +187,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
     }
 
-    public function subscribe(Container $app, EventDispatcherInterface $dispatcher)
+    public function subscribe(Container $app, EventDispatcherInterface $dispatcher): void
     {
         $dispatcher->addSubscriber($app['cubicle.quests.listener.iscompleted.guard']);
         $dispatcher->addSubscriber($app['cubicle.quests.listener.progress']);

@@ -4,6 +4,6 @@ namespace LittleCubicleGames\Quests\Entity;
 
 interface TaskInterface
 {
-    public function updateProgress(int $progress);
+    public function updateProgress(int $progress): void;
     public function getProgress(): int;
 }

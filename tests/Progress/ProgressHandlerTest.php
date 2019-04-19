@@ -15,7 +15,7 @@ use Symfony\Component\Workflow\Workflow;
 
 class ProgressHandlerTest extends TestCase
 {
-    public function testHandle()
+    public function testHandle(): void
     {
         $progress = 10;
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
@@ -59,7 +59,7 @@ class ProgressHandlerTest extends TestCase
         $handler->handle($quest, $taskId, [$mockHandler, 'handle'], $event);
     }
 
-    public function testInitProgress()
+    public function testInitProgress(): void
     {
         $progress = 10;
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();

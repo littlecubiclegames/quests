@@ -21,13 +21,16 @@ class ProgressListenerTest extends TestCase
 {
     /** @var ProgressListener */
     private $listener;
-
+    /** @var EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $dispatcher;
+    /** @var RegistryInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $questRegistry;
+    /** @var ProgressHandler&\PHPUnit\Framework\MockObject\MockObject */
     private $progressHandler;
+    /** @var ProgressFunctionBuilderInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $progressFunctionBuilder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
         $this->questRegistry = $this->getMockBuilder(RegistryInterface::class)->getMock();
@@ -37,7 +40,7 @@ class ProgressListenerTest extends TestCase
         $this->listener = new ProgressListener($this->questRegistry, $this->dispatcher, $this->progressHandler, $this->progressFunctionBuilder);
     }
 
-    public function testSubscribe()
+    public function testSubscribe(): void
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $event = new \Symfony\Component\Workflow\Event\Event($quest, new Marking(), new Transition('test', '', ''));
@@ -47,7 +50,7 @@ class ProgressListenerTest extends TestCase
         $this->listener->subscribeQuest($event);
     }
 
-    public function testRegisterQuestInitProgress()
+    public function testRegisterQuestInitProgress(): void
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
 
@@ -68,7 +71,7 @@ class ProgressListenerTest extends TestCase
         $this->listener->registerQuest($quest);
     }
 
-    public function testRegisterQuest()
+    public function testRegisterQuest(): array
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
 
@@ -82,7 +85,7 @@ class ProgressListenerTest extends TestCase
     /**
      * @depends testRegisterQuest
      */
-    public function testCallUnsubscribe($data)
+    public function testCallUnsubscribe(array $data): void
     {
         list($listener, $quest, $dispatcher) = $data;
         $dispatcher
@@ -93,7 +96,7 @@ class ProgressListenerTest extends TestCase
         $listener->unsubscribeQuest(new \Symfony\Component\Workflow\Event\Event($quest, new Marking(), new Transition('test', '', '')));
     }
 
-    public function testRegisterQuestNoTasks()
+    public function testRegisterQuestNoTasks(): void
     {
         $questId = 1;
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
@@ -132,7 +135,7 @@ class ProgressListenerTest extends TestCase
             ->method('addListener');
     }
 
-    private function mockRegisterQuest($quest, $registerHandler = true)
+    private function mockRegisterQuest(QuestInterface $quest, bool $registerHandler = true): void
     {
         $questId = 1;
         $questData = $this->getMockBuilder(Quest::class)->disableOriginalConstructor()->getMock();

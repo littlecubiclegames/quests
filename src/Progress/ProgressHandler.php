@@ -13,7 +13,6 @@ class ProgressHandler
 {
     /** @var Workflow */
     private $worfkflow;
-
     /** @var QuestStorageInterface */
     private $questStorage;
 
@@ -23,7 +22,7 @@ class ProgressHandler
         $this->questStorage = $questStorage;
     }
 
-    public function handle(QuestInterface $quest, $taskId, callable $handler, Event $event)
+    public function handle(QuestInterface $quest, int $taskId, callable $handler, Event $event): void
     {
         $task = $quest->getTask($taskId);
         $progress = call_user_func($handler, $task, $event);
@@ -36,7 +35,7 @@ class ProgressHandler
         $this->questStorage->save($quest);
     }
 
-    public function initProgress(QuestInterface $quest, $taskId, InitProgressHandlerFunctionInterface $handler)
+    public function initProgress(QuestInterface $quest, int $taskId, InitProgressHandlerFunctionInterface $handler): void
     {
         $task = $quest->getTask($taskId);
         $progress = $handler->initProgress($quest, $task);

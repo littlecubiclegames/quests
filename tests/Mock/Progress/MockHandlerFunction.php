@@ -14,13 +14,13 @@ class MockHandlerFunction implements EventHandlerFunctionInterface
     /** @var array */
     private $events;
 
-    public function __construct(callable $handlerFunction, $events = [])
+    public function __construct(callable $handlerFunction, array $events = [])
     {
         $this->handlerFunction = $handlerFunction;
         $this->events = $events;
     }
 
-    public function handle(TaskInterface $calledTask, Event $calledEvent)
+    public function handle(TaskInterface $calledTask, Event $calledEvent): int
     {
         $handle = $this->handlerFunction;
 

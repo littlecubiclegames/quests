@@ -15,7 +15,7 @@ class TaskBuilderTest extends TestCase
     /** @var TaskBuilder */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->builder = new TaskBuilder();
     }
@@ -23,14 +23,14 @@ class TaskBuilderTest extends TestCase
     /**
      * @dataProvider buildProvider
      */
-    public function testBuild(array $taskData, $expectedClass)
+    public function testBuild(array $taskData, string $expectedClass): void
     {
         $task = $this->builder->build($taskData);
 
         $this->assertInstanceOf($expectedClass, $task);
     }
 
-    public function buildProvider()
+    public function buildProvider(): array
     {
         return [
             [['id' => 1, 'value' => 1, 'operator' => EqualToTask::TASK_NAME, 'type' => 'type'], EqualToTask::class],

@@ -28,7 +28,7 @@ class QuestStarter
         $this->dispatcher = $dispatcher;
     }
 
-    public function triggerNext(Slot $slot, $user, ?QuestInterface $quest)
+    public function triggerNext(Slot $slot, int $user, ?QuestInterface $quest): void
     {
         $nextQuest = $this->registry->getNextQuest($user, $slot, $quest);
         if ($nextQuest) {

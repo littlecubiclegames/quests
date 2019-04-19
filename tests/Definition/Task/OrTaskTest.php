@@ -11,7 +11,7 @@ class OrTaskTest extends TestCase
     /**
      * @dataProvider isFinishedProvider
      */
-    public function testIsFinished(bool $value, bool $expected)
+    public function testIsFinished(bool $value, bool $expected): void
     {
         $taskMock = $this->getMockBuilder(TaskInterface::class)->getMock();
         $taskMock
@@ -30,7 +30,7 @@ class OrTaskTest extends TestCase
         ];
     }
 
-    public function testIsFinishedMultiple()
+    public function testIsFinishedMultiple(): void
     {
         $successTaskMock = $this->getMockBuilder(TaskInterface::class)->getMock();
         $successTaskMock
@@ -52,13 +52,13 @@ class OrTaskTest extends TestCase
         $this->assertTrue($task->isFinished([]));
     }
 
-    public function testGetTaskIdTypesEmpty()
+    public function testGetTaskIdTypesEmpty(): void
     {
         $task = new OrTask([]);
         $this->assertSame([], $task->getTaskIdTypes());
     }
 
-    public function testGetTaskIdTypes()
+    public function testGetTaskIdTypes(): void
     {
         $task1Mock = $this->getMockBuilder(TaskInterface::class)->getMock();
         $task1Mock

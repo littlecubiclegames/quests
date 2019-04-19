@@ -18,9 +18,10 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
     protected $triggerValidator;
     /** @var Cache */
     private $cache;
+    /** @var string */
     private $id;
 
-    public function __construct(array $quests, QuestBuilder $questBuilder, TriggerValidator $triggerValidator, Cache $cache, $id)
+    public function __construct(array $quests, QuestBuilder $questBuilder, TriggerValidator $triggerValidator, Cache $cache, string $id)
     {
         $this->quests = $quests;
         $this->questBuilder = $questBuilder;
@@ -29,7 +30,7 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
         $this->id = $id;
     }
 
-    public function getQuest($id): Quest
+    public function getQuest(int $id): Quest
     {
         if (!isset($this->quests[$id])) {
             throw new \Exception(sprintf('Invalid Quest Id: %s', $id));
@@ -42,7 +43,7 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
         return $this->cache->fetch($id);
     }
 
-    public function supports($id): bool
+    public function supports(int $id): bool
     {
         return isset($this->quests[$id]);
     }

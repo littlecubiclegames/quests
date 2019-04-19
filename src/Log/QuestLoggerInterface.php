@@ -6,5 +6,5 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 interface QuestLoggerInterface
 {
-    public function log(QuestInterface $quest, string $previousState, string $transitionName);
+    public function log(QuestInterface $quest, string $previousState, string $transitionName): void;
 }

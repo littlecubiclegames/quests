@@ -13,7 +13,6 @@ class RewardListener implements EventSubscriberInterface
 {
     /** @var RegistryInterface */
     private $questRegistry;
-
     /** @var Provider */
     private $rewardCollectorProvider;
 
@@ -23,7 +22,7 @@ class RewardListener implements EventSubscriberInterface
         $this->rewardCollectorProvider = $rewardCollectorProvider;
     }
 
-    public function collect(Event $event)
+    public function collect(Event $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
@@ -37,7 +36,7 @@ class RewardListener implements EventSubscriberInterface
         $reward->collect($this->rewardCollectorProvider, $quest);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             sprintf('workflow.%s.enter.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::STATE_FINISHED) => 'collect',

@@ -10,12 +10,12 @@ use Symfony\Component\Workflow\Transition;
 
 class RejectQuestsTest extends AbstractFunctionTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->function = new RejectQuests();
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $task = $this->getMockBuilder(TaskInterface::class)->getMock();
         $task

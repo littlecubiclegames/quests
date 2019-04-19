@@ -13,7 +13,7 @@ use Symfony\Component\Workflow\Workflow;
 
 class WorkflowTest extends AbstractIntegrationTest
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -54,7 +54,7 @@ class WorkflowTest extends AbstractIntegrationTest
         ];
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $this->app->boot();
 
@@ -67,7 +67,7 @@ class WorkflowTest extends AbstractIntegrationTest
     /**
      * @dataProvider transitionProvider
      */
-    public function testTransitionQuest($initialState, $transition, $expectedState, $questId)
+    public function testTransitionQuest(string $initialState, string $transition, string $expectedState, int $questId): void
     {
         $this->app->boot();
 
@@ -82,7 +82,7 @@ class WorkflowTest extends AbstractIntegrationTest
         $this->assertSame($expectedState, $quest->getState());
     }
 
-    public function transitionProvider()
+    public function transitionProvider(): array
     {
         return [
             [QuestDefinitionInterface::STATE_AVAILABLE, QuestDefinitionInterface::TRANSITION_START, QuestDefinitionInterface::STATE_IN_PROGRESS, 1],
@@ -93,7 +93,7 @@ class WorkflowTest extends AbstractIntegrationTest
         ];
     }
 
-    public function testProgress()
+    public function testProgress(): void
     {
         $quest = new MockQuest($this->app['cubicle.quests.registry']->getQuest(1), 1, QuestDefinitionInterface::STATE_IN_PROGRESS, 'slot1');
         $eventQuest = new MockQuest($this->app['cubicle.quests.registry']->getQuest(0), 1, QuestDefinitionInterface::STATE_AVAILABLE, 'slot2');

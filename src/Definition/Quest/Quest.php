@@ -7,7 +7,7 @@ use LittleCubicleGames\Quests\Definition\Task\TaskInterface;
 
 class Quest
 {
-    /** @var mixed */
+    /** @var int */
     private $id;
     /** @var TaskInterface */
     private $task;
@@ -18,7 +18,7 @@ class Quest
     /** @var TaskInterface */
     private $trigger;
 
-    public function __construct($id, TaskInterface $task, array $data, TaskInterface $trigger, ?RewardInterface $reward = null)
+    public function __construct(int $id, TaskInterface $task, array $data, TaskInterface $trigger, ?RewardInterface $reward = null)
     {
         $this->id = $id;
         $this->task = $task;
@@ -27,7 +27,7 @@ class Quest
         $this->trigger = $trigger;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }

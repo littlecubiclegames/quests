@@ -26,7 +26,7 @@ class ValidationCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('littlecubiclegames:quests:validation')
@@ -34,7 +34,7 @@ class ValidationCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $hasError = false;
         foreach ($this->quests as $questData) {
@@ -57,10 +57,12 @@ class ValidationCommand extends Command
             }
         }
 
-        if ($hasError) {
-            $output->writeln('Quest validation done');
-        } else {
+        if (!$hasError) {
             $output->writeln(sprintf('<info>Quest validation done: %s quest(s) ok</info>', count($this->quests)));
+            return 0;
         }
+
+        $output->writeln('Quest validation done');
+        return 1;
     }
 }

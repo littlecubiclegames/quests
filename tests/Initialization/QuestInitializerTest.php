@@ -18,23 +18,29 @@ class QuestInitializerTest extends TestCase
 {
     /** @var QuestInitializer */
     private $initializer;
+    /** @var QuestStorageInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $storage;
+    /** @var ProgressListener&\PHPUnit\Framework\MockObject\MockObject */
     private $progressListener;
+    /** @var SlotLoaderInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $slotLoader;
+    /** @var QuestStarter&\PHPUnit\Framework\MockObject\MockObject */
     private $questStarter;
+    /** @var EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private $dispatcher;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
         $this->progressListener = $this->getMockBuilder(ProgressListener::class)->disableOriginalConstructor()->getMock();
         $this->slotLoader = $this->getMockBuilder(SlotLoaderInterface::class)->getMock();
         $this->questStarter = $this->getMockBuilder(QuestStarter::class)->disableOriginalConstructor()->getMock();
-        $dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+        $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
 
-        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader, $this->questStarter, $dispatcher);
+        $this->initializer = new QuestInitializer($this->storage, $this->progressListener, $this->slotLoader, $this->questStarter, $this->dispatcher);
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $userId = 1;
         $slot1 = 'slot1';
@@ -86,7 +92,7 @@ class QuestInitializerTest extends TestCase
         $this->initializer->initialize($userId);
     }
 
-    public function testInitializeUnavailableSlot()
+    public function testInitializeUnavailableSlot(): void
     {
         $userId = 1;
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();

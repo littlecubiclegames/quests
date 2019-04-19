@@ -17,17 +17,19 @@ class RewardListenerTest extends TestCase
 {
     /** @var RewardListener */
     private $listener;
+    /** @var Provider&\PHPUnit\Framework\MockObject\MockObject */
     private $provider;
+    /** @var RegistryInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $registry;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
         $this->registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $this->listener = new RewardListener($this->registry, $this->provider);
     }
 
-    public function testCollectNoReward()
+    public function testCollectNoReward(): void
     {
         $questId = 1;
 
@@ -56,7 +58,7 @@ class RewardListenerTest extends TestCase
         $this->listener->collect(new Event($quest, new Marking(), new Transition('transition', '', '')));
     }
 
-    public function testCollect()
+    public function testCollect(): void
     {
         $questId = 1;
 

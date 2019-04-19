@@ -4,8 +4,9 @@ namespace LittleCubicleGames\Quests\Initialization;
 
 use LittleCubicleGames\Quests\Definition\Quest\Quest;
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
+use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 interface QuestBuilderInterface
 {
-    public function buildQuest(Quest $quest, Slot $slot, $userId);
+    public function buildQuest(Quest $quest, Slot $slot, int $userId): QuestInterface;
 }

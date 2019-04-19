@@ -4,19 +4,19 @@ namespace LittleCubicleGames\Quests\Entity;
 
 interface QuestInterface
 {
-    public function setState(string $state);
+    public function setState(string $state): void;
     public function getState(): string;
 
-    public function getQuestId();
+    public function getQuestId(): int;
 
-    public function getUser();
+    public function getUser(): int;
 
-    public function getSlotId();
+    public function getSlotId(): string;
 
     /**
      * Method must return a map of taskId to progress
      */
     public function getProgressMap(): array;
 
-    public function getTask($taskId): TaskInterface;
+    public function getTask(int $taskId): TaskInterface;
 }

@@ -31,7 +31,7 @@ class QuestInitializer
         $this->dispatcher = $dispatcher;
     }
 
-    public function initialize($userId)
+    public function initialize(int $userId): void
     {
         $slots = $this->slotLoader->getSlotsForUser($userId);
 
@@ -45,7 +45,7 @@ class QuestInitializer
                     $this->questProgressListener->registerQuest($quest);
                 }
 
-                if (!in_array($quest->getState(), [QuestDefinitionInterface::STATE_FINISHED, QuestDefinitionInterface::STATE_REJECTED])) {
+                if (!in_array($quest->getState(), [QuestDefinitionInterface::STATE_FINISHED, QuestDefinitionInterface::STATE_REJECTED], true)) {
                     $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
                 }
             }

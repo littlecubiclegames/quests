@@ -17,7 +17,7 @@ class QuestLogListener implements EventSubscriberInterface
         $this->questLogger = $questLogger;
     }
 
-    public function logChange(Event $event)
+    public function logChange(Event $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
@@ -27,7 +27,7 @@ class QuestLogListener implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             sprintf('workflow.%s.transition', QuestDefinitionInterface::WORKFLOW_NAME) => 'logChange',

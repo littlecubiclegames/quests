@@ -16,7 +16,7 @@ class ArrayStorage implements QuestStorageInterface
         }
     }
 
-    public function getActiveQuests($userId): array
+    public function getActiveQuests(int $userId): array
     {
         return array_values($this->quests);
     }
@@ -28,7 +28,7 @@ class ArrayStorage implements QuestStorageInterface
         return $quest;
     }
 
-    public function getUserQuest($userId, $questId): QuestInterface
+    public function getUserQuest(int $userId, int $questId): QuestInterface
     {
         if (!isset($this->quests[$questId])) {
             throw new QuestNotFoundException();

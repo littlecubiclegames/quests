@@ -10,7 +10,7 @@ abstract class AbstractFunctionTest extends TestCase
     /** @var HandlerFunctionInterface */
     protected $function;
 
-    public function testGetEventMap()
+    public function testGetEventMap(): void
     {
         $map = $this->function->getEventMap();
 

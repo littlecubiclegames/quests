@@ -19,7 +19,7 @@ class IsCompletedListenerTest extends TestCase
     /**
      * @dataProvider validateProvider
      */
-    public function testValidate($expected, $isFinished)
+    public function testValidate(bool $expected, bool $isFinished): void
     {
         $questId = 1;
         $progressMap = [0 => 0];
@@ -55,7 +55,7 @@ class IsCompletedListenerTest extends TestCase
         $this->assertSame($expected, $event->isBlocked());
     }
 
-    public function validateProvider()
+    public function validateProvider(): array
     {
         return [
             [true, false],

@@ -8,9 +8,9 @@ use Symfony\Component\Workflow\Event\Event;
 
 class RejectQuests implements EventHandlerFunctionInterface
 {
-    const NAME = 'reject-quests';
+    public const NAME = 'reject-quests';
 
-    public function handle(TaskInterface $task, Event $event)
+    public function handle(TaskInterface $task, Event $event): int
     {
         return $task->getProgress() + 1;
     }

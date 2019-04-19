@@ -26,7 +26,7 @@ class TriggerValidator
         $this->questProgressHandler = $questProgressHandler;
     }
 
-    public function canTrigger(Quest $questData, Slot $slot, $user)
+    public function canTrigger(Quest $questData, Slot $slot, int $user): bool
     {
         $triggerMap = $questData->getTrigger()->getTaskIdTypes();
         $attributesMap = $questData->getTrigger()->getTaskIdAttributes();

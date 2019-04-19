@@ -9,8 +9,11 @@ use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 
 class MockQuest implements QuestInterface
 {
+    /** @var int */
     private $questId;
+    /** @var int */
     private $user;
+    /** @var string */
     private $state;
 
     /** @var MockQuestTask[] */
@@ -18,7 +21,7 @@ class MockQuest implements QuestInterface
     /** @var string */
     private $slotId;
 
-    public function __construct(Quest $quest, $user, string $state = QuestDefinitionInterface::STATE_AVAILABLE, $slotId)
+    public function __construct(Quest $quest, int $user, string $state, string $slotId)
     {
         $this->questId = $quest->getId();
         $this->user = $user;
@@ -31,17 +34,17 @@ class MockQuest implements QuestInterface
         $this->slotId = $slotId;
     }
 
-    public function setState(string $state)
+    public function setState(string $state): void
     {
         $this->state = $state;
     }
 
-    public function getQuestId()
+    public function getQuestId(): int
     {
         return $this->questId;
     }
 
-    public function getUser()
+    public function getUser(): int
     {
         return $this->user;
     }
@@ -66,7 +69,7 @@ class MockQuest implements QuestInterface
         return $this->state;
     }
 
-    public function getTask($taskId): TaskInterface
+    public function getTask(int $taskId): TaskInterface
     {
         return array_filter($this->tasks, function (MockQuestTask $task) use ($taskId) {
             return $taskId === $task->getTaskId();

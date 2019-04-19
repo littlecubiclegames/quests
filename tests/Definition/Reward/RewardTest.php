@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class RewardTest extends TestCase
 {
-    public function testGetters()
+    public function testGetters(): void
     {
         $type = 'type';
         $data = [
@@ -23,7 +23,7 @@ class RewardTest extends TestCase
         $this->assertSame($data, $reward->getData());
     }
 
-    public function testCollect()
+    public function testCollect(): void
     {
         $collector = $this->getMockBuilder(CollectorInterface::class)->getMock();
         $provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
@@ -44,7 +44,7 @@ class RewardTest extends TestCase
         $reward->collect($provider, $quest);
     }
 
-    public function testMissingType()
+    public function testMissingType(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 

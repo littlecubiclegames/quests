@@ -8,14 +8,14 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 
 class RandomRegistry extends AbstractRegistry
 {
-    public function getNextQuest($user, Slot $slot, ?QuestInterface $quest = null): ?Quest
+    public function getNextQuest(int $user, Slot $slot, ?QuestInterface $quest = null): ?Quest
     {
         return $this->pickAndValidateQuest(array_keys($this->quests), $user, $slot);
     }
 
-    private function pickAndValidateQuest(array $questIds, $user, Slot $slot): ?Quest
+    private function pickAndValidateQuest(array $questIds, int $user, Slot $slot): ?Quest
     {
-        if (empty($questIds)) {
+        if (count($questIds) === 0) {
             return null;
         }
 

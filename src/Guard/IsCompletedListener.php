@@ -18,7 +18,7 @@ class IsCompletedListener implements EventSubscriberInterface
         $this->questRegistry = $questRegistry;
     }
 
-    public function validate(GuardEvent $event)
+    public function validate(GuardEvent $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();

@@ -6,7 +6,7 @@ use LittleCubicleGames\Tests\Quests\Mock\Initialization\MockQuestBuilder;
 
 class ServiceProviderTest extends AbstractIntegrationTest
 {
-    public function testGetAllServices()
+    public function testGetAllServices(): void
     {
         $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $keys = $this->app->keys();
@@ -19,7 +19,7 @@ class ServiceProviderTest extends AbstractIntegrationTest
         }
     }
 
-    public function testBoot()
+    public function testBoot(): void
     {
         $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $this->app->boot();

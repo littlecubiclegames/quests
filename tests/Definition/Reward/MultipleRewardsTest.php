@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class MultipleRewardsTest extends TestCase
 {
-    public function testCollect()
+    public function testCollect(): void
     {
         $provider = $this->getMockBuilder(Provider::class)->disableOriginalConstructor()->getMock();
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();

@@ -7,5 +7,5 @@ use LittleCubicleGames\Quests\Entity\TaskInterface;
 
 interface InitProgressHandlerFunctionInterface extends HandlerFunctionInterface
 {
-    public function initProgress(QuestInterface $quest, TaskInterface $task);
+    public function initProgress(QuestInterface $quest, TaskInterface $task): int;
 }

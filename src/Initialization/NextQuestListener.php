@@ -21,7 +21,7 @@ class NextQuestListener implements EventSubscriberInterface
         $this->questStarter = $questStarter;
     }
 
-    public function triggerNextQuest(Event $event)
+    public function triggerNextQuest(Event $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();

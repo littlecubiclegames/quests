@@ -4,19 +4,16 @@ namespace LittleCubicleGames\Quests\Definition\Slot;
 
 class Slot
 {
-    /** @var mixed */
+    /** @var string */
     private $id;
-
-    /** @var mixed */
+    /** @var string */
     private $registryId;
-
     /** @var \DateTime */
     private $startDate;
-
     /** @var \DateTime */
     private $endDate;
 
-    public function __construct($id, $registryId, ?\DateTime $startDate = null, ?\DateTime $endDate = null)
+    public function __construct(string $id, string $registryId, ?\DateTime $startDate = null, ?\DateTime $endDate = null)
     {
         $this->id = $id;
         $this->registryId = $registryId;
@@ -24,12 +21,12 @@ class Slot
         $this->endDate = $endDate;
     }
 
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function getRegistryId()
+    public function getRegistryId(): string
     {
         return $this->registryId;
     }

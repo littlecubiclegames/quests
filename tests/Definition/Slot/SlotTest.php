@@ -10,13 +10,13 @@ class SlotTest extends TestCase
     /**
      * @dataProvider isActiveProvider
      */
-    public function testIsActive(?\DateTime $start, ?\DateTime $end, bool $expected)
+    public function testIsActive(?\DateTime $start, ?\DateTime $end, bool $expected): void
     {
         $slot = new Slot('1', 'registry', $start, $end);
         $this->assertSame($expected, $slot->isActive());
     }
 
-    public function isActiveProvider()
+    public function isActiveProvider(): array
     {
         return [
             [null, null, true],

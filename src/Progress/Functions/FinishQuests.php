@@ -8,9 +8,9 @@ use Symfony\Component\Workflow\Event\Event;
 
 class FinishQuests implements EventHandlerFunctionInterface
 {
-    const NAME = 'finish-quests';
+    public const NAME = 'finish-quests';
 
-    public function handle(TaskInterface $task, Event $event)
+    public function handle(TaskInterface $task, Event $event): int
     {
         return $task->getProgress() + 1;
     }

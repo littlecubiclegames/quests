@@ -13,10 +13,12 @@ class QuestAdvancerTest extends TestCase
 {
     /** @var QuestAdvancer */
     private $advancer;
+    /** @var QuestStorageInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $storage;
+    /** @var Workflow&\PHPUnit\Framework\MockObject\MockObject */
     private $workflow;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->storage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
         $this->workflow = $this->getMockBuilder(Workflow::class)->disableOriginalConstructor()->getMock();
@@ -26,7 +28,7 @@ class QuestAdvancerTest extends TestCase
         );
     }
 
-    public function testStartQuest()
+    public function testStartQuest(): void
     {
         $questId = 1;
         $userId = 2;
@@ -39,7 +41,7 @@ class QuestAdvancerTest extends TestCase
         $this->assertInstanceOf(QuestInterface::class, $quest);
     }
 
-    public function testCollectRewardQuest()
+    public function testCollectRewardQuest(): void
     {
         $questId = 1;
         $userId = 2;
@@ -52,7 +54,7 @@ class QuestAdvancerTest extends TestCase
         $this->assertInstanceOf(QuestInterface::class, $quest);
     }
 
-    public function testAbortQuest()
+    public function testAbortQuest(): void
     {
         $questId = 1;
         $userId = 2;
@@ -65,7 +67,7 @@ class QuestAdvancerTest extends TestCase
         $this->assertInstanceOf(QuestInterface::class, $quest);
     }
 
-    public function testRejectQuest()
+    public function testRejectQuest(): void
     {
         $questId = 1;
         $userId = 2;
@@ -78,7 +80,7 @@ class QuestAdvancerTest extends TestCase
         $this->assertInstanceOf(QuestInterface::class, $quest);
     }
 
-    public function testAdvanceQuest()
+    public function testAdvanceQuest(): void
     {
         $questId = 1;
         $userId = 2;
@@ -91,7 +93,7 @@ class QuestAdvancerTest extends TestCase
         $this->assertInstanceOf(QuestInterface::class, $quest);
     }
 
-    private function mockSetup($questId, $userId, string $transitionName)
+    private function mockSetup(int $questId, int $userId, string $transitionName): void
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
         $this->storage

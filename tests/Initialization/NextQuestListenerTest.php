@@ -17,17 +17,19 @@ class NextQuestListenerTest extends TestCase
 {
     /** @var NextQuestListener */
     private $listener;
+    /** @var SlotLoaderInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $slotLoader;
+    /** @var QuestStarter&\PHPUnit\Framework\MockObject\MockObject */
     private $questStarter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->slotLoader = $this->getMockBuilder(SlotLoaderInterface::class)->getMock();
         $this->questStarter = $this->getMockBuilder(QuestStarter::class)->disableOriginalConstructor()->getMock();
         $this->listener = new NextQuestListener($this->slotLoader, $this->questStarter);
     }
 
-    public function testTrigger()
+    public function testTrigger(): void
     {
         $userId = 1;
         $slotId = 'slotId';
@@ -66,7 +68,7 @@ class NextQuestListenerTest extends TestCase
         $this->listener->triggerNextQuest($event);
     }
 
-    public function testTriggerSlotUnavailable()
+    public function testTriggerSlotUnavailable(): void
     {
         $userId = 1;
         $slotId = 'slotId';

@@ -13,7 +13,6 @@ class NoRewardListener implements EventSubscriberInterface
 {
     /** @var RegistryInterface */
     private $questRegistry;
-
     /** @var Workflow */
     private $worfkflow;
 
@@ -23,7 +22,7 @@ class NoRewardListener implements EventSubscriberInterface
         $this->worfkflow = $worfkflow;
     }
 
-    public function validate(Event $event)
+    public function validate(Event $event): void
     {
         /** @var QuestInterface $quest */
         $quest = $event->getSubject();
@@ -34,7 +33,7 @@ class NoRewardListener implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_COLLECT_REWARD) => 'validate',
