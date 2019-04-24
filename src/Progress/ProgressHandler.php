@@ -35,11 +35,16 @@ class ProgressHandler
         $this->questStorage->save($quest);
     }
 
-    public function initProgress(QuestInterface $quest, int $taskId, InitProgressHandlerFunctionInterface $handler): void
+    public function fetchInitialProgress(QuestInterface $quest, int $taskId, InitProgressHandlerFunctionInterface $handler): void
     {
         $task = $quest->getTask($taskId);
         $progress = $handler->initProgress($quest, $task);
         $task->updateProgress($progress);
+    }
+
+    public function initProgress(QuestInterface $quest, int $taskId, InitProgressHandlerFunctionInterface $handler): void
+    {
+        $this->fetchInitialProgress($quest, $taskId, $handler);
 
         if ($this->worfkflow->can($quest, QuestDefinitionInterface::TRANSITION_COMPLETE)) {
             $this->worfkflow->apply($quest, QuestDefinitionInterface::TRANSITION_COMPLETE);

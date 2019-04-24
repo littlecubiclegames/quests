@@ -39,7 +39,7 @@ class TriggerValidator
                 throw new \InvalidArgumentException('Invalid trigger handler provided. Can only use instances of: ' . InitProgressHandlerFunctionInterface::class);
             }
 
-            $this->questProgressHandler->initProgress($quest, $taskId, $handlerFunction);
+            $this->questProgressHandler->fetchInitialProgress($quest, $taskId, $handlerFunction);
         }
 
         return $questData->getTrigger()->isFinished($quest->getProgressMap());
