@@ -33,6 +33,11 @@ class MockQuest implements QuestInterface
         $this->slotId = $slotId;
     }
 
+    public function getId(): int
+    {
+        return $this->questId;
+    }
+
     public function setState(string $state): void
     {
         $this->state = $state;

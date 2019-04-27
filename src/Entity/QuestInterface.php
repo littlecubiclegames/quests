@@ -4,6 +4,7 @@ namespace LittleCubicleGames\Quests\Entity;
 
 interface QuestInterface
 {
+    public function getId(): int;
     public function setState(string $state): void;
     public function getState(): string;
 
