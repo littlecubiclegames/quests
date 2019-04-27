@@ -37,6 +37,8 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
 {
     public function register(Container $pimple): void
     {
+        $pimple['cubicle.quests.autostart'] = false;
+
         if (!isset($pimple['cubicle.quests.logger'])) {
             $pimple['cubicle.quests.logger'] = [];
         }
@@ -163,7 +165,14 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
 
         $pimple['cubicle.quests.initializer.queststarter'] = function (Container $pimple) {
-            return new QuestStarter($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.initializer.questbuilder'], $pimple['cubicle.quests.storage'], $pimple['dispatcher']);
+            return new QuestStarter(
+                $pimple['cubicle.quests.registry'],
+                $pimple['cubicle.quests.initializer.questbuilder'],
+                $pimple['cubicle.quests.storage'],
+                $pimple['dispatcher'],
+                $pimple['cubicle.quests.advancer'],
+                $pimple['cubicle.quests.autostart']
+            );
         };
 
         $pimple['cubicle.quests.initializer.questbuilder'] = function () {

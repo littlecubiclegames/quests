@@ -8,6 +8,7 @@ use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Initialization\QuestBuilderInterface;
 use LittleCubicleGames\Quests\Initialization\QuestStarter;
+use LittleCubicleGames\Quests\QuestAdvancer;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,6 +25,8 @@ class QuestStarterTest extends TestCase
     private $questStorage;
     /** @var EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
     private $dispatcher;
+    /** @var QuestAdvancer&\PHPUnit\Framework\MockObject\MockObject */
+    private $questAdvancer;
 
     protected function setUp(): void
     {
@@ -31,7 +34,8 @@ class QuestStarterTest extends TestCase
         $this->questBuilder = $this->getMockBuilder(QuestBuilderInterface::class)->getMock();
         $this->questStorage = $this->getMockBuilder(QuestStorageInterface::class)->getMock();
         $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
-        $this->questStarter = new QuestStarter($this->registry, $this->questBuilder, $this->questStorage, $this->dispatcher);
+        $this->questAdvancer = $this->getMockBuilder(QuestAdvancer::class)->disableOriginalConstructor()->getMock();
+        $this->questStarter = new QuestStarter($this->registry, $this->questBuilder, $this->questStorage, $this->dispatcher, $this->questAdvancer, false);
     }
 
     public function testTriggerNext(): void
