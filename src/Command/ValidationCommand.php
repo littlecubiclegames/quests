@@ -34,7 +34,7 @@ class ValidationCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $hasError = false;
         foreach ($this->quests as $questData) {

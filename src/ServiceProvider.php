@@ -30,6 +30,7 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Silex\Api\EventListenerProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Workflow\MarkingStore\MethodMarkingStore;
 use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 use Symfony\Component\Workflow\Workflow;
 
@@ -84,6 +85,10 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
         };
 
         $pimple['cubicle.quests.marking_store'] = function () {
+            if (class_exists('Symfony\Component\Workflow\MarkingStore\MethodMarkingStore')) {
+                return new MethodMarkingStore(true, 'state');
+            }
+
             return new SingleStateMarkingStore('state');
         };
 

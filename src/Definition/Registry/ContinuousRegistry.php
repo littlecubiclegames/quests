@@ -30,7 +30,9 @@ class ContinuousRegistry extends AbstractRegistry
         $newKey = (int) array_search($questId, $questIds, true) + 1;
 
         if (isset($questIds[$newKey])) {
-            return $this->pickAndValidateQuest($questIds[$newKey], $user, $slot);
+            $newQuestId = (int)$questIds[$newKey];
+
+            return $this->pickAndValidateQuest($newQuestId, $user, $slot);
         }
 
         return null;

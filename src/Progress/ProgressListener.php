@@ -68,7 +68,7 @@ class ProgressListener implements EventSubscriberInterface
             if ($handlerFunction instanceof EventHandlerFunctionInterface) {
                 foreach ($handlerFunction->getEventMap() as $eventName => $method) {
                     $callback = [$handlerFunction, $method];
-                    $listener = function (\Symfony\Component\EventDispatcher\Event $event) use ($quest, $taskId, $callback) {
+                    $listener = function ($event) use ($quest, $taskId, $callback) {
                         $this->questProgressHandler->handle($quest, $taskId, $callback, $event);
                     };
                     $this->questListenerMap[$quest->getQuestId()][$eventName] = $listener;
