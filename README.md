@@ -31,6 +31,9 @@ $app[''cubicle.quests.advancer']->startQuest($questId, $userId);
 Quests can have a list of tasks which are required to be completed before the quest can be finished (e.g. User needs to login 5x).
 A quest can have multiple tasks. The boolean operators ``AND`` and ``OR`` can be used to combine tasks. These operators can also be nested (e.g. User needs to login 5x OR The Sun is shining).
 
+#### Trigger
+To decide which quest will be started after another quest was finished trigger conditions can be defined. The first quests which matches all the trigger conditions will then be started.
+
 #### Slot
 With slots it is possible to limit the amount of quests open at the time. Each slot allows one open quest. The availability of quests can be limited with a start and end date which can be useful for limited events. Slots are tied to a registry. 
 

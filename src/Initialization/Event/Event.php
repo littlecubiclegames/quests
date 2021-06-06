@@ -5,7 +5,7 @@ namespace LittleCubicleGames\Quests\Initialization\Event;
 use LittleCubicleGames\Quests\Definition\Slot\Slot;
 use LittleCubicleGames\Quests\Entity\QuestInterface;
 
-class Event extends \Symfony\Component\EventDispatcher\Event
+class Event extends \Symfony\Contracts\EventDispatcher\Event
 {
     const QUEST_ACTIVE = 'quest.active';
 

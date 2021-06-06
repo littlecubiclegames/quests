@@ -22,7 +22,7 @@ class ArrayStorage implements QuestStorageInterface
 
     public function getActiveQuests(int $userId): array
     {
-        return array_values(array_filter($this->quests, function (QuestInterface $quest) {
+        return array_values(array_filter($this->quests, function (QuestInterface $quest): bool {
             return !in_array($quest->getState(), [QuestDefinitionInterface::STATE_COMPLETED, QuestDefinitionInterface::STATE_REJECTED], true);
         }));
     }

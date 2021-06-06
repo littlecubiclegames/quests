@@ -13,10 +13,10 @@ use LittleCubicleGames\Quests\Progress\ProgressListener;
 use LittleCubicleGames\Tests\Quests\Mock\Progress\MockHandlerFunction;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Workflow\Marking;
 use Symfony\Component\Workflow\Transition;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ProgressListenerTest extends TestCase
 {
@@ -171,7 +171,7 @@ class ProgressListenerTest extends TestCase
             return;
         }
 
-        $mockHandlerFunction = new MockHandlerFunction(function () {
+        $mockHandlerFunction = new MockHandlerFunction(function (): void {
         }, ['eventName' => 'handle']);
         $this->progressFunctionBuilder
             ->expects($this->once())
@@ -189,7 +189,7 @@ class ProgressListenerTest extends TestCase
             ->expects($this->once())
             ->method('addListener')
             ->with($this->equalTo('eventName'))
-            ->willReturnCallback(function ($eventName, $listener) use ($event) {
+            ->willReturnCallback(function ($eventName, $listener) use ($event): void {
                 $listener($event);
             });
     }

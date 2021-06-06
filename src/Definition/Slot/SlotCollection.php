@@ -36,7 +36,7 @@ class SlotCollection
 
     public function getUnusedSlots(): array
     {
-        return array_filter(array_diff_key($this->slots, $this->usedSlots), function (Slot $slot) {
+        return array_filter(array_diff_key($this->slots, $this->usedSlots), function (Slot $slot): bool {
             return $slot->isActive();
         });
     }

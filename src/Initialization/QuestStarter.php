@@ -48,7 +48,7 @@ class QuestStarter
         if (isset($nextQuest)) {
             $quest = $this->questBuilder->buildQuest($nextQuest, $slot, $user);
             $this->questStorage->save($quest);
-            $this->dispatcher->dispatch(Event::QUEST_ACTIVE, new Event($quest, $slot));
+            $this->dispatcher->dispatch(new Event($quest, $slot), Event::QUEST_ACTIVE);
 
             if ($this->autoStartNewQuests) {
                 $this->questAdvancer->advanceQuest($quest->getId(), $user, QuestDefinitionInterface::TRANSITION_START);

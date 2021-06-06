@@ -10,8 +10,8 @@ use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use LittleCubicleGames\Tests\Quests\Mock\Progress\MockHandlerFunction;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Workflow\Workflow;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ProgressHandlerTest extends TestCase
 {
@@ -47,7 +47,7 @@ class ProgressHandlerTest extends TestCase
             ->willReturn($quest);
 
         $event = new Event();
-        $handlerFunction = function (TaskInterface $calledTask, Event $calledEvent) use ($task, $event, $progress) {
+        $handlerFunction = function (TaskInterface $calledTask, Event $calledEvent) use ($task, $event, $progress): int {
             $this->assertSame($event, $calledEvent);
             $this->assertSame($task, $calledTask);
 

@@ -23,7 +23,7 @@ class Provider
             }
         }
 
-        $availableCollectors = array_map(function (CollectorInterface $collector) {
+        $availableCollectors = array_map(function (CollectorInterface $collector): string {
             return $collector->getType();
         }, $this->collectors);
 

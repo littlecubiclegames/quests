@@ -82,6 +82,9 @@ class WorkflowTest extends AbstractIntegrationTest
         $this->assertSame($expectedState, $quest->getState());
     }
 
+    /**
+     * @return array[]
+     */
     public function transitionProvider(): array
     {
         return [

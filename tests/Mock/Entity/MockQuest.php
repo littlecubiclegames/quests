@@ -58,6 +58,9 @@ class MockQuest implements QuestInterface
         return $this->slotId;
     }
 
+    /**
+     * @return int[]
+     */
     public function getProgressMap(): array
     {
         $progressMap = [];
@@ -75,7 +78,7 @@ class MockQuest implements QuestInterface
 
     public function getTask(int $taskId): TaskInterface
     {
-        return array_filter($this->tasks, function (MockQuestTask $task) use ($taskId) {
+        return array_filter($this->tasks, function (MockQuestTask $task) use ($taskId): bool {
             return $taskId === $task->getTaskId();
         })[0];
     }

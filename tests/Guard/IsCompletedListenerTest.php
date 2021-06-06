@@ -55,6 +55,9 @@ class IsCompletedListenerTest extends TestCase
         $this->assertSame($expected, $event->isBlocked());
     }
 
+    /**
+     * @return array
+     */
     public function validateProvider(): array
     {
         return [

@@ -30,6 +30,9 @@ class IsCompletedListener implements EventSubscriberInterface
         $event->setBlocked($isBlocked);
     }
 
+    /**
+     * @return string[]
+     */
     public static function getSubscribedEvents(): array
     {
         return [

@@ -60,39 +60,35 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             $pimple['cubicle.quests.rewards.collectors'] = [];
         }
 
-        $pimple['cubicle.quests.definition'] = function () {
+        $pimple['cubicle.quests.definition'] = function (): QuestDefinition {
             return new QuestDefinition();
         };
 
-        $pimple['cubicle.quests.definition.taskbuilder'] = function () {
+        $pimple['cubicle.quests.definition.taskbuilder'] = function (): TaskBuilder {
             return new TaskBuilder();
         };
 
-        $pimple['cubicle.quests.definition.rewardbuilder'] = function () {
+        $pimple['cubicle.quests.definition.rewardbuilder'] = function (): RewardBuilder {
             return new RewardBuilder();
         };
 
-        $pimple['cubicle.quests.definition.slotbuilder'] = function () {
+        $pimple['cubicle.quests.definition.slotbuilder'] = function (): SlotBuilder {
             return new SlotBuilder();
         };
 
-        $pimple['cubicle.quests.definition.cache'] = function () {
+        $pimple['cubicle.quests.definition.cache'] = function (): ArrayCache {
             return new ArrayCache();
         };
 
-        $pimple['cubicle.quests.definition.questbuilder'] = function (Container $pimple) {
+        $pimple['cubicle.quests.definition.questbuilder'] = function (Container $pimple): QuestBuilder {
             return new QuestBuilder($pimple['cubicle.quests.definition.taskbuilder'], $pimple['cubicle.quests.definition.rewardbuilder']);
         };
 
-        $pimple['cubicle.quests.marking_store'] = function () {
-            if (class_exists('Symfony\Component\Workflow\MarkingStore\MethodMarkingStore')) {
-                return new MethodMarkingStore(true, 'state');
-            }
-
-            return new SingleStateMarkingStore('state');
+        $pimple['cubicle.quests.marking_store'] = function (): MethodMarkingStore {
+            return new MethodMarkingStore(true, 'state');
         };
 
-        $pimple['cubicle.quests.workflow'] = function (Container $pimple) {
+        $pimple['cubicle.quests.workflow'] = function (Container $pimple): Workflow {
             return new Workflow(
                 $pimple['cubicle.quests.definition']->build(),
                 $pimple['cubicle.quests.marking_store'],
@@ -101,7 +97,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             );
         };
 
-        $pimple['cubicle.quests.registry'] = function (Container $pimple) {
+        $pimple['cubicle.quests.registry'] = function (Container $pimple): RandomRegistry {
             return new RandomRegistry(
                 $pimple['cubicle.quests.quests'],
                 $pimple['cubicle.quests.definition.questbuilder'],
@@ -111,7 +107,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             );
         };
 
-        $pimple['cubicle.quests.guard.triggervalidator'] = function (Container $pimple) {
+        $pimple['cubicle.quests.guard.triggervalidator'] = function (Container $pimple): TriggerValidator {
             return new TriggerValidator(
                 $pimple['cubicle.quests.initializer.questbuilder'],
                 $pimple['cubicle.quests.progress.function.builder'],
@@ -119,19 +115,19 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             );
         };
 
-        $pimple['cubicle.quests.rewards.provider'] = function (Container $pimple) {
+        $pimple['cubicle.quests.rewards.provider'] = function (Container $pimple): Provider {
             return new Provider($pimple['cubicle.quests.rewards.collectors']);
         };
 
-        $pimple['cubicle.quests.listener.log'] = function (Container $pimple) {
+        $pimple['cubicle.quests.listener.log'] = function (Container $pimple): QuestLogListener {
             return new QuestLogListener($pimple['cubicle.quests.logger']);
         };
 
-        $pimple['cubicle.quests.listener.iscompleted.guard'] = function (Container $pimple) {
+        $pimple['cubicle.quests.listener.iscompleted.guard'] = function (Container $pimple): IsCompletedListener {
             return new IsCompletedListener($pimple['cubicle.quests.registry']);
         };
 
-        $pimple['cubicle.quests.listener.progress'] = function (Container $pimple) {
+        $pimple['cubicle.quests.listener.progress'] = function (Container $pimple): ProgressListener {
             return new ProgressListener(
                 $pimple['cubicle.quests.registry'],
                 $pimple['dispatcher'],
@@ -140,36 +136,36 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             );
         };
 
-        $pimple['cubicle.quests.progress.handler'] = function (Container $pimple) {
+        $pimple['cubicle.quests.progress.handler'] = function (Container $pimple): ProgressHandler {
             return new ProgressHandler($pimple['cubicle.quests.workflow'], $pimple['cubicle.quests.storage']);
         };
 
-        $pimple['cubicle.quests.progress.function.builder'] = function () {
+        $pimple['cubicle.quests.progress.function.builder'] = function (): ProgressFunctionBuilder {
             return new ProgressFunctionBuilder([
                 new StateFunctionBuilder(),
             ]);
         };
 
-        $pimple['cubicle.quests.slot.loader'] = function (Container $pimple) {
+        $pimple['cubicle.quests.slot.loader'] = function (Container $pimple): StaticSlotLoader {
             return new StaticSlotLoader($pimple['cubicle.quests.slots'], $pimple['cubicle.quests.definition.slotbuilder']);
         };
 
-        $pimple['cubicle.quests.storage'] = function (Container $pimple) {
+        $pimple['cubicle.quests.storage'] = function (Container $pimple): ArrayStorage {
             return new ArrayStorage($pimple['cubicle.quests.active.quests']);
         };
 
-        $pimple['cubicle.quests.advancer'] = function (Container $pimple) {
+        $pimple['cubicle.quests.advancer'] = function (Container $pimple): QuestAdvancer {
             return new QuestAdvancer(
                 $pimple['cubicle.quests.storage'],
                 $pimple['cubicle.quests.workflow']
             );
         };
 
-        $pimple['cubicle.quests.initializer'] = function (Container $pimple) {
+        $pimple['cubicle.quests.initializer'] = function (Container $pimple): QuestInitializer {
             return new QuestInitializer($pimple['cubicle.quests.storage'], $pimple['cubicle.quests.listener.progress'], $pimple['cubicle.quests.slot.loader'], $pimple['cubicle.quests.initializer.queststarter'], $pimple['dispatcher']);
         };
 
-        $pimple['cubicle.quests.initializer.queststarter'] = function (Container $pimple) {
+        $pimple['cubicle.quests.initializer.queststarter'] = function (Container $pimple): QuestStarter {
             return new QuestStarter(
                 $pimple['cubicle.quests.registry'],
                 $pimple['cubicle.quests.initializer.questbuilder'],
@@ -180,23 +176,23 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             );
         };
 
-        $pimple['cubicle.quests.initializer.questbuilder'] = function () {
+        $pimple['cubicle.quests.initializer.questbuilder'] = function (): void {
             throw new \Exception('Need to implement service');
         };
 
-        $pimple['cubicle.quests.listener.noreward'] = function (Container $pimple) {
+        $pimple['cubicle.quests.listener.noreward'] = function (Container $pimple): NoRewardListener {
             return new NoRewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.workflow']);
         };
 
-        $pimple['cubicle.quests.listener.reward'] = function (Container $pimple) {
+        $pimple['cubicle.quests.listener.reward'] = function (Container $pimple): RewardListener {
             return new RewardListener($pimple['cubicle.quests.registry'], $pimple['cubicle.quests.rewards.provider']);
         };
 
-        $pimple['cubicle.quests.listener.nextquest'] = function (Container $pimple) {
+        $pimple['cubicle.quests.listener.nextquest'] = function (Container $pimple): NextQuestListener {
             return new NextQuestListener($pimple['cubicle.quests.slot.loader'], $pimple['cubicle.quests.initializer.queststarter']);
         };
 
-        $pimple['cubicle.quests.command.validation'] = function (Container $pimple) {
+        $pimple['cubicle.quests.command.validation'] = function (Container $pimple): ValidationCommand {
             return new ValidationCommand($pimple['cubicle.quests.definition.questbuilder'], $pimple['cubicle.quests.progress.function.builder'], $pimple['cubicle.quests.quests']);
         };
     }

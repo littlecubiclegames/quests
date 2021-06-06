@@ -13,11 +13,7 @@ class QuestDefinition implements QuestDefinitionInterface
         $builder = new DefinitionBuilder();
         $builder->addPlaces(self::STATES);
 
-        if (method_exists($builder, 'setInitialPlaces')) {
-            $builder->setInitialPlaces(self::STATE_AVAILABLE);
-        } else {
-            $builder->setInitialPlace(self::STATE_AVAILABLE);
-        }
+        $builder->setInitialPlaces(self::STATE_AVAILABLE);
 
         $builder->addTransition(new Transition(self::TRANSITION_START, self::STATE_AVAILABLE, self::STATE_IN_PROGRESS));
         $builder->addTransition(new Transition(self::TRANSITION_COMPLETE, self::STATE_IN_PROGRESS, self::STATE_COMPLETED));

@@ -13,11 +13,7 @@ class QuestDefinitionTest extends TestCase
 
         $definition = $questDefinition->build();
 
-        if (method_exists($definition, 'getInitialPlaces')) {
-            $this->assertSame([QuestDefinition::STATE_AVAILABLE], $definition->getInitialPlaces());
-        } else {
-            $this->assertSame(QuestDefinition::STATE_AVAILABLE, $definition->getInitialPlace());
-        }
+        $this->assertSame([QuestDefinition::STATE_AVAILABLE], $definition->getInitialPlaces());
 
         $this->assertSame(QuestDefinition::STATES, array_values($definition->getPlaces()));
     }

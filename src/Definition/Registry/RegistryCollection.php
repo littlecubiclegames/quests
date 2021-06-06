@@ -34,5 +34,7 @@ class RegistryCollection implements RegistryInterface
                 return $registry->getNextQuest($user, $slot, $quest);
             }
         }
+
+        return null;
     }
 }

@@ -16,7 +16,9 @@ abstract class AbstractFunctionTest extends TestCase
 
         $this::assertNotEmpty($map);
         foreach ($map as $method) {
-            method_exists($this->function, $method);
+            if (!method_exists($this->function, $method)) {
+                throw new \InvalidArgumentException('Method not implemented: ' . $method);
+            }
         }
     }
 }

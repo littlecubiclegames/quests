@@ -8,7 +8,7 @@ class TaskBuilder
     {
         $children = [];
         if (isset($taskData['children'])) {
-            $children = array_map(function (array $taskData) {
+            $children = array_map(function (array $taskData): TaskInterface {
                 return $this->build($taskData);
             }, $taskData['children']);
         }
