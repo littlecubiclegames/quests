@@ -17,6 +17,4 @@ parameters:
         - '#Dynamic call to static method PHPUnit\\Framework\\TestCase#'
         - '#assertInstanceOf\(\) expects class-string\<object\>\, string given#'
         - '#ProgressHandler\:\:handle\(\) expects callable#'
-        - '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required.#'
         - '#Method LittleCubicleGames\\Quests\\Progress\\ProgressHandler::handle\(\) has parameter \$event with no typehint specified.#'
-        - '#Doctrine\\Common\\Cache\\ArrayCache#'

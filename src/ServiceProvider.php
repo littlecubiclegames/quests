@@ -2,7 +2,7 @@
 
 namespace LittleCubicleGames\Quests;
 
-use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\Cache;
 use LittleCubicleGames\Quests\Command\ValidationCommand;
 use LittleCubicleGames\Quests\Definition\Quest\QuestBuilder;
 use LittleCubicleGames\Quests\Definition\Registry\RandomRegistry;
@@ -11,6 +11,7 @@ use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use LittleCubicleGames\Quests\Definition\Task\TaskBuilder;
 use LittleCubicleGames\Quests\Guard\IsCompletedListener;
 use LittleCubicleGames\Quests\Guard\TriggerValidator;
+use LittleCubicleGames\Quests\Helper\ArrayCache;
 use LittleCubicleGames\Quests\Initialization\NextQuestListener;
 use LittleCubicleGames\Quests\Initialization\QuestInitializer;
 use LittleCubicleGames\Quests\Initialization\QuestStarter;
@@ -31,7 +32,6 @@ use Pimple\ServiceProviderInterface;
 use Silex\Api\EventListenerProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Workflow\MarkingStore\MethodMarkingStore;
-use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 use Symfony\Component\Workflow\Workflow;
 
 class ServiceProvider implements ServiceProviderInterface, EventListenerProviderInterface
@@ -76,7 +76,7 @@ class ServiceProvider implements ServiceProviderInterface, EventListenerProvider
             return new SlotBuilder();
         };
 
-        $pimple['cubicle.quests.definition.cache'] = function (): ArrayCache {
+        $pimple['cubicle.quests.definition.cache'] = function (): Cache {
             return new ArrayCache();
         };
 
