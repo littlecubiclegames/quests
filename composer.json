@@ -3,7 +3,7 @@
     "description": "Quest Component",
     "type": "library",
     "require": {
-        "php": "^7.2",
+        "php": "^7.2||^8",
         "symfony/workflow": "^5.3",
         "roave/security-advisories": "dev-master",
         "doctrine/orm": "^2.5",

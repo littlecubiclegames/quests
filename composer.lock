@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5222c4639e571aa3fc719c14916f0fec",
+    "content-hash": "38ddad885b461df31148f9142e407bcf",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -4756,12 +4756,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/etoa/Silex.git",
-                "reference": "bee4f3c8275bcbaefe7fefd5a41f8d30ee9f949e"
+                "reference": "6ca3a646d24a89dc8a1ae353f6e3c779d2ade184"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/etoa/Silex/zipball/bee4f3c8275bcbaefe7fefd5a41f8d30ee9f949e",
-                "reference": "bee4f3c8275bcbaefe7fefd5a41f8d30ee9f949e",
+                "url": "https://api.github.com/repos/etoa/Silex/zipball/6ca3a646d24a89dc8a1ae353f6e3c779d2ade184",
+                "reference": "6ca3a646d24a89dc8a1ae353f6e3c779d2ade184",
                 "shasum": ""
             },
             "require": {
@@ -4844,7 +4844,7 @@
             "support": {
                 "source": "https://github.com/etoa/Silex/tree/t/symfony-53"
             },
-            "time": "2021-08-21T14:51:38+00:00"
+            "time": "2021-08-21T15:30:08+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -6183,7 +6183,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.2||^8"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
