@@ -12,7 +12,7 @@ class QuestLogListener implements EventSubscriberInterface
     /** @var QuestLoggerInterface[] */
     private $questLogger;
 
-    public function __construct(array $questLogger)
+    public function __construct(iterable $questLogger)
     {
         $this->questLogger = $questLogger;
     }

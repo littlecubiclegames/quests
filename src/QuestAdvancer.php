@@ -6,6 +6,7 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\Workflow\Workflow;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 class QuestAdvancer
 {
@@ -14,10 +15,10 @@ class QuestAdvancer
     /** @var Workflow */
     private $questWorkflow;
 
-    public function __construct(QuestStorageInterface $questStorage, Workflow $questWorkflow)
+    public function __construct(QuestStorageInterface $questStorage, WorkflowInterface $questsStateMachine)
     {
         $this->questStorage = $questStorage;
-        $this->questWorkflow = $questWorkflow;
+        $this->questWorkflow = $questsStateMachine;
     }
 
     public function startQuest(int $questId, int $userId): QuestInterface

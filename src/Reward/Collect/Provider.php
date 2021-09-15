@@ -9,7 +9,7 @@ class Provider
     /** @var CollectorInterface[] */
     private $collectors;
 
-    public function __construct(array $collectors)
+    public function __construct(iterable $collectors)
     {
         $this->collectors = $collectors;
     }

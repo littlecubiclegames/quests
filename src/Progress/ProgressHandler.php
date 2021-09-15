@@ -7,17 +7,18 @@ use LittleCubicleGames\Quests\Progress\Functions\InitProgressHandlerFunctionInte
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\Workflow\Workflow;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 class ProgressHandler
 {
-    /** @var Workflow */
+    /** @var WorkflowInterface */
     private $worfkflow;
     /** @var QuestStorageInterface */
     private $questStorage;
 
-    public function __construct(Workflow $worfkflow, QuestStorageInterface $questStorage)
+    public function __construct(WorkflowInterface $questsStateMachine, QuestStorageInterface $questStorage)
     {
-        $this->worfkflow = $worfkflow;
+        $this->worfkflow = $questsStateMachine;
         $this->questStorage = $questStorage;
     }
 

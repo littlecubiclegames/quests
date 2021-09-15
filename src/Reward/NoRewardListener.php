@@ -8,18 +8,19 @@ use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Workflow;
+use Symfony\Component\Workflow\WorkflowInterface;
 
 class NoRewardListener implements EventSubscriberInterface
 {
     /** @var RegistryInterface */
     private $questRegistry;
-    /** @var Workflow */
+    /** @var WorkflowInterface */
     private $worfkflow;
 
-    public function __construct(RegistryInterface $questRegistry, Workflow $worfkflow)
+    public function __construct(RegistryInterface $questRegistry, WorkflowInterface $questsStateMachine)
     {
         $this->questRegistry = $questRegistry;
-        $this->worfkflow = $worfkflow;
+        $this->worfkflow = $questsStateMachine;
     }
 
     public function validate(Event $event): void
