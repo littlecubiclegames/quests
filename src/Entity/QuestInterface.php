@@ -16,6 +16,7 @@ interface QuestInterface
 
     /**
      * Method must return a map of taskId to progress
+     * @return array<int, int>
      */
     public function getProgressMap(): array;
 

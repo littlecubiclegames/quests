@@ -76,6 +76,9 @@ abstract class AbstractRegistryTest extends TestCase
         $this->assertNull($registry->getNextQuest($userId, $slot));
     }
 
+    /**
+     * @param array<mixed> $questData
+     */
     protected function mockBuildAndCache(int $questId, Quest $quest, array $questData): void
     {
         $this->questBuilder
@@ -102,5 +105,8 @@ abstract class AbstractRegistryTest extends TestCase
             ->willReturn($quest);
     }
 
+    /**
+     * @param array<mixed> $quests
+     */
     abstract protected function setupRegistry(array $quests): RegistryInterface;
 }

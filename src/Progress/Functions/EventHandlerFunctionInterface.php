@@ -4,5 +4,8 @@ namespace LittleCubicleGames\Quests\Progress\Functions;
 
 interface EventHandlerFunctionInterface extends HandlerFunctionInterface
 {
+    /**
+     * @return array<mixed>
+     */
     public function getEventMap(): array;
 }

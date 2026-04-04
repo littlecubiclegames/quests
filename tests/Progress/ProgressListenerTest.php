@@ -44,7 +44,7 @@ class ProgressListenerTest extends TestCase
     public function testSubscribe(): void
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
-        $event = new \Symfony\Component\Workflow\Event\Event($quest, new Marking(), new Transition('test', '', ''));
+        $event = new \Symfony\Component\Workflow\Event\Event($quest, new Marking(), new Transition('test', 'from', 'to'));
 
         $this->mockRegisterQuest($quest);
 
@@ -72,6 +72,9 @@ class ProgressListenerTest extends TestCase
         $this->listener->registerQuest($quest);
     }
 
+    /**
+     * @return array{ProgressListener, QuestInterface, EventDispatcherInterface}
+     */
     public function testRegisterQuest(): array
     {
         $quest = $this->getMockBuilder(QuestInterface::class)->getMock();
@@ -94,7 +97,7 @@ class ProgressListenerTest extends TestCase
             ->method('removeListener')
             ->with($this->equalTo('eventName'));
 
-        $listener->unsubscribeQuest(new \Symfony\Component\Workflow\Event\Event($quest, new Marking(), new Transition('test', '', '')));
+        $listener->unsubscribeQuest(new \Symfony\Component\Workflow\Event\Event($quest, new Marking(), new Transition('test', 'from', 'to')));
     }
 
     public function testRegisterQuestNoTasks(): void

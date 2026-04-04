@@ -10,6 +10,9 @@ class MultipleRewards implements RewardInterface
     /** @var RewardInterface[] */
     private $rewards;
 
+    /**
+     * @param RewardInterface[] $rewards
+     */
     public function __construct(array $rewards)
     {
         $this->rewards = $rewards;

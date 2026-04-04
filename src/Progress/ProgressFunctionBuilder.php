@@ -9,6 +9,7 @@ class ProgressFunctionBuilder implements ProgressFunctionBuilderInterface
     /** @var ProgressFunctionBuilderInterface[] */
     private $builders;
 
+    /** @param ProgressFunctionBuilderInterface[] $builders */
     public function __construct(array $builders)
     {
         $this->builders = $builders;

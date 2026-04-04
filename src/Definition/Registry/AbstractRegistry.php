@@ -10,7 +10,7 @@ use LittleCubicleGames\Quests\Guard\TriggerValidator;
 
 abstract class AbstractRegistry implements CollectibleRegistryInterface
 {
-    /** @var array[] */
+    /** @var array<mixed> */
     protected $quests;
     /** @var QuestBuilder */
     private $questBuilder;
@@ -21,6 +21,9 @@ abstract class AbstractRegistry implements CollectibleRegistryInterface
     /** @var string */
     private $id;
 
+    /**
+     * @param array<mixed> $quests
+     */
     public function __construct(array $quests, QuestBuilder $questBuilder, TriggerValidator $triggerValidator, Cache $cache, string $id)
     {
         $this->quests = $quests;

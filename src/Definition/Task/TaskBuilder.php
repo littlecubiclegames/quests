@@ -4,6 +4,7 @@ namespace LittleCubicleGames\Quests\Definition\Task;
 
 class TaskBuilder
 {
+    /** @param array<mixed> $taskData */
     public function build(array $taskData): TaskInterface
     {
         $children = [];

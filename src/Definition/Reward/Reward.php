@@ -12,6 +12,9 @@ class Reward implements RewardInterface
     /** @var mixed[] */
     private $data;
 
+    /**
+     * @param mixed[] $data
+     */
     public function __construct(array $data)
     {
         if (!isset($data['type'])) {
@@ -27,6 +30,9 @@ class Reward implements RewardInterface
         $rewardCollectorProvider->getCollector($this)->collect($this, $quest);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getData(): array
     {
         return $this->data;

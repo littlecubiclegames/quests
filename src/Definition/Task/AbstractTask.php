@@ -13,6 +13,9 @@ abstract class AbstractTask implements TaskInterface
     /** @var mixed[] */
     private $attributes;
 
+    /**
+     * @param mixed[] $attributes
+     */
     public function __construct(int $id, string $type, int $value, array $attributes = [])
     {
         $this->id = $id;

@@ -6,7 +6,6 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Progress\Functions\InitProgressHandlerFunctionInterface;
 use LittleCubicleGames\Quests\Storage\QuestStorageInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
-use Symfony\Component\Workflow\Workflow;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 class ProgressHandler
@@ -22,7 +21,7 @@ class ProgressHandler
         $this->questStorage = $questStorage;
     }
 
-    public function handle(QuestInterface $quest, int $taskId, callable $handler, $event): void
+    public function handle(QuestInterface $quest, int $taskId, callable $handler, object $event): void
     {
         $task = $quest->getTask($taskId);
         $progress = call_user_func($handler, $task, $event);

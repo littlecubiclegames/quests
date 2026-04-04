@@ -13,6 +13,9 @@ class RandomRegistry extends AbstractRegistry
         return $this->pickAndValidateQuest(array_keys($this->quests), $user, $slot);
     }
 
+    /**
+     * @param int[] $questIds
+     */
     private function pickAndValidateQuest(array $questIds, int $user, Slot $slot): ?Quest
     {
         if (count($questIds) === 0) {

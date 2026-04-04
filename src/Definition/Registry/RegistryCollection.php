@@ -11,6 +11,9 @@ class RegistryCollection implements RegistryInterface
     /** @var CollectibleRegistryInterface[] */
     private $registries;
 
+    /**
+     * @param CollectibleRegistryInterface[] $registries
+     */
     public function __construct(array $registries)
     {
         $this->registries = $registries;

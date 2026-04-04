@@ -9,6 +9,9 @@ class SlotCollection
     /** @var bool[] */
     private $usedSlots;
 
+    /**
+     * @param Slot[] $slots
+     */
     public function __construct(array $slots)
     {
         $this->slots = $slots;
@@ -34,6 +37,9 @@ class SlotCollection
         $this->usedSlots[$slotId] = true;
     }
 
+    /**
+     * @return Slot[]
+     */
     public function getUnusedSlots(): array
     {
         return array_filter(array_diff_key($this->slots, $this->usedSlots), function (Slot $slot): bool {

@@ -7,7 +7,6 @@ use LittleCubicleGames\Quests\Entity\QuestInterface;
 use LittleCubicleGames\Quests\Workflow\QuestDefinitionInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
-use Symfony\Component\Workflow\Workflow;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 class NoRewardListener implements EventSubscriberInterface

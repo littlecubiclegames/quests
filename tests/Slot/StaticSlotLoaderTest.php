@@ -27,7 +27,7 @@ class StaticSlotLoaderTest extends TestCase
         $userId = 1;
 
         $slotId = 'slotId';
-        $slotData = ['slot'];
+        $slotData = ['id' => $slotId, 'registry' => 'registryId'];
 
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $slot
@@ -57,7 +57,7 @@ class StaticSlotLoaderTest extends TestCase
     {
         $userId = 1;
 
-        $slotData = ['slot'];
+        $slotData = ['id' => 'slotId', 'registry' => 'registryId'];
 
         $slot = $this->getMockBuilder(Slot::class)->disableOriginalConstructor()->getMock();
         $slot

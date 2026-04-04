@@ -10,11 +10,10 @@ parameters:
         - src
         - tests
 
-    checkMissingIterableValueType: false
-
     ignoreErrors:
         - '#Dynamic call to static method PHPUnit\\Framework\\Assert#'
         - '#Dynamic call to static method PHPUnit\\Framework\\TestCase#'
         - '#assertInstanceOf\(\) expects class-string\<object\>\, string given#'
         - '#ProgressHandler\:\:handle\(\) expects callable#'
-        - '#Method LittleCubicleGames\\Quests\\Progress\\ProgressHandler::handle\(\) has parameter \$event with no typehint specified.#'
+        - '#Method LittleCubicleGames\\Tests\\.+Test::[a-z]+Provider\(\) return type has no value type specified in iterable type array.#i'
+        - '#Method LittleCubicleGames\\Tests\\.*Test::test.*\(\) has parameter \$[a-z]+ with no value type specified in iterable type array.#i'

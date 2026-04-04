@@ -7,6 +7,9 @@ use LittleCubicleGames\Quests\Definition\Registry\RegistryInterface;
 
 class ContinuousRegistryTest extends AbstractRegistryTest
 {
+    /**
+     * @param array<mixed> $quests
+     */
     protected function setupRegistry(array $quests): RegistryInterface
     {
         return new ContinuousRegistry($quests, $this->questBuilder, $this->triggerValidator, $this->cache, 'registry');

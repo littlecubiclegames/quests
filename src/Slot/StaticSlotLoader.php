@@ -5,13 +5,19 @@ namespace LittleCubicleGames\Quests\Slot;
 use LittleCubicleGames\Quests\Definition\Slot\SlotBuilder;
 use LittleCubicleGames\Quests\Definition\Slot\SlotCollection;
 
+/**
+ * @phpstan-import-type SlotData from SlotBuilder
+ */
 class StaticSlotLoader implements SlotLoaderInterface
 {
-    /** @var array */
+    /** @var array<SlotData> */
     private $slots;
     /** @var SlotBuilder */
     private $slotBuilder;
 
+    /**
+     * @param array<SlotData> $slots
+     */
     public function __construct(array $slots, SlotBuilder $slotBuilder)
     {
         $this->slots = $slots;

@@ -9,9 +9,10 @@ use Symfony\Component\Workflow\Event\Event;
 
 class QuestLogListener implements EventSubscriberInterface
 {
-    /** @var QuestLoggerInterface[] */
+    /** @var iterable<QuestLoggerInterface> */
     private $questLogger;
 
+    /** @param iterable<QuestLoggerInterface> $questLogger*/
     public function __construct(iterable $questLogger)
     {
         $this->questLogger = $questLogger;

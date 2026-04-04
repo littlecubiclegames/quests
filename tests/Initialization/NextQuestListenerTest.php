@@ -63,7 +63,7 @@ class NextQuestListenerTest extends TestCase
             ->method('triggerNext')
             ->with($this->equalTo($slot), $this->equalTo($userId), $this->equalTo($quest));
 
-        $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
+        $event = new Event($quest, new Marking(), new Transition('transition', 'from', 'to'));
 
         $this->listener->triggerNextQuest($event);
     }
@@ -100,7 +100,7 @@ class NextQuestListenerTest extends TestCase
             ->expects($this->never())
             ->method('triggerNext');
 
-        $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
+        $event = new Event($quest, new Marking(), new Transition('transition', 'from', 'to'));
 
         $this->listener->triggerNextQuest($event);
     }

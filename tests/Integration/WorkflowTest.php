@@ -109,7 +109,7 @@ class WorkflowTest extends AbstractIntegrationTest
         $this->assertFalse($workflow->can($quest, QuestDefinitionInterface::TRANSITION_COMPLETE));
 
         $eventName = sprintf('workflow.%s.announce.%s', QuestDefinitionInterface::WORKFLOW_NAME, QuestDefinitionInterface::TRANSITION_REJECT);
-        $event = new Event($eventQuest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_REJECT, '', ''));
+        $event = new Event($eventQuest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_REJECT, 'from', 'to'));
         for ($i = 0; $i < 11; $i++) {
             $this->assertSame(QuestDefinitionInterface::STATE_IN_PROGRESS, $quest->getState());
             $this->app['dispatcher']->dispatch($event, $eventName);

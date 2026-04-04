@@ -11,13 +11,16 @@ class Quest
     private $id;
     /** @var TaskInterface */
     private $task;
-    /** @var array */
+    /** @var mixed[] */
     private $data;
     /** @var RewardInterface|null */
     private $reward;
     /** @var TaskInterface */
     private $trigger;
 
+    /**
+     * @param mixed[] $data
+     */
     public function __construct(int $id, TaskInterface $task, array $data, TaskInterface $trigger, ?RewardInterface $reward = null)
     {
         $this->id = $id;
@@ -47,11 +50,17 @@ class Quest
         return $this->task;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getTaskIds(): array
     {
         return array_keys($this->task->getTaskIdTypes());
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getData(): array
     {
         return $this->data;

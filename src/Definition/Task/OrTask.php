@@ -9,6 +9,7 @@ class OrTask implements TaskInterface
     /** @var TaskInterface[] */
     private $tasks;
 
+    /** @param TaskInterface[] $tasks */
     public function __construct(array $tasks)
     {
         $this->tasks = $tasks;

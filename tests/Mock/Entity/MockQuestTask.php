@@ -6,16 +6,13 @@ use LittleCubicleGames\Quests\Entity\TaskInterface;
 
 class MockQuestTask implements TaskInterface
 {
-    /** @var MockQuest */
-    private $quest;
     /** @var int */
     private $taskId;
     /** @var int */
     private $progress;
 
-    public function __construct(MockQuest $quest, int $taskId, int $progress = 0)
+    public function __construct(int $taskId, int $progress = 0)
     {
-        $this->quest = $quest;
         $this->taskId = $taskId;
         $this->progress = $progress;
     }

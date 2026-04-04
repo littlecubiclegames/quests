@@ -21,6 +21,8 @@ class ServiceProviderTest extends AbstractIntegrationTest
 
     public function testBoot(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $this->app['cubicle.quests.initializer.questbuilder'] = new MockQuestBuilder();
         $this->app->boot();
     }

@@ -21,7 +21,7 @@ class ProgressListener implements EventSubscriberInterface
     private $questProgressHandler;
     /** @var ProgressFunctionBuilderInterface */
     private $progressFunctionBuilder;
-    /** @var array[] */
+    /** @var array<mixed> */
     private $questListenerMap = [];
 
     public function __construct(RegistryInterface $questRegistry, EventDispatcherInterface $dispatcher, ProgressHandler $questProgressHandler, ProgressFunctionBuilderInterface $progressFunctionBuilder)

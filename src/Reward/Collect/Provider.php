@@ -6,9 +6,10 @@ use LittleCubicleGames\Quests\Definition\Reward\RewardInterface;
 
 class Provider
 {
-    /** @var CollectorInterface[] */
+    /** @var iterable<CollectorInterface> */
     private $collectors;
 
+    /** @param iterable<CollectorInterface> $collectors */
     public function __construct(iterable $collectors)
     {
         $this->collectors = $collectors;
@@ -25,7 +26,7 @@ class Provider
 
         $availableCollectors = array_map(function (CollectorInterface $collector): string {
             return $collector->getType();
-        }, $this->collectors);
+        }, (array) $this->collectors);
 
         throw new InvalidQuestRewardCollectorException(sprintf("Requested collector: '%s', available collectors: [%s]", $type, implode(',', $availableCollectors)));
     }

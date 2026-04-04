@@ -52,7 +52,7 @@ class RewardListenerTest extends TestCase
             ->with($this->equalTo($questId))
             ->willReturn($questDefinition);
 
-        $this->listener->collect(new Event($quest, new Marking(), new Transition('transition', '', '')));
+        $this->listener->collect(new Event($quest, new Marking(), new Transition('transition', 'from', 'to')));
     }
 
     public function testCollect(): void
@@ -84,6 +84,6 @@ class RewardListenerTest extends TestCase
             ->with($this->equalTo($questId))
             ->willReturn($questDefinition);
 
-        $this->listener->collect(new Event($quest, new Marking(), new Transition('transition', '', '')));
+        $this->listener->collect(new Event($quest, new Marking(), new Transition('transition', 'From', 'to')));
     }
 }

@@ -19,6 +19,7 @@ class QuestBuilder
         $this->rewardBuilder = $rewardBuilder;
     }
 
+    /** @param array<mixed> $data */
     public function build(array $data): Quest
     {
         $task = $this->taskBuilder->build($data['task']);

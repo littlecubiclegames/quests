@@ -30,6 +30,6 @@ class QuestLogListenerTest extends TestCase
             ->with($this->equalTo($quest), $this->equalTo($previousState), $this->equalTo($newState));
 
         $listener = new QuestLogListener([$logger]);
-        $listener->logChange(new Event($quest, new Marking(), new Transition($newState, $previousState, '')));
+        $listener->logChange(new Event($quest, new Marking(), new Transition($newState, $previousState, 'to')));
     }
 }

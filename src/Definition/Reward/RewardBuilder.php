@@ -4,6 +4,9 @@ namespace LittleCubicleGames\Quests\Definition\Reward;
 
 class RewardBuilder
 {
+    /**
+     * @param mixed[] $data
+     */
     public function build(array $data): ?RewardInterface
     {
         if (isset($data['rewards']) && is_array($data['rewards'])) {

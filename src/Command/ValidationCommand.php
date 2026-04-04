@@ -12,11 +12,14 @@ class ValidationCommand extends Command
 {
     /** @var QuestBuilder */
     private $questBuilder;
-    /** @var array */
+    /** @var array<mixed> */
     private $quests;
     /** @var ProgressFunctionBuilderInterface */
     private $progressFunctionBuilder;
 
+    /**
+     * @param array<mixed> $quests
+     */
     public function __construct(QuestBuilder $questBuilder, ProgressFunctionBuilderInterface $progressFunctionBuilder, array $quests)
     {
         $this->questBuilder = $questBuilder;

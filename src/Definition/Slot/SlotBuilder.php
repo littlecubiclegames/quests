@@ -2,8 +2,14 @@
 
 namespace LittleCubicleGames\Quests\Definition\Slot;
 
+/**
+ * @phpstan-type SlotData array{id: string, start?: ?string, end?: ?string, registry: string}
+ */
 class SlotBuilder
 {
+    /**
+     * @param SlotData $data
+     */
     public function build(array $data): Slot
     {
         $startDate = null;

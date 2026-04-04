@@ -41,7 +41,7 @@ class IsCompletedListenerTest extends TestCase
             ->method('getProgressMap')
             ->willReturn($progressMap);
 
-        $event = new GuardEvent($quest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_COMPLETE, '', ''));
+        $event = new GuardEvent($quest, new Marking(), new Transition(QuestDefinitionInterface::TRANSITION_COMPLETE, 'from', 'to'));
 
         $registry = $this->getMockBuilder(RegistryInterface::class)->getMock();
         $registry
@@ -49,6 +49,7 @@ class IsCompletedListenerTest extends TestCase
             ->method('getQuest')
             ->with($this->equalTo($questId))
             ->willReturn(new Quest($questId, $task, [], new NullTask()));
+
         $listener = new IsCompletedListener($registry);
         $listener->validate($event);
 

@@ -63,7 +63,7 @@ class NoRewardListenerTest extends TestCase
             ->method('apply')
             ->with($this->equalTo($quest), $this->equalTo(QuestDefinitionInterface::TRANSITION_COLLECT_REWARD));
 
-        $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
+        $event = new Event($quest, new Marking(), new Transition('transition', 'from', 'to'));
         $this->listener->validate($event);
     }
 
@@ -97,7 +97,7 @@ class NoRewardListenerTest extends TestCase
             ->expects($this->never())
             ->method('apply');
 
-        $event = new Event($quest, new Marking(), new Transition('transition', '', ''));
+        $event = new Event($quest, new Marking(), new Transition('transition', 'from', 'to'));
         $this->listener->validate($event);
     }
 }
